@@ -1,0 +1,86 @@
+<template>
+	<view class="d-flex align-center justify-around fixed bottom tabbarHeight bt1px">
+		
+		<view v-for="(item,index) in tabList" :key="index">
+			<view class="d-flex flex-column align-center para" @tap="switchTab(index)">
+				<uni-icons size="30" :type="item.icon" :color="currentTabIndex===index?'#00aaef':'#999'"></uni-icons>
+				<text class="text" :style="[currentTabIndex == index ? {'color': tintColor} : {'color': color}]">{{item.text}}</text>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		name: 'tabbar',
+        data() {
+            return {
+                tabList: [
+                    {
+                        icon: 'home',
+                        text: '首页',
+                    },
+                    {
+                        icon: 'pengyouquan',
+                        text: '家人',
+                    },
+                    {
+                        icon: 'shop',
+                        text: '服务',
+                    },
+                    {
+                        icon: 'contact',
+                        text: '我的',
+                    }
+                ]
+            }
+        },
+		props: {
+			backgroundColor: { 
+				type: String, 
+				default: '#fbfbfb' ,
+			},
+			color: { 
+				type: String, 
+				default: '#999' ,
+			},
+			tintColor: { 
+				type: String, 
+				default: '#00aaef' ,
+			}
+		},
+		computed: {
+			currentTabIndex () {
+				return this.$store.state.app.tabbarIndex
+			}
+		},
+		methods: {
+			switchTab(index){
+				if(this.currentTabIndex===index) {
+					return
+				}
+				this.$store.commit('SET_SINGLE_STATE', ['tabbarIndex', index])
+				const tabbarUrls = [
+					'../index/index',
+					'../family/family',
+					'../service/service',
+					'../mine/mine',
+					
+				]
+				uni.navigateTo({
+					
+					url: tabbarUrls[index]
+				})
+			}
+		},
+	}
+</script>
+
+<style>
+ @import '../static/globalStyle.css'
+ 
+/* .tabbar{
+	 background: #007AFF;
+	 border: 20px solid #007AFF;
+ } */
+</style>
