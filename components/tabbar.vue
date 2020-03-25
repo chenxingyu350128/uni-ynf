@@ -17,19 +17,19 @@
             return {
                 tabList: [
                     {
-                        icon: 'home',
+                        icon: 'mdi-home',
                         text: '首页',
                     },
                     {
-                        icon: 'pengyouquan',
+                        icon: 'mdi-clock-outline',
                         text: '家人',
                     },
                     {
-                        icon: 'shop',
+                        icon: 'mdi-room-service-outline',
                         text: '服务',
                     },
                     {
-                        icon: 'contact',
+                        icon: 'mdi-account-circle',
                         text: '我的',
                     }
                 ]

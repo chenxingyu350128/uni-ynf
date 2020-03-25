@@ -13,7 +13,8 @@ export default {
 </script>
 
 <style>
-	@import "./static/globalStyle.css"
+	/* @import './static/font/material-icons.css'; */
+	@import './static/globalStyle.css';
 /* 解决头条小程序组件内引入字体不生效的问题 */
 /* #ifdef MP-TOUTIAO */
 @font-face {
