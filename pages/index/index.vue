@@ -1,59 +1,93 @@
 <template>
-	<view class="mb60 index-page grey lighten-2">
-		    <!-- 上部蓝色块 -->
-		    <view color="blue" dark tile flat>
-		      <view ref="blueUp" class="mx-0 primary white--text d-flex justify-space-around">
-		        <view class="d-flex align-start caption flex-fill px-2">
-		          <view @click="showCityPicker=true" class="d-flex align-center flex-fill">
-		            {{city}}
-		            <uni-icons color="white" type="mdi-chevron-down"></uni-icons>
-		          </view>
-		        </view>
-		        <view class="d-flex  justify-center caption flex-fill">
-							<uni-icons v-if="!eazyMode" @click="addWatch(watchId)" class="grey--text lighten-3" :type="watchId?'mdi-watch':'mdi-plus-circle'" :size="watchId?45:75"></uni-icons>
-		            <!-- <text  class="mdi" :class="watchId?'mdi-watch':'mdi-plus-circle'" :size="watchId?45:75"></text> -->
-		      <!--    <v-btn @click="addWatch(watchId)" width="75" height="75" v-if="!eazyMode" depressed class="show_device" color="grey lighten-4" fab >
-		          </v-btn> -->
-		          <text v-else class="subtitle-1">颐纳福</text>
-		        </view>
-		        <view class="d-flex justify-end align-start flex-fill">
-		          <v-badge 
-		            v-if="msgCount"
-		            :content="msgCount" 
-		            class="caption"
-		            overlap
-		            offset-x="15"
-		            offset-y="10"
-		            @click.native="showMsgCenter=true"
-		            color="pink accent-3">
-		                <text class="pa-0 mdi mdi-email-outline"></text>
-		            </v-badge>
-		          <text v-else @click="showMsgCenter=true" class="mdi mdi-email-outline"></text>
-		        </view>
-		      </view>
-		       <view ref="blueDown" justify-center wrap class="text-center caption pb-4">
-		         <view class="subtitle-2 mb-5 mt-4" xs12>
-		           {{watchId?'已绑定智能腕表':'请添加您的腕表'}}
-		         </view>
-		         <view xs4>
-		           <view>步数</view>
-		           <view v-if="watchId">{{steps}}步</view>
-		           <view v-else>_ _</view>
-		         </view>
-		         <view xs4>
-		           <view>睡眠时长</view>
-		           <view v-if="watchId">{{sleep}}小时</view>
-		           <view v-else>_ _</view>
-		         </view>
-		         <view>
-		           <view>心率</view>
-		           <view v-if="watchId">{{heartRate}}bpm</view>
-		           <view v-else>_ _</view>
-		         </view>
-		         <view class="py-1">
-		         </view>
-		       </view>
-		    </view>
+	<view class="mb60 d-block grey lighten-3">
+		<!-- 上部蓝色块 -->
+		<view class="d-block primary white--text">
+			<view ref="blueUp" class="mx-0  white--text d-flex justify-space-around">
+				<view class="d-flex align-start caption flex-fill px-2">
+					<view @click="showCityPicker=true" class="d-flex align-center flex-fill">
+						{{city}}
+						<uni-icons color="white" type="mdi-chevron-down"></uni-icons>
+					</view>
+				</view>
+				<view class="d-flex  justify-center caption flex-fill  py-2">
+					<uni-avatar v-if="!eazyMode" @click="addWatch(watchId)" backgroundColor="#fff" size="75">
+						<template v-slot:inner>
+							<uni-icons  class="grey--text lighten-3" :type="watchId?'mdi-watch':'mdi-plus-circle'" :size="watchId?45:75"></uni-icons>
+						</template>
+					</uni-avatar>					
+						<!-- <text  class="mdi" :class="watchId?'mdi-watch':'mdi-plus-circle'" :size="watchId?45:75"></text> -->
+			<!--    <v-btn @click="addWatch(watchId)" width="75" height="75" v-if="!eazyMode" depressed class="show_device" color="grey lighten-4" fab >
+					</v-btn> -->
+					<text v-else class="subtitle-1">颐纳福</text>
+				</view>
+				<view class="d-flex justify-end align-start flex-fill px-2">
+					<uni-icons  size="22" @click="showMsgCenter=true" color="#fff" type=" mdi-email-outline"></uni-icons>
+					<uni-badge v-if="msgCount"  text="9" size="small" type="error"></uni-badge>
+					<!-- <text v-else @click="showMsgCenter=true" class="mdi mdi-email-outline"></text> -->
+				</view>
+			</view>
+			
+			
+
+			 <view ref="blueDown" class="text-center caption pb-4 d-flex justify-between flex-wrap">
+				 <view class="subtitle-2 mb-5 mt-4 fill-width">
+					 {{watchId?'已绑定智能腕表':'请添加您的腕表'}}
+				 </view>
+				 <view class="flex-fill">
+					 <view>步数</view>
+					 <view v-if="watchId">{{steps}}步</view>
+					 <view v-else>_ _</view>
+				 </view>
+				 <view class="flex-fill">
+					 <view>睡眠时长</view>
+					 <view v-if="watchId">{{sleep}}小时</view>
+					 <view v-else>_ _</view>
+				 </view>
+				 <view class="flex-fill">
+					 <view>心率</view>
+					 <view v-if="watchId">{{heartRate}}bpm</view>
+					 <view v-else>_ _</view>
+				 </view>
+				 <view class="py-1">
+				 </view>
+			 </view>
+		</view>
+    <!-- 导购 -->
+    <view v-if="!watchId" class="grey buyWatch lighten-2 d-flex align-center pa-1 ma-1">
+        <view class="pa-1 caption white flex-fill" height="34" justify-space-between xs12>
+					<uni-row align="center" @click="toShopMall" justify="center" class="mx-0 pa-0 fill-height">
+						<uni-col col="45" class="d-flex align-center pa-0">
+							<uni-icons color="#F09436" type="mdi-alert-circle-outline"></uni-icons>
+              <!-- <v-icon color="#F09436" class="mr-1 mdi-18px">mdi-alert-circle</v-icon> -->
+              <text class="font-weight-bold ml-2">健康第一步：</text>							
+						</uni-col>
+						<uni-col col="55" class="d-flex align-center justify-end pa-0">
+								<text class="flex-fill">买个智能腕表</text>
+								<button size="mini" type="primary">详情</button>
+						</uni-col>
+					</uni-row>
+					
+<!--          <view @click="toShopMall" align="center" class="text-center d-flex justify-space-between mx-0 pa-0 fill-height">
+            <view class="d-flex align-center pa-0" cols="6">
+							<uni-icons color="#F09436" type="mdi-alert-circle-outline"></uni-icons>
+              <text class="subtitle-2 font-weight-bold">健康第一步:</text>
+
+            </view>
+            <view cols="6" class="text-right pa-0">
+              <text class="caption grey--text d-flex align-center justify-end">
+                买个智能腕表
+								<button size="mini" type="primary">详情</button>
+              </text>
+            </view>
+          </view> -->
+        </view>
+    </view>		
+		<!-- 轮播 -->
+		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+			<swiper-item v-for="(item,i) in bannerList" :key="i">
+				<view class="swiper-item"></view>
+			</swiper-item>
+		</swiper>
 		<tab-bar></tab-bar>
 
 		
@@ -88,7 +122,7 @@
 					}
 				},
 				notShow: false,
-				noImage: require('../../assets/img/noImage.png'),
+				noImage: require('@/static/img/noImage.png'),
 				newsId: 0,
 				steps: 0,
 				sleep: 0,
@@ -209,10 +243,6 @@
 </script>
 
 <style>
-	.index-page{
-		height: 100vh;
-		overflow-y: auto;
-	}
 	.mb60{
 		margin-bottom: 60px;
 	}

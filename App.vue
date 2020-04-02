@@ -13,13 +13,17 @@ export default {
 </script>
 
 <style>
-	/* @import './static/font/material-icons.css'; */
-	@import './static/globalStyle.css';
+	/* @import '@/node_modules/@mdi/font/css/materialdesignicons.css'; */
+	@import '@/static/css/globalStyle.css';
+	@import '@/static/css/uni.css'
+	view {
+		display: flex;
+	}
 /* 解决头条小程序组件内引入字体不生效的问题 */
 /* #ifdef MP-TOUTIAO */
-@font-face {
-	font-family: uniicons;
-	src: url('/static/uni.ttf');
-}
+	@font-face {
+		font-family: uniicons;
+		src: url('/static/uni.ttf');
+	}
 /* #endif */
 </style>

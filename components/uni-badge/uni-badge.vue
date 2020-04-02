@@ -1,5 +1,6 @@
 <template>
-	<text v-if="text" :class="inverted ? 'uni-badge--' + type + ' uni-badge--' + size + ' uni-badge--' + type + '-inverted' : 'uni-badge--' + type + ' uni-badge--' + size" :style="badgeStyle" class="uni-badge" @click="onClick()">{{ text }}</text>
+	<!-- :style="badgeStyle" -->
+	<text v-if="text" :class="inverted ? 'uni-badge--' + type + ' uni-badge--' + size + ' uni-badge--' + type + '-inverted' : 'uni-badge--' + type + ' uni-badge--' + size"  class="uni-badge" @click="onClick()">{{ text }}</text>
 </template>
 
 <script>
@@ -48,16 +49,16 @@
 		},
 		watch: {
 			text() {
-				this.setStyle()
+				// this.setStyle()
 			}
 		},
 		mounted() {
-			this.setStyle()
+			// this.setStyle()
 		},
 		methods: {
-			setStyle() {
-				this.badgeStyle = `width: ${String(this.text).length * 8 + 12}px`
-			},
+			// setStyle() {
+			// 	this.badgeStyle = `width: ${String(this.text).length * 8 }px`
+			// },
 			onClick() {
 				this.$emit('click');
 			}
@@ -73,6 +74,7 @@
 		justify-content: center;
 		flex-direction: row;
 		height: 20px;
+		min-width: 20px;
 		line-height: 20px;
 		color: #333;
 		border-radius: 100px;
@@ -81,7 +83,8 @@
 		text-align: center;
 		font-family: 'Helvetica Neue', Helvetica, sans-serif;
 		font-size: 12px;
-		padding: 0px 6px;
+		padding: 0;
+		margin-left: -6px;
 	}
 
 	.uni-badge--inverted {

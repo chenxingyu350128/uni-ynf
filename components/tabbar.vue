@@ -1,10 +1,10 @@
 <template>
-	<view class="d-flex align-center justify-around fixed bottom tabbarHeight bt1px">
+	<view class="tabbar d-flex align-center justify-around fixed bottom tabbarHeight bt1px">
 		
 		<view v-for="(item,index) in tabList" :key="index">
 			<view class="d-flex flex-column align-center para" @tap="switchTab(index)">
-				<uni-icons size="30" :type="item.icon" :color="currentTabIndex===index?'#00aaef':'#999'"></uni-icons>
-				<text class="text" :style="[currentTabIndex == index ? {'color': tintColor} : {'color': color}]">{{item.text}}</text>
+				<uni-icons size="25" :type="item.icon" :color="currentTabIndex===index?'#00aaef':'#999'"></uni-icons>
+				<text class="caption" :style="[currentTabIndex == index ? {'color': tintColor} : {'color': color}]">{{item.text}}</text>
 			</view>
 		</view>
 	</view>
@@ -76,11 +76,11 @@
 	}
 </script>
 
-<style>
- @import '../static/globalStyle.css'
+<style scoped>
+ @import '@/static/css/globalStyle.css'
  
-/* .tabbar{
+.tabbar{
 	 background: #007AFF;
-	 border: 20px solid #007AFF;
- } */
+	 border: 20px solid #007AFF!important;
+ }
 </style>
