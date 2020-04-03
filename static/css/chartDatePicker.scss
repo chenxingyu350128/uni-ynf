@@ -1,0 +1,29 @@
+@mixin name {
+  
+}
+.datePicker{
+  .mint-datetime{
+    .mint-datetime-picker{
+      .picker-toolbar{
+        height: 80px;
+        >span{
+          line-height: 80px;
+          font-size: 26px;
+          color: currentColor;
+        }
+      }
+      .picker-items{
+        .picker-slot{
+          .picker-slot-wrapper{
+            .picker-item{
+              font-size: 30px;
+            }
+            .picker-selected{
+              color: currentColor
+            }
+          }
+        }
+      }
+    }
+  }
+}
