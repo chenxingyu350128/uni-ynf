@@ -14,6 +14,7 @@ export default {
 
 <style>
 	/* @import '@/node_modules/@mdi/font/css/materialdesignicons.css'; */
+	/* @import url('./common/vuetify.css'); */
 	@import '@/static/css/globalStyle.css';
 	@import '@/static/css/uni.css'
 	view {

@@ -1,5 +1,5 @@
 <template>
-	<view class="mb60 d-block grey lighten-3">
+	<view ref="indexPage" class="mb60 d-block grey lighten-3">
 		<!-- 上部蓝色块 -->
 		<view class="d-block primary white--text">
 			<view ref="blueUp" class="mx-0  white--text d-flex justify-space-around">
@@ -88,18 +88,38 @@
 				<view class="swiper-item"></view>
 			</swiper-item>
 		</swiper>
-		<tab-bar></tab-bar>
-
+		<uni-bottom-nav :list="tabbarList" height="50px"></uni-bottom-nav>
 		
 	</view>
 </template>
 
 <script>
+	import VueAMap from 'vue-amap'
+	let amapManager = new VueAMap.AMapManager()
+	
 	export default {
 		name: 'index',
 		data() {
 			let view = this
 			return {
+				tabbarList: [
+					{
+						icon: 'mdi-home',
+						text: '首页',
+					},
+					{
+						icon: 'mdi-clock-outline',
+						text: '家人',
+					},
+					{
+						icon: 'mdi-room-service-outline',
+						text: '服务',
+					},
+					{
+						icon: 'mdi-account-circle',
+						text: '我的',
+					}
+				],
 				progress: '',
 				forceUpdate: '',
 				appDownloadUrl: '',
@@ -212,41 +232,571 @@
 			},
 		},	
 		onShow() {
-    //上滑动时上部简化
-			let up = this.$refs.blueUp
-			let down = this.$refs.blueDown
-			console.log(this.$refs.blueDown)
-			let that = this
-			this.$el.addEventListener('scroll', () => {
-				var scrollTop = document.querySelector('.index-cpnt')
-				// console.log(scrollTop.scrollHeight)
-				that.eazyMode = that.$el.scrollTop>0
-				that.$el.style['paddingTop'] = that.$el.scrollTop>0?'52px':'0'
-				up.style.position = that.eazyMode?'fixed':'unset'
-				up.style.width = '100%'
-				up.style.zIndex = '99'
-				up.style.top = that.eazyMode?'0':'unset'
-				up.style.left = that.eazyMode?'0':'unset'
-				down.style.display = that.eazyMode?'none':'flex'
-				// console.log(that.$el.scrollTop) // 查看打印的值是否有变化 如果有 则说明滚滚动条在这个标签中
-				// scrollTop.scrollTop = scrollTop.scrollHeight // 可以尝试下 滚动滚动条。一直在底部则可以设置成功
-			}, true)			
+			//获取位置
+			this.getPosition()
+			//检测更新
+			this.checkNewVersion()
+			this.init()
+			//防抖
+			this.loadbottom = this._.debounce(this.loadMore, 200)
+			const page = this.$refs.indexPage
+			console.log(page)
+		},
+		beforeCreate() {
+			if(!this.sessionId){
+				// uni.navigateTo({
+				// 	url: '/pages/login/login'
+				// })
+			}
+		},
+		beforeDestroy() {
+			window.clearTimeout(this.exitTimeout);
+			document.removeEventListener('backbutton',this.runBack,false)
+			document.removeEventListener('backbutton',this.backBtn,false)
 		},
 		methods: {
-			navToNext() {
-				uni.navigateTo({
-					url: '../nextPage/nextPage'
+			commit(x,y){
+				this.$store.commit(x, y)
+			},
+			init(){
+				this.getIndex()
+				this.getMemberList()
+				this.getHouse()
+				this.getMsg()
+				this.findNewsPage()
+				console.info(this.$store.state.app)
+			},
+			backBtn(){
+				let arr = [
+					'showCityPicker',
+					'showMsgCenter',
+					'showNewsDetail',
+					]
+				arr.forEach(res=>{
+					if(this[res]){
+						this[res] = false
+					}
 				})
-			}
+			},
+			runBack(){
+				console.log('筛选路由///');
+				
+				// let arr= ['/index','/family','/service','/mine']
+				if(this.$route.path=='/index'){
+					console.warn('去吧皮卡丘');
+					
+					window.plugins.toast.showLongCenter('再点击一次退出!');
+					this.exitState ++
+					// document.removeEventListener("backbutton", this.runBack, false);//注销返回键
+					//3秒后重新注册
+					this.exitTimeout = window.setTimeout(
+						()=>{
+							this.exitState=0
+							window.clearTimeout(this.exitTimeout);
+							// document.addEventListener("backbutton", this.runBack, false);//返回键
+						},2000
+					)
+					console.warn('zhiwei:'+this.exitState);
+					
+					if(this.exitState>1){
+						navigator.app.exitApp()
+					}   
+				}
+			},
+			addWatch(watchId){
+				if(watchId){
+					return
+				}
+				this.$router.push('/addWatch')
+			},
+			closeDialog(){
+				this.showDia=false
+			},
+			btnClick(){
+				if(!this.progress){
+					this.createFile()
+				}
+			},
+			async checkNewVersion(){
+				if(device){
+					if (device.platform == "iOS") {
+						this.appType = 2
+						this.filePath = cordova.file.tempDirectory;
+					} else if (device.platform == "Android") {
+						this.appType = 1
+						this.filePath = cordova.file.externalDataDirectory;
+					}
+				}
+				let _this = this
+				const serverVersion = AppVersion.version
+
+				console.log('app版本为：'+serverVersion);
+				
+				// const serverVersion = '1.0.2'
+				const params = {
+					appType: this.appType,
+					serverVersion
+				}
+				let res = await this.$http.get('/mobile/setup/getUpdateApp',{params})
+				console.log('获取更新数据');
+				console.log(res);
+				this.appDownloadUrl = res.data.obj.updateUrl
+				this.newVersion = res.data.obj.serverVersion
+				this.whatIsNew = res.data.obj.upgradeInfo
+				this.forceUpdate = parseInt(res.data.obj.lastForce)
+				let currentVersion = parseInt(serverVersion.split('.').join(''))
+				let updateVersion = parseInt(this.newVersion.split('.').join(''))
+				if(currentVersion<updateVersion){
+					this.$toast.info('有新版本可下载安装')
+					// this.$store.commit('CLEAR_STATE')
+					// this.$store.commit('CLEAR_ALL_MEMBER_STATE')
+				}
+				//重启应用前不再提示
+				const appUpdate = sessionStorage.getItem('showUpdate')
+				if(res && !appUpdate){
+					sessionStorage.setItem('showUpdate',true)
+					//开关提示面板
+					this.showDia = !!this.appDownloadUrl
+					//ios
+					if(this.appType===2){
+						
+						return
+					}
+					//android
+					if(this.forceUpdate){
+						this.createFile()
+					}
+				}
+			},
+			createFile(){
+				let _this = this
+				window.resolveLocalFileSystemURL(
+					_this.filePath,
+					function(fs) {
+						fs.getFile(
+							 _this.fileName, // 创建的文件名
+							{ create: true, exclusive: true },
+							// create：创建新文件，exclusive:文件已存在时抛出异常
+							function(fileEntry) {
+								// 创建成功回调下载方法写入文件
+								_this.downloadFile(fileEntry);
+							},
+							function(err) {
+								// 失败回调
+								// 重新读取文件并打开
+								fs.getFile(
+									_this.fileName,
+									{ create: false },
+									function(fileEntry) {
+										// 成功读取文件后调用cordova-plugin-file-opener2插件打开文件
+										_this.preview(fileEntry);
+									},
+									function(err) {
+										console.log(err);
+										
+										_this.$toast('读取文件失败');
+									}
+								);
+							}
+						);
+					},
+					function(error) {
+						_this.$toast('进入文件系统失败！');
+					}
+				);      
+			},
+			downloadFile(fileEntry) {
+				let _this = this
+				// 初始化进度条并显示
+				// 此处采用mint-ui的Progress组件
+				this.progress = 0;
+				this.showProgress = true;
+				//实例化
+				this.fileTransfer = new FileTransfer();
+				//监听下载进度
+				this.fileTransfer.onprogress = function(e) {
+					if (e.lengthComputable) {
+						let progress = e.loaded / e.total;
+						// 显示下载进度
+						_this.progress = (progress * 100).toFixed(2);
+					}
+				};
+				// 使用fileTransfer.download开始下载
+				this.fileTransfer.download(
+					encodeURI(_this.appDownloadUrl), //uri网络下载路径
+					fileEntry.toURL(), //文件本地存储路径
+					function(entry) {
+						// 下载完成执行本地预览
+						if (_this.progress > 1 || _this.progress === 1) {
+							_this.showProgress = false;
+							entry.file(data => {
+								console.warn('看看data-type',data);
+								//存到storage,下次打开app因为已经下载过了所以不会进入这一步
+								_this.$store.commit('SET_SINGLE_STATE', ['dataType', data.type])
+								_this.preview(fileEntry);
+								// 此处data.type可以直接得到文件的MIME-TYPE类型
+							});
+						}
+					},
+					function(error) {
+						_this.$toast('下载失败！');
+					}
+				);
+			},
+			preview(fileEntry){
+					// console.warn(fileEntry);
+					console.warn('安装啊');
+					let _this = this
+					this.showDia = false
+					// 调用cordova-plugin-file-opener2插件实现用第三方app打开文件
+					cordova.plugins.fileOpener2.open(
+						// 此处必须填写cdvfile://地址，不然android7.0+会报文件权限错误
+						fileEntry.toInternalURL(), //文件本地地址转cdvfile://地址
+						_this.dataType, //文件类型，这里我是写了一个mime-Type类型合集fileTypeArr来调用 
+						{
+							error: function(e) {
+								console.error('打开失败',e);
+							},
+							success: function(){
+								console.warn('打开成功');
+							}
+						}
+					);
+			},  
+			toAppStore(){
+				this.inApp = cordova.InAppBrowser.open(this.appDownloadUrl,'_blank','location=no')
+			},
+			toShopMall(){
+				// let url = 'http://192.168.1.101:8080/mall/pages/index.html#/index?sessionId='+this.sessionId
+				let url = 'http://mall.yinaf.com/pages/index.html#/index?sessionId='+this.sessionId
+				// location.href = url
+				this.inApp = cordova.InAppBrowser.open(url,'_blank','location=no')
+				this.inApp.addEventListener('exit',this.exitIAB)
+				this.inApp.addEventListener('loadstop',()=>{
+					StatusBar.backgroundColorByHexString("#e3393c");
+				})
+				this.inApp.addEventListener('message',this.messageEvent)
+			},
+			exitIAB(){
+				StatusBar.backgroundColorByHexString("#00aaef")
+			},    
+			messageEvent(msg){
+				console.warn('message事件监听，参数：',msg);
+				if(msg.data.backToApp){//商城首页左上角返回按钮
+					this.inApp.close()
+					StatusBar.backgroundColorByHexString("#00aaef")
+					this.tab = 0
+				}
+				//检查微信是否安装
+				if(msg.data.wxInstalled){
+					Wechat.isInstalled(
+						res=>{
+							if(res){//已安装
+								this.inApp.executeScript({code: `
+								sessionStorage.setItem('wxInstalled',true)
+								`})
+							}else{
+								this.inApp.executeScript({code: `
+									sessionStorage.setItem('wxInstalled',false)
+								`})
+							}
+						},
+						err=>{
+							console.error("Failed: " + err)
+						}
+					)                
+				}
+				//从inappbrowser获取支付方式和参数
+				if(msg.data.payway){
+					let e = msg.data.payway
+					let params = msg.data.obj
+					if(e==1){//微信支付
+						Wechat.sendPaymentRequest(params,
+							e => {
+								this.inApp.executeScript({code: `
+									sessionStorage.setItem('paySucceed',true)
+								`})
+							},
+							er => {
+								this.inApp.executeScript({code: `
+									sessionStorage.setItem('paySucceed',false)
+								`})
+							}
+						)
+					}else{//支付宝
+						cordova.plugins.alipay.payment(
+							params,
+							e => {
+								this.inApp.executeScript({code: `
+									sessionStorage.setItem('paySucceed',true)
+								`})
+							},				
+							err => {
+								console.error("Failed:" + err.memo)
+								this.inApp.executeScript({code: `
+									sessionStorage.setItem('paySucceed',false)
+								`})
+							}
+						)
+					}
+				}
+			},    
+			getMsg(){
+				const params = {
+					sessionId: this.sessionId,
+					userId: this.userId,
+					token: this.token,
+				}
+				this.$http.get('/mobile/bite/getMessageCenter',{params})
+				.then(res=>{
+					if(res.data.success){
+						this.msgCount = 0
+						let rows = res.data.obj
+						if(rows.length){
+
+							rows.forEach(res=>{
+								if(!res.mess.state){
+									this.msgCount++
+								}
+							})
+						}
+					}
+				})
+			},
+			// select(e){
+			//   this.city = e
+			//   this.showCityPicker = false
+			// },
+			findNewsPage(i){
+				// if(window.db){
+				//   this.$createTable('ynf_newsList',newslist_keys)
+				// }
+				const params = {
+					sessionId: this.sessionId,
+					rows: this.rows,
+					page: this.page
+				}
+				this.$http.get('/mobile/index/findNewsPage',{params})
+				.then(res=>{
+					if(res.data.success){
+						console.log(res.data)
+						this.allLoaded = res.data.pager.currentPage === res.data.pager.totalPages
+						let headLines =  i?this.headLines.concat(res.data.rows):res.data.rows
+						this.$store.commit('SET_SINGLE_STATE',['headLines', headLines])
+						
+						// if(window.db){
+						//   if(this.headLines.length){
+						//     this.$rmSqlite('ynf_newsList')
+						//     this.$addSqlite('ynf_newsList',this.headLines)
+						//   }
+						// }          
+					}
+					// else{
+					//   if(window.db){
+					//     // this.headLines = this.$getSqlite('ynf_newsList',newslist_keys)
+					//   }
+					// }
+				})
+				.catch(err=>{
+					if(window.db){
+						// this.headLines = this.$getSqlite('ynf_newsList',newslist_keys)
+					}        
+				})
+			},
+			getPosition(){
+				let that = this
+				navigator.geolocation.getCurrentPosition(
+					function(pos){
+						console.log('cordova插件定位success')
+						const lat = parseFloat(pos.coords.latitude)
+						const lon = parseFloat(pos.coords.longitude)
+						console.log(pos);
+						console.log(lon,lat);
+						that.center = [lon,lat]
+					},
+					function(err){
+						console.log(
+							`code:  ${err}.code
+							 message: ${err}.message)`
+						)
+					},
+					{
+						timeout: 5000,
+						enableHighAccuracy: true
+					}
+				)
+			},
+			loadMore(){
+				this.page++
+				this.findNewsPage(6)
+			},
+			// getCity(){
+			//   let that = this
+			//   let geocoder = new AMap.Geocoder({
+			//     radius: 1000,
+			//     extensions: "all"
+			//   });    
+			//   geocoder.getAddress([this.longitude ,this.latitude], function(status, result) {
+			//     if (status === 'complete' && result.info === 'OK') {
+			//       if (result && result.regeocode) {
+			//         console.log(result);
+			//       }
+			//     }
+			//   })  
+			// },
+			getStep(){
+				this.$http.get('/mobile/healthy/getStepToDay',{params: this.params})
+				.then(res=>{
+					if(res.data.success){
+						this.steps = res.data.obj.step
+					}
+				})
+			},
+			getSleep(){
+				this.$http.get('/mobile/healthy/getSleepToDay',{params: this.params})
+				.then(res=>{
+					if(res.data.success){
+						this.sleep = res.data.obj.duration
+					}
+				})
+			},
+			getHr(){
+				this.$http.get('/mobile/healthy/getCurrentHeartRate',{params: this.params})
+				.then(res=>{
+					if(res.data.success){
+						this.heartRate = res.data.obj.bpm
+					}
+				})
+			},
+			getIndex(){
+				// if(window.db){
+				//   this.$createTable('ynf_appList',applist_keys)
+				//   this.$createTable('ynf_bannerList',bannerlist_keys)
+				// }
+				this.$http.get('/mobile/index/getIndex',{params: {sessionId: this.sessionId}})
+				.then(res=>{
+					if(res.data.success){
+						// this.appList = res.data.obj.applicationList
+						this.$store.commit('SET_SINGLE_STATE',['appList', res.data.obj.applicationList])
+						this.$store.commit('SET_SINGLE_STATE',['bannerList', res.data.obj.bannerList])
+						// if( window.db){
+						//   if(this.appList.length){
+						//     this.$rmSqlite('ynf_appList')
+						//     this.$addSqlite('ynf_appList',this.appList)
+						//   }
+						//   if(this.bannerList){
+						//     this.$rmSqlite('ynf_bannerList')
+						//     this.$addSqlite('ynf_bannerList',this.bannerList)
+						//   }
+						// }
+					}
+					// else{
+					//   if(window.db){
+					//     let appList = this.$getSqlite('ynf_appList',applist_keys)
+					//     let bannerList = this.$getSqlite('ynf_bannerList',bannerlist_keys)
+					//     // this.$store.commit('SET_SINGLE_STATE',['appList', appList])
+					//     // this.$store.commit('SET_SINGLE_STATE',['bannerList', bannerList])
+								
+					//   }
+					// }
+				})
+				// .catch(err=>{
+				//   console.log('err');
+				//   if(window.db){
+				//     let appList = this.$getSqlite('ynf_appList',applist_keys)
+				//     let bannerList = this.$getSqlite('ynf_bannerList',bannerlist_keys)
+				//     this.$store.commit('SET_SINGLE_STATE',['appList', appList])
+				//     this.$store.commit('SET_SINGLE_STATE',['bannerList', bannerList])        }
+				// })
+			},
+			getNewsDetail(id){
+				this.newsId = parseInt(id)
+				this.showNewsDetail = true
+				// this.$router.push({
+				// 	path: '/newsDetail',
+				// 	query: {id}
+				// })
+			},
+			locationTo(e,title){
+				if(title=='美亚健康'){
+					console.info('mini mini')
+					this.$router.push('/meiya')
+					return
+				}
+				if(!e){
+					return
+				}
+				// location.href = e
+				let inApp
+				if (cordova.platformId == 'android') {
+					
+					inApp = cordova.InAppBrowser.open(e,'_blank','location=no')
+				}
+				if (cordova.platformId == 'ios') {
+					
+					inApp = cordova.InAppBrowser.open(e,'_blank','location=no,toolbar=yes,closebuttoncolor=#ffffff,closebuttoncaption=返回,navigationbuttoncolor=#ffffff,hidespinner=yes')
+				}      
+
+				inApp.addEventListener('exit',this.exitIAB)
+			},
+			getMemberList(){  
+				if(this.memberId){
+					return
+				}    
+				let strArr = ['realName','image','isLead','watchId','memberNum','watchPhone','rela','memberId']
+				// if(window.db){
+				//   this.$createTable('ynf_memberList',strArr)
+				// }         
+				this.$http.get('/mobile/user/getMemberList',{params: {sessionId: this.sessionId}})
+				.then(res=>{
+					if(res.data.success){//默认第一人为本人
+						let memberId = res.data.obj[0].memberId  
+						let watchId = res.data.obj[0].watchId  
+						console.log('??????我');
+						
+						this.$store.commit('SET_SINGLE_MEMBER_STATE', ['memberList', res.data.obj])
+						this.$store.commit('SET_SINGLE_MEMBER_STATE', ['memberId', memberId])
+						this.$store.commit('SET_SINGLE_MEMBER_STATE', ['watchId', watchId])
+						// if(window.db){
+						//   this.$rmSqlite('ynf_memberList')
+						//   this.$addSqlite('ynf_memberList',res.data.obj)
+						// } 
+					}
+					// else{
+					//   if(window.db){
+
+					//     let members = this.$getSqlite('ynf_memberList',strArr)
+					//     this.$store.commit('SET_SINGLE_MEMBER_STATE',['memberList', members])
+					//   } 
+					// }
+				})
+				// .catch(err=>{
+				//   if(window.db){
+				//     if(window.db){
+
+				//       let members = this.$getSqlite('ynf_memberList',strArr)
+				//       this.$store.commit('SET_SINGLE_MEMBER_STATE',['memberList', members])
+				//     } 
+				//   }             
+				// })
+			},
+			getHouse(){
+				const params = {
+					sessionId: this.sessionId,
+					userId: this.userId,
+				}
+				this.$http.get('/owner/getHouse',{params})
+				.then(res=>{
+					if(res.data.success){
+						this.$store.commit('SET_SINGLE_STATE',['houseList', res.data.obj])
+						this.$store.commit('SET_EACH_STATE',res.data.obj[0])
+					}
+				})
+			},    
 		}
 	}
 </script>
 
 <style>
-	.mb60{
-		margin-bottom: 60px;
-	}
-	.pa10{
-		padding: 10px;
-	}
+
 </style>

@@ -77,10 +77,26 @@
 </script>
 
 <style scoped>
- @import '@/static/css/globalStyle.css'
- 
-.tabbar{
-	 background: #007AFF;
-	 border: 20px solid #007AFF!important;
- }
+.fixed{
+	position: fixed;
+}
+.tile{
+	border-radius: unset;
+}
+.fixed.bottom{
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 999;
+	background-color: #fff;
+}
+.margin-bottom-tabbar{
+	padding-bottom: 600px;
+}
+.bt1px{
+	border-top: 1px solid #ccc;
+}
+.tabbarHeight{
+	height: 50px;
+}
 </style>
