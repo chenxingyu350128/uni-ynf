@@ -41,8 +41,11 @@
 <style scoped lang="scss">
 	view{
 		box-sizing: border-box;
+		// width: 100%;
 		.row{
 			display: flex;
+			flex-wrap: wrap;
+			width: 100%;
 		}
 		@for $i from 1 through 100 {
 			.row-#{$i} {

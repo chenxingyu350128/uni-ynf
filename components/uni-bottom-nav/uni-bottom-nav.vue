@@ -68,20 +68,22 @@
 		},
 		methods: {
 			switchTab(index){
+				console.log(index)
+				console.log(this.currentTabIndex)
 				if(this.currentTabIndex===index) {
 					return
 				}
 				this.$store.commit('SET_SINGLE_STATE', ['tabbarIndex', index])
 				const tabbarUrls = [
-					'../index/index',
-					'../family/family',
-					'../service/service',
-					'../mine/mine',
+					'/pages/index/index',
+					'/pages/family/family',
+					'/pages/service/service',
+					'/pages/mine/mine',
 					
 				]
 				uni.navigateTo({
 					
-					url: tabbarUrls[index]
+					url: tabbarUrls[this.currentTabIndex]
 				})
 			}
 		},
@@ -95,9 +97,11 @@
 		justify-content: space-around;
 	}
 	.para{
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 	}
 	.flex-fill{
 		flex: 1;

@@ -1,0 +1,68 @@
+  .upper{
+    margin-bottom: 30px;
+    position: relative;
+    .ivu-chart-circle{
+      width: 150px;
+      height: 150px;
+      position: relative;
+    }
+    >.ivu-btn{
+      color: #fff;     
+      position: absolute;
+      top: 60vw;
+      left: 50%;
+      width: 40%;
+      transform: translate(-50%,-150%);
+      font-size: 30px;
+      >span{
+        font-weight: 600;
+        line-height: 150%;
+      }
+    }
+    .circle-custom{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 80px;
+      color: #fff;
+      h2{
+        font-size: 32px;
+        margin-top: 50px;
+      }
+      h2+h2{
+        margin-top: 50px;
+      }
+      >div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 60px;
+        img{
+          // width: 50px;
+          height: 70px;
+          margin-right: 50px;
+        }
+        button{
+          color: #fff;
+        }
+      }
+      
+    }
+    .types{
+      margin-top: 20px;
+      padding: .75pt;
+      overflow: hidden;
+      .ivu-btn{
+        padding: 12px 60px;
+        outline: none;
+        border: none;
+        span{
+          font-size: 28px;
+        }        
+      }
+      .ivu-btn + .ivu-btn{
+        margin-left: .75pt;
+      }
+    }
+  }

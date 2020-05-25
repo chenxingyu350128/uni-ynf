@@ -1,0 +1,1 @@
+<view class="{{['elevation-3 data-v-93fc19d2',[(flat)?'flat':''],[(tile)?'tile':'']]}}" style="{{'background-color:'+(bgColor)+';'+('color:'+(color)+';')}}"><slot></slot></view>

@@ -8,7 +8,7 @@ import tabbar from '@/components/tabbar.vue'
 // import './node_modules/@mdi/font/css/materialdesignicons.css'
 Vue.config.productionTip = false
 import dateTimeFormat from '@/static/js/dateFormat.js'
-import {http} from 'utils/luch-request/index.js'
+import http from '@/common/fly.js'
 import store from 'store.js'
 
 Vue.use(VueAMap);
@@ -34,7 +34,8 @@ lazyAMapApiLoaderInstance.load().then(()=>{
 })
 App.mpType = 'app'
 Vue.prototype.$dateStr = dateTimeFormat
-Vue.prototype.$http = http
+// console.log(http)
+Vue.prototype.$http = http.fly
 Vue.prototype._ = _
 
 const app = new Vue({

@@ -1,0 +1,1 @@
+<view>service<uni-bottom-nav vue-id="651146d4-1" list="{{tabbarList}}" height="50px" bind:__l="__l"></uni-bottom-nav></view>

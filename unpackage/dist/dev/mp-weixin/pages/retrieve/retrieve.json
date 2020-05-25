@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "uni-header": "/components/uni-header/uni-header"
+  }
+}

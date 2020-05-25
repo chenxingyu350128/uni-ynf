@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['tap',[['_click',['$event']]]]]}}" class="uni-avatar data-v-bb5ea4fa" style="{{'display:flex;justify-content:center;align-items:center;overflow:hidden;'+('background-color:'+(backgroundColor)+';')+('width:'+(size+'px')+';')+('height:'+(size+'px')+';')+('border-radius:'+(tile?'unset':size+'px')+';')}}" bindtap="__e"><slot></slot></view>

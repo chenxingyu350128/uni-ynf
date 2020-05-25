@@ -1,95 +1,109 @@
 <template>
-	<view ref="indexPage" class="mb60 d-block grey lighten-3">
-		<!-- 上部蓝色块 -->
-		<view class="d-block primary white--text">
-			<view ref="blueUp" class="mx-0  white--text d-flex justify-space-around">
-				<view class="d-flex align-start caption flex-fill px-2">
-					<view @click="showCityPicker=true" class="d-flex align-center flex-fill">
-						{{city}}
-						<uni-icons color="white" type="mdi-chevron-down"></uni-icons>
-					</view>
-				</view>
-				<view class="d-flex  justify-center caption flex-fill  py-2">
-					<uni-avatar v-if="!eazyMode" @click="addWatch(watchId)" backgroundColor="#fff" size="75">
-						<template v-slot:inner>
-							<uni-icons  class="grey--text lighten-3" :type="watchId?'mdi-watch':'mdi-plus-circle'" :size="watchId?45:75"></uni-icons>
-						</template>
-					</uni-avatar>					
-						<!-- <text  class="mdi" :class="watchId?'mdi-watch':'mdi-plus-circle'" :size="watchId?45:75"></text> -->
-			<!--    <v-btn @click="addWatch(watchId)" width="75" height="75" v-if="!eazyMode" depressed class="show_device" color="grey lighten-4" fab >
-					</v-btn> -->
+	<view ref="indexPage" class="indexPage grey lighten-3 white--text pb-12">  
+    <view style="width: 100%;z-index: 6;" :style="{'position': eazyMode?'fixed':'relative'}" class="primary pa-2 white--text subtitle-2">
+			<uni-row class="top-line d-flex justify-space-between align-start">
+				<uni-col col="30" class="d-flex align-center ">
+					<text>{{city}}</text>
+					<uni-icons class="white--text" type="mdi-chevron-down"></uni-icons>
+				</uni-col>
+				<uni-col col="40" class="d-flex align-center justify-center flex-fill">
+					<uni-avatar class="d-flex align-center justify-center" v-if="!eazyMode" background-color="#ccc" size="75">
+						<uni-icons color="#fff" :size="watchId?45:75" :type="watchId?'mdi-watch':'mdi-plus-circle'"></uni-icons>
+					</uni-avatar>
 					<text v-else class="subtitle-1">颐纳福</text>
-				</view>
-				<view class="d-flex justify-end align-start flex-fill px-2">
-					<uni-icons  size="22" @click="showMsgCenter=true" color="#fff" type=" mdi-email-outline"></uni-icons>
-					<uni-badge v-if="msgCount"  text="9" size="small" type="error"></uni-badge>
-					<!-- <text v-else @click="showMsgCenter=true" class="mdi mdi-email-outline"></text> -->
+				</uni-col>
+				<uni-col col="30" class="d-flex justify-end">
+					<uni-icons class="white--text" type="mdi-email-outline"></uni-icons>
+					<uni-badge class="uni-badge overline" :text="msgCount?msgCount:''" type="error"></uni-badge>
+				</uni-col>
+			</uni-row>
+			<uni-transition mode-class="slide-top" :show="!eazyMode">
+				
+				<uni-row
+					v-if="!eazyMode"
+					class="text-center caption pb-4 flex-wrap"
+				>
+					<uni-col
+						class="subtitle-2 mb-5 mt-4"
+						col="100"
+					>
+						{{ watchId?'已绑定智能腕表':'请添加您的腕表' }}
+					</uni-col>
+					<uni-col class="d-flex flex-column align-center" col="33">
+						<text>步数</text>
+						<text v-if="watchId">
+							{{ steps }}步
+						</text>
+						<text v-else>
+							_ _
+						</text>
+					</uni-col>
+					<uni-col class="d-flex flex-column align-center" col="33">
+						<text>睡眠时长</text>
+						<text v-if="watchId">
+							{{ sleep }}小时
+						</text>
+						<text v-else>
+							_ _
+						</text>
+					</uni-col>
+					<uni-col class="d-flex flex-column align-center" col="33">
+						<text>心率</text>
+						<text v-if="watchId">
+							{{ heartRate }}bpm
+						</text>
+						<text v-else>
+							_ _
+						</text>
+					</uni-col>
+				</uni-row>
+			</uni-transition>
+<!-- 			<transition name="expand">
+				
+			</transition> -->
+		</view>
+		<!-- 导购 -->
+		<view v-if="!watchId" class="my-1">
+			<view class="grey lighten-2 px-3 py-2">
+				<view class="white black--text px-2 d-flex align-center br4">
+					<uni-icons color="orange" type="mdi-information-outline"></uni-icons>
+					<text class="caption font-weight-bold ml-2 flex-fill">健康第一步</text>
+					<text class="overline text--secondary mr-2">买个智能腕表</text>
+					<button class="px-2 py-1 overline" size="mini" type="warn">详情</button>
 				</view>
 			</view>
-			
-			
-
-			 <view ref="blueDown" class="text-center caption pb-4 d-flex justify-between flex-wrap">
-				 <view class="subtitle-2 mb-5 mt-4 fill-width">
-					 {{watchId?'已绑定智能腕表':'请添加您的腕表'}}
-				 </view>
-				 <view class="flex-fill">
-					 <view>步数</view>
-					 <view v-if="watchId">{{steps}}步</view>
-					 <view v-else>_ _</view>
-				 </view>
-				 <view class="flex-fill">
-					 <view>睡眠时长</view>
-					 <view v-if="watchId">{{sleep}}小时</view>
-					 <view v-else>_ _</view>
-				 </view>
-				 <view class="flex-fill">
-					 <view>心率</view>
-					 <view v-if="watchId">{{heartRate}}bpm</view>
-					 <view v-else>_ _</view>
-				 </view>
-				 <view class="py-1">
-				 </view>
-			 </view>
 		</view>
-    <!-- 导购 -->
-    <view v-if="!watchId" class="grey buyWatch lighten-2 d-flex align-center pa-1 ma-1">
-        <view class="pa-1 caption white flex-fill" height="34" justify-space-between xs12>
-					<uni-row align="center" @click="toShopMall" justify="center" class="mx-0 pa-0 fill-height">
-						<uni-col col="45" class="d-flex align-center pa-0">
-							<uni-icons color="#F09436" type="mdi-alert-circle-outline"></uni-icons>
-              <!-- <v-icon color="#F09436" class="mr-1 mdi-18px">mdi-alert-circle</v-icon> -->
-              <text class="font-weight-bold ml-2">健康第一步：</text>							
-						</uni-col>
-						<uni-col col="55" class="d-flex align-center justify-end pa-0">
-								<text class="flex-fill">买个智能腕表</text>
-								<button size="mini" type="primary">详情</button>
-						</uni-col>
-					</uni-row>
-					
-<!--          <view @click="toShopMall" align="center" class="text-center d-flex justify-space-between mx-0 pa-0 fill-height">
-            <view class="d-flex align-center pa-0" cols="6">
-							<uni-icons color="#F09436" type="mdi-alert-circle-outline"></uni-icons>
-              <text class="subtitle-2 font-weight-bold">健康第一步:</text>
-
-            </view>
-            <view cols="6" class="text-right pa-0">
-              <text class="caption grey--text d-flex align-center justify-end">
-                买个智能腕表
-								<button size="mini" type="primary">详情</button>
-              </text>
-            </view>
-          </view> -->
-        </view>
-    </view>		
 		<!-- 轮播 -->
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+		<swiper class="my-1" style="height: 33.33vw;" :indicator-dots="true" :autoplay="false" :interval="3000" :duration="1000">
 			<swiper-item v-for="(item,i) in bannerList" :key="i">
-				<view class="swiper-item"></view>
+				<image style="width: 750rpx;" :src="item.banner_pic" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
+		<!-- tabbar-nav -->
+		<uni-row @scroll="eazyMode=!eazyMode" class="scrollAnchor pink black--text py-2 my-1" justify="space-around">
+			<uni-col v-for="(item,i) in appList" :key="i" col="25" class="d-flex flex-column align-center">
+				<image style="width: 38px; height: 38px;" :src="item.app_pic" mode="aspectFit"></image>
+				<text class="mt-2 caption">{{item.app_title}}</text>
+			</uni-col>
+		</uni-row>
+		<view class="light-blue pa-2 d-flex black--text align-center my-1 b1px">
+			<uni-icons color="orange" type="mdi-square-edit-outline"></uni-icons>
+			<text class="subtitle-2 ml-2 font-weight-bold">健康头条</text>
+		</view>
+		<!-- news list -->
+		<view 
+			v-for="(item,i) in headLines" 
+			:key="i"
+			class="white text--secondary d-flex pa-4 align-start my-1"
+		>	
+			<uni-avatar tile size="60">
+				
+				<image :src="item.newPic" mode="aspectFill"></image>
+			</uni-avatar>
+			<text class="flex-fill ml-4 body-2">{{item.newTitle}}</text>
+		</view>
+			
 		<uni-bottom-nav :list="tabbarList" height="50px"></uni-bottom-nav>
-		
 	</view>
 </template>
 
@@ -231,32 +245,87 @@
 				return this.$store.state.app.positionCity
 			},
 		},	
-		onShow() {
-			//获取位置
-			this.getPosition()
-			//检测更新
-			this.checkNewVersion()
-			this.init()
-			//防抖
-			this.loadbottom = this._.debounce(this.loadMore, 200)
-			const page = this.$refs.indexPage
-			console.log(page)
-		},
-		beforeCreate() {
-			if(!this.sessionId){
-				// uni.navigateTo({
-				// 	url: '/pages/login/login'
-				// })
+		watch:{
+			'exitAppEnv':{
+				handler(newVal){
+					if(newVal){
+						//监听返回按钮
+						document.addEventListener('backbutton',this.runBack,false)
+						document.removeEventListener('backbutton',this.backBtn,false)
+	
+					}else{
+						document.removeEventListener('backbutton',this.runBack,false)
+						document.addEventListener('backbutton',this.backBtn,false)
+						this.exitState = 0
+					}
+				},
+				immediate: true
+			},
+			watchId: {
+				handler(val){
+					if(val){
+	
+						this.getStep()
+						this.getSleep()
+						this.getHr()
+					}
+				},
+				immediate: true
 			}
 		},
-		beforeDestroy() {
+		onload(){
+			console.log('onload')
+		},
+		onPageScroll(e) {
+			alert(JSON.stringify(e))
+			console.log(e)
+			console.log('FFF')
+		},
+		onReachBottom(){
+			uni.pageScrollTo({
+				scrollTop: 300
+			})
+			console.log('asdasf')
+		},
+		onUnload() {
 			window.clearTimeout(this.exitTimeout);
 			document.removeEventListener('backbutton',this.runBack,false)
 			document.removeEventListener('backbutton',this.backBtn,false)
+			
+		},
+		onShow() {
+			if(!this.sessionId){
+				uni.redirectTo({
+					url:'../login/login'
+				})
+				return
+			}
+			console.log(this.$refs.indexPage)
+			const page = this.$refs.indexPage
+			//获取位置
+			this.getPosition()
+			//检测更新
+			// this.checkNewVersion()
+			this.init()
+			//防抖
+			this.loadbottom = this._.debounce(this.loadMore, 200)
+			
+		},
+		onReady() {
+			console.log(this.$el)
+			let that = this
+			this.$el.addEventListener('scroll', function(e){
+				console.log(e.target.scrollTop)
+				that.eazyMode = !!e.target.scrollTop
+			}, true)
+			
 		},
 		methods: {
 			commit(x,y){
 				this.$store.commit(x, y)
+			},
+			pageScroll(e){
+				
 			},
 			init(){
 				this.getIndex()
@@ -264,7 +333,7 @@
 				this.getHouse()
 				this.getMsg()
 				this.findNewsPage()
-				console.info(this.$store.state.app)
+				// console.info(this.$store.state.app)
 			},
 			backBtn(){
 				let arr = [
@@ -337,7 +406,7 @@
 					appType: this.appType,
 					serverVersion
 				}
-				let res = await this.$http.get('/mobile/setup/getUpdateApp',{params})
+				let res = await this.$http.get('/mobile/setup/getUpdateApp', params)
 				console.log('获取更新数据');
 				console.log(res);
 				this.appDownloadUrl = res.data.obj.updateUrl
@@ -547,7 +616,7 @@
 					userId: this.userId,
 					token: this.token,
 				}
-				this.$http.get('/mobile/bite/getMessageCenter',{params})
+				this.$http.get('/mobile/bite/getMessageCenter',params)
 				.then(res=>{
 					if(res.data.success){
 						this.msgCount = 0
@@ -576,7 +645,7 @@
 					rows: this.rows,
 					page: this.page
 				}
-				this.$http.get('/mobile/index/findNewsPage',{params})
+				this.$http.get('/mobile/index/findNewsPage',params)
 				.then(res=>{
 					if(res.data.success){
 						console.log(res.data)
@@ -645,7 +714,7 @@
 			//   })  
 			// },
 			getStep(){
-				this.$http.get('/mobile/healthy/getStepToDay',{params: this.params})
+				this.$http.get('/mobile/healthy/getStepToDay', this.params)
 				.then(res=>{
 					if(res.data.success){
 						this.steps = res.data.obj.step
@@ -653,7 +722,7 @@
 				})
 			},
 			getSleep(){
-				this.$http.get('/mobile/healthy/getSleepToDay',{params: this.params})
+				this.$http.get('/mobile/healthy/getSleepToDay', this.params)
 				.then(res=>{
 					if(res.data.success){
 						this.sleep = res.data.obj.duration
@@ -661,7 +730,7 @@
 				})
 			},
 			getHr(){
-				this.$http.get('/mobile/healthy/getCurrentHeartRate',{params: this.params})
+				this.$http.get('/mobile/healthy/getCurrentHeartRate', this.params)
 				.then(res=>{
 					if(res.data.success){
 						this.heartRate = res.data.obj.bpm
@@ -673,7 +742,7 @@
 				//   this.$createTable('ynf_appList',applist_keys)
 				//   this.$createTable('ynf_bannerList',bannerlist_keys)
 				// }
-				this.$http.get('/mobile/index/getIndex',{params: {sessionId: this.sessionId}})
+				this.$http.get('/mobile/index/getIndex',{sessionId: this.sessionId})
 				.then(res=>{
 					if(res.data.success){
 						// this.appList = res.data.obj.applicationList
@@ -747,7 +816,7 @@
 				// if(window.db){
 				//   this.$createTable('ynf_memberList',strArr)
 				// }         
-				this.$http.get('/mobile/user/getMemberList',{params: {sessionId: this.sessionId}})
+				this.$http.get('/mobile/user/getMemberList',{sessionId: this.sessionId})
 				.then(res=>{
 					if(res.data.success){//默认第一人为本人
 						let memberId = res.data.obj[0].memberId  
@@ -785,7 +854,7 @@
 					sessionId: this.sessionId,
 					userId: this.userId,
 				}
-				this.$http.get('/owner/getHouse',{params})
+				this.$http.get('/owner/getHouse',params)
 				.then(res=>{
 					if(res.data.success){
 						this.$store.commit('SET_SINGLE_STATE',['houseList', res.data.obj])
@@ -797,6 +866,26 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+	.indexPage{
+		height: 100vh;
+		overflow-y: auto;
+		.br4{
+			border-radius: 4px;
+		}
+		.b1px{
+			border: 5px solid rgba(0,0,0,1.0);
+		}
+		.expand-enter-active{
+			transition: all .5s cubic-bezier(0.25, 0.8, 0.5, 1);
+		}
+		.expand-leave-active{
+			transition: all .5s cubic-bezier(0.25, 0.8, 0.5, 1);
+		}
+		.expand-enter
+		.expand-leave-to{
+			transition: transform .3s;;
+		}
+	}
 </style>
+

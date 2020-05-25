@@ -73,9 +73,9 @@
 		/* #endif */
 		justify-content: center;
 		flex-direction: row;
-		height: 20px;
-		min-width: 20px;
-		line-height: 20px;
+		height: 15px;
+		min-width: 15px;
+		line-height: 15px;
 		color: #333;
 		border-radius: 100px;
 		background-color: #f1f1f1;
@@ -85,6 +85,7 @@
 		font-size: 12px;
 		padding: 0;
 		margin-left: -6px;
+		margin-top: -6px;
 	}
 
 	.uni-badge--inverted {

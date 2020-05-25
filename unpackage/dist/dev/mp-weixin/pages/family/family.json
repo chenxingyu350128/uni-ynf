@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-row": "/components/uni-row/uni-row",
+    "uni-col": "/components/uni-col/uni-col",
+    "uni-bottom-nav": "/components/uni-bottom-nav/uni-bottom-nav"
+  }
+}

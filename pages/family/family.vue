@@ -5,11 +5,11 @@
 					<uni-col class="teal white--text flex-fill exp" col="20">20</uni-col>
 			
 		</uni-row>
-		asdf
-		<uni-col class="red white--text" col="20">20</uni-col>
+		<view class="amber">sad</view>
+		<button size="mini" class="pa-0">asd</button>
+		<uni-col  class="amber darken-2 white--text" col="20">20</uni-col>
 		<uni-col class="red white--text" col="20">20</uni-col>
 		<uni-bottom-nav :list="tabbarList" height="50px"></uni-bottom-nav>
-		
 	</view>
 </template>
 
@@ -17,6 +17,11 @@
 	export default {
 		data() {
 			return {
+				minHour: 10,
+				maxHour: 20,
+				minDate: new Date().getTime(),
+				maxDate: new Date(2019, 10, 1).getTime(),
+				currentDate: new Date().getTime(),
 				tabbarList: [
 					{
 						icon: 'mdi-home',
@@ -38,7 +43,12 @@
 			}
 		},
 		methods: {
-			
+			onInput(e){
+				this.currentDate = e.detail
+			},
+			onChange(e){
+				console.log(e)
+			}
 		}
 	}
 </script>

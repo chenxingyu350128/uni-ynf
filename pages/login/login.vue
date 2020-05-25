@@ -1,29 +1,111 @@
 <template>
   <view class="login-cpnt d-flex flex-column grey lighten-3">
-		<view class="flex-fill d-flex flex-column align-center justify-space-around white--text logoAround py-6">
-			<uni-avatar size="200">
-				<image src="../../static/img/logo.png" mode="widthFix"></image>
-			</uni-avatar>
+		<view class="flex-fill d-flex flex-column align-center justify-center white--text logoAround py-6">
+	<!-- 		<uni-avatar size="75">
+			</uni-avatar> -->
+			<image style="width: 75px;" src="../../static/img/logo.png" mode="widthFix"></image>
 			<text class="py-2 text-center subtitle-2">颐纳福</text>
 			<text class="text-center caption lh1em">关爱，从这一刻开始</text>
 		</view>
 		<!-- 下半部 -->
-		<view class="mainBottom">
+		<view class="mainBottom d-flex flex-column flex-fill">
 		<!-- 输入框/周边 -->
-			<view class="mx-3">
-				<uni-vcard>
-					asdada
-					<view>ds</view>
-					<view>ds</view>
-					<view>ds</view>
-					<view>ds</view>
-					<button size="mini" type="default">asd</button>
+			<!-- 区别于微信登陆 -->
+			<div>
+				<uni-vcard class="mx-3 pa-4 d-flex flex-column">
+					<uni-text-field 
+						color="#00aaef" 
+						round
+						placeholder="请输入账号"
+						prependText="账号 :" 
+						:maxlength="parseInt(11)"
+						v-model="username"
+						type="number"
+					>
+					</uni-text-field>
+					<uni-text-field 
+						class="mt-4"
+						color="#00aaef" 
+						placeholder="请输入密码"
+						prependText="密码 :" 
+						v-model="password"
+						password
+						round
+						@keydown.enter="login"
+						type="text"
+					>
+					</uni-text-field>
+					<uni-text-field 
+						v-if="showyzm"
+						color="#00aaef" 
+						class="mt-4"
+						placeholder="验证码"
+						prependText="验证码 :" 
+						@click.stop="getCode"
+						v-model="vCode"
+						round
+						type="number"
+					>
+						<template #append>
+							<button plain class="px-2 caption primary" size="mini" type="primary">{{seconds?seconds:'发送验证码'}}</button>
+						</template>
+					</uni-text-field>
+					<button  @click="submit" class="mt-4 white--text" type="primary">{{btnText}}</button>
+					<uni-footer class="px-0 pt-2 overline white grey--text">
+						{{ status?"注册":"登陆" }}即代表您已同意<text
+							class="blue--text"
+							@click="agreement"
+						>《颐纳福隐私政策》</text>
+					</uni-footer>
 				</uni-vcard>
+				<uni-row
+					v-if="!status&&wxBind===undefined"
+					justify="space-between"
+					class="mt-2 px-4 extra grey--text caption"
+				>
+					<text class="blue--text" @click="status=1">注册</text>
+					<text @click="showRetrieve=true">忘记密码</text>
+				</uni-row>
+				<uni-row
+					v-if="status"
+					justify="space-between"
+					class="mt-2 px-4 grey--text caption"
+				>
+					已注册过
+					<text
+						class="blue--text"
+						@click="status=0;isExist=false"
+					>登录</text>
+				</uni-row>
+			</div>
+			<!-- 微信登陆 -->
+			<view 
+				v-if="!status&&wxBind===undefined"
+        class="d-flex flex-column flex-fill justify-end mt-4"
+			>
+				<view class="d-flex px-12 py-0 align-center mb-6">
+					<hr class="flex-fill"/>
+					<text class="px-2 subtitle-2 grey--text">其他登陆方式</text>
+					<hr class="flex-fill"/>
+				</view>
+				<uni-footer
+				  class="mt-4 pa-0 d-flex caption grey lighten-3 grey--text justify-end align-center flex-column"
+				>
+				  <uni-icons
+				    color="#07c160"
+				    size="55"
+						type="mdi-wechat"
+				    @click="wxAuth"
+				  >
+				  </uni-icons>
+					<text class="mt-4">微信登陆</text>
+				  
+				</uni-footer>
 			</view>
 		</view>
 		<!-- 账号 密码 验证码 -->
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <view class="form d-flex flex-fill justify-center flex-column align-center">
+    <!-- <view class="form d-flex flex-fill justify-center flex-column align-center">
       <i />
       <v-card
         color="white"
@@ -104,15 +186,15 @@
           >《颐纳福隐私政策》</text>
         </uni-footer>
       </v-card>    
-      <v-flex
+      <uni-row
         v-if="!status&&wxBind===undefined"
         class="mt-2 px-4 extra grey--text caption d-flex justify-space-between"
       >
         <text @click="status=1">注册</text>
         <v-spacer />
         <text @click="showRetrieve=true">忘记密码</text>
-      </v-flex>
-      <v-flex
+      </uni-row>
+      <uni-row
         v-if="status"
         class="mt-2  grey--text caption d-flex justify-space-between"
       >
@@ -120,7 +202,7 @@
           class="blue--text"
           @click="status=0;isExist=false"
         >登录</text>
-      </v-flex>
+      </uni-row>
       <v-container
         v-if="!status&&wxBind===undefined"
         class="d-flex px-12 py-0 align-center"
@@ -142,9 +224,9 @@
         </v-icon>
         微信登陆
       </uni-footer>
-    </view>
+    </view> -->
     <!-- <iHeader text="登陆"/> -->
-    <v-flex
+<!--    <uni-row
       fluid
       class="logo pt-2 pb-4 d-flex flex-column flex-fill white--text align-center justify-center"
       xs12
@@ -161,7 +243,7 @@
       </v-card>
       <text class="py-2 text-center subtitle-2">颐纳福</text>
       <text class="text-center caption lh1em">关爱，从这一刻开始</text>
-    </v-flex>
+    </uni-row> -->
 
 
     <!-- <register @hideReg="showRegister=false" v-if="showRegister"/> -->
@@ -207,11 +289,6 @@
 				exitTimeout: ''
 
       }),
-      beforeRouterLeave(to,from,next){
-        if(from.matched.some(record => record.meta.logOut)){
-          next(false)
-        }
-      },
 			computed:{
 				btnText(){
 					if(this.wxBind===0){
@@ -238,18 +315,27 @@
           return this.$store.state.app.sessionId
         }
 			},
-      beforeDestroy(){
+      onunload(){
 				clearInterval(this.timer)
 				clearTimeout(this.exitTimeout)
 				document.removeEventListener('backbutton',this.runBack,false)
 			},
-			mounted(){
+			onshow(){
+				if(this.sessionId){
+					uni.redirectTo({
+						url: '../index/index'
+					})
+					return
+				}
 				document.addEventListener('backbutton',this.runBack,false)
 				if(this.$route.query.modify){
 					this.fromMine = this.showRetrieve = true
 				}
 			},
       methods: {
+				emitInput(e){
+					console.log(e)
+				},
 				runBack(){
 					window.plugins.toast.showLongCenter('再点击一次退出!');
         	this.exitState ++
@@ -305,20 +391,26 @@
 					this.$route.query=null
 				},
         getCode(){
-            this.$http.get('/mobile/user/sendMsg',{params:{userNo: this.username}}).then(res=>{
-              if(res.data.success){
-							this.$toast.success('验证码已发送')
-                // this.showNext = true
-                this.seconds = 60
-                //倒计时开始
-                this.timer = setInterval(()=>{
-                  this.seconds --
-                  if(this.seconds === 0){
-                    clearInterval(this.timer)
-                  }
-                },1000)                        
-              }
-            })
+					if(this.seconds){
+						return
+					}
+					this.$http.get('/mobile/user/sendMsg',{params:{userNo: this.username}}).then(res=>{
+						if(res.data.success){
+							uni.showToast({
+								title:'验证码已发送'
+							})
+							// this.$toast.success('验证码已发送')
+							// this.showNext = true
+							this.seconds = 60
+							//倒计时开始
+							this.timer = setInterval(()=>{
+								this.seconds --
+								if(this.seconds === 0){
+									clearInterval(this.timer)
+								}
+							},1000)                        
+						}
+					})
         },
         checkExist(){
             this.$http.post('/mobile/user/isUserExist',{userName: this.username})
@@ -348,11 +440,19 @@
 					//微信绑定手机号
 					if(this.wxBind===0 && !this.setpwd){
 						if(!this.username){
-							this.$toast.warning('请输入手机号码')
-							return
+							uni.showToast({
+								title: '请输入手机号码',
+								icon: 'none'
+							})
+							// this.$toast.warning('请输入手机号码')
+							// return
 						}
 						if(this.checkPhone(this.username)){
-							this.$toast.warning('手机号码格式错误')
+							uni.showToast({
+								title: '手机号码格式错误',
+								icon: 'none'
+							})
+							// this.$toast.warning('手机号码格式错误')
 							return
 						}
 						const data = {
@@ -367,10 +467,13 @@
 							if(res.data.success){
 								if(res.data.obj.wechatType){//微信已绑定手机号
 									this.setStorage(res)
-									this.setAlias(this.sessionId)
+									// this.setAlias(this.sessionId)
 									// this.$router.replace('./index')
 								}else{
-									this.$toast.success('微信号已绑定手机,请设置登陆密码')
+									uni.showToast({
+										title: '微信号已绑定手机,请设置登陆密码'
+									})
+									// this.$toast.success('微信号已绑定手机,请设置登陆密码')
 									this.setpwd = true
 								}
 							}
@@ -379,20 +482,52 @@
 					}
 					//微信绑定手机号设置密码
 					if(this.wxBind===0 && this.setpwd){
-						if(!this.username){
-							this.$toast('请输入手机号')
-							return
-						}
-						if(this.checkPhone(this.username)){
-							this.$toast.warning('手机号格式不对')
-							return
-						}
-						if(!this.password){
-							this.$toast('请输入密码')
-							return
-						}
-						if(this.checkpwd(this.password)){
-							this.$toast.warning('密码只能输入6-20个字母、数字、下划线')
+						// if(!this.username){
+						// 	this.$toast('请输入手机号')
+						// 	return
+						// }
+						// if(this.checkPhone(this.username)){
+						// 	this.$toast.warning('手机号格式不对')
+						// 	return
+						// }
+						// if(!this.password){
+						// 	this.$toast('请输入密码')
+						// 	return
+						// }
+						// if(this.checkpwd(this.password)){
+						// 	this.$toast.warning('密码只能输入6-20个字母、数字、下划线')
+						// 	return
+						// }
+						const states = [
+							{
+								state: !this.username,
+								title: '请输入手机号'
+							},
+							{
+								state: this.checkPhone(this.username),
+								title: '手机号格式不对'
+							},
+							{
+								state: !this.password,
+								title: '请输入密码'
+							},
+							{
+								state: this.checkpwd(this.password),
+								title: '密码只能输入6-20个字母、数字、下划线'
+							},
+						]
+						let checked = true
+						states.some(res=>{
+							if(res.state){
+								checked = false
+								uni.showToast({
+									title: res.title,
+									icon: 'none'
+								})
+								return true
+							}
+						})
+						if(!checked){//验证不通过
 							return
 						}
 						const data = {
@@ -402,12 +537,13 @@
 							image: this.image,
 							passWord: this.password
 						}
+						
 						this.$http.post('/mobile/user/regForWx',data)
 						.then(res=>{
 							if(res.data.success){
 								localStorage.removeItem('isLogOut')
 								this.setStorage(res)
-								this.setAlias(this.sessionId)
+								// this.setAlias(this.sessionId)
           	    // this.$router.replace('./index')
 							}
 						})
@@ -441,11 +577,15 @@
 						})
 					}
           verify.some(res=>{
-              if(res.status){
-                  this.$toast.warning(res.remind)
-                  stopProcess = true
-                  return true
-              }
+						if(res.status){
+							uni.showToast({
+								title: res.remind,
+								icon: 'none'
+							})
+							// this.$toast.warning(res.remind)
+							stopProcess = true
+							return true
+						}
           })
           if(stopProcess){//存在未填写的值
               return
@@ -471,11 +611,14 @@
           const url = this.status?'/mobile/user/reg':'/mobile/user/login'
           this.$http.post(url,data).then(res=>{
             if(res.data.success){
-              this.$toast(this.status?'恭喜你，注册成功':'登陆成功',{
-                color: 'success',
-                y: 'top',
-                icon: 'mdi-emoticon-excited-outline'
-              })
+							uni.showToast({
+								title: this.status?'恭喜你，注册成功':'登陆成功'
+							})
+              // this.$toast(this.status?'恭喜你，注册成功':'登陆成功',{
+              //   color: 'success',
+              //   y: 'top',
+              //   icon: 'mdi-emoticon-excited-outline'
+              // })
               // this.$toast.success(this.status?'恭喜你，注册成功':'登陆成功')
               if(this.status){
 								this.status=!this.status
@@ -483,7 +626,7 @@
 							}
 							//以下为登陆成功
 							this.setStorage(res)
-							this.setAlias(this.sessionId)
+							// this.setAlias(this.sessionId)
               // this.$router.replace('./index')
             }
           })
@@ -538,17 +681,26 @@
 								this.setStorage(res)
               
 								// this.$router.replace('./index')	
-								this.setAlias(this.sessionId)
-								this.$toast.success('登陆成功')
+								// this.setAlias(this.sessionId)
+								uni.showToast({
+									title: '登陆成功'
+								})
+								// this.$toast.success('登陆成功')
 								return	
 							}	
-							this.$toast.success('未绑定手机号，请绑定')
+							uni.showToast({
+								title: '未绑定手机号，请绑定'
+							})
+							// this.$toast.success('未绑定手机号，请绑定')
 						}
 					})
 				},
 				setStorage(res){
 					this.$store.commit('SET_EACH_STATE', res.data.obj)
-					this.$router.replace('./index')
+					uni.navigateTo({
+						url: '/pages/index/index'
+					})
+					// this.$router.replace('./index')
 				}
       }
     }
@@ -567,6 +719,7 @@
 	}
 	.mainBottom{
 		position: relative;
+		width: 100%;
 		top: -50rpx;
 	}
 </style>

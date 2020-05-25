@@ -29,6 +29,7 @@
 
 <style scoped lang="scss">
 	view{
+		box-sizing: border-box;
 		border-radius: 10rpx;
 	}
 	.flat{

@@ -1,10 +1,10 @@
 <template>
 	<view 
-		style="display: flex; justify-content: center; align-items: center;"
+		style="display: flex; justify-content: center; align-items: center;overflow: hidden;"
 		class="uni-avatar" 
 		@click="_click" 
-		:style="{'background-color': backgroundColor,'width': size+'rpx','height': size + 'rpx','border-radius': tile?'unset':size+'rpx'}">
-		<slot></slot>
+		:style="{'background-color': backgroundColor,'width': size+'px','height': size + 'px','border-radius': tile?'unset':size+'px'}">
+		<slot class="inner"></slot>
 	</view>
 </template>
 
@@ -45,3 +45,11 @@
 		}
 	}
 </script>
+<style lang="scss" scoped>
+	.uni-avatar{
+		>*{
+			width: 100%;
+			height: 100%;
+		}
+	}
+</style>
