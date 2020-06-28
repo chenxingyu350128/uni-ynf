@@ -20,6 +20,7 @@
         <uni-col cols="3" class="text-right ">
           <text class="mdi mdi-email mr-2"></text>
           <uni-icons color="teal" type="mdi-chevron-right"></uni-icons>
+          <uni-col cols=""></uni-col>
         </uni-col>
       </uni-row>
     </view>
