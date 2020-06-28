@@ -1,1 +1,1 @@
-<view class="{{['data-v-bfc871ea','col-'+col]}}"><slot></slot></view>
+<view class="{{['data-v-41423f68','col-'+cols]}}"><slot></slot></view>

@@ -1,1 +1,1 @@
-<view>mine<uni-bottom-nav vue-id="bae1c640-1" list="{{tabbarList}}" height="50px" bind:__l="__l"></uni-bottom-nav></view>
+<view>mine</view>

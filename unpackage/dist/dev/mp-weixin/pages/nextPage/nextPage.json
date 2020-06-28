@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "next-page",
-  "usingComponents": {
-    "uni-calendar": "/components/uni-calendar/uni-calendar",
-    "uni-card": "/components/uni-card/uni-card"
-  }
-}

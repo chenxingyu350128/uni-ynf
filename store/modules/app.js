@@ -1,228 +1,132 @@
-const app = {
-  state: {
-    requestLoading: false,
-	tabbarIndex: 0,
-    // memberId: localStorage.getItem('memberId'),
-    // memberAvatar: localStorage.getItem('memberAvatar'),
-    // memberRealName: localStorage.getItem('memberRealName'),
-    // memberIndex: localStorage.getItem('memberIndex'),
-    // memberList: localStorage.getItem('memberList')||[],
-    sessionId: localStorage.getItem('sessionId'),
-    token: localStorage.getItem('token'),
-    guideOver: localStorage.getItem('guideOver'),
-    currentColor: localStorage.getItem('currentColor')||"#00aaef",
-    positionCity: localStorage.getItem('positionCity')||"正在定位",
-    cityHistory: JSON.parse(localStorage.getItem('cityHistory'))||[],
-    houseId: localStorage.getItem('houseId'),
-    houseIndex: localStorage.getItem('houseIndex'),
-    houseAddress: localStorage.getItem('houseAddress'),
-    navbar: localStorage.getItem('navbar'),
-    dataType: localStorage.getItem('dataType'),
-    authType: localStorage.getItem('authType'),
-    noticeList: JSON.parse(localStorage.getItem('noticeList'))||[],
-    headLines: JSON.parse(localStorage.getItem('headLines'))||[],
-    propertyHL: JSON.parse(localStorage.getItem('propertyHL'))||[],
-    houseList: JSON.parse(localStorage.getItem('houseList'))||[],
-    bannerList: localStorage.getItem('bannerList')?JSON.parse(localStorage.getItem('bannerList')):[],
-    appList: JSON.parse(localStorage.getItem('appList'))||[],
-    expBanners: localStorage.getItem('expBanners')?JSON.parse(localStorage.getItem('expBanners')):[],
-    rankAgeStart: localStorage.getItem('rankAgeStart')||0,
-    rankAgeEnd: localStorage.getItem('rankAgeEnd')||99,
-    dietRecTime: localStorage.getItem('dietRecTime'),
-    // isLead: localStorage.getItem('isLead'),
-    // batNum: localStorage.getItem('batNum'),
-    // rate: localStorage.getItem('rate')||[],
-    // userId: localStorage.getItem('userId'),
-    // userName: localStorage.getItem('userName'),
-    // realName: localStorage.getItem('realName'),
-    // genderChangable: localStorage.getItem('genderChangable'),
-    // image: localStorage.getItem('image'),
-    // wechatType: localStorage.getItem('wechatType'),
-    // watchId: localStorage.getItem('watchId'),
-    // watchPhone: localStorage.getItem('watchPhone'),
-    birthday: localStorage.getItem('birthday'),
-    blood: localStorage.getItem('blood'),
-    createTime: localStorage.getItem('createTime'),
-    dataFlag: localStorage.getItem('dataFlag'),
-    domicile: localStorage.getItem('domicile'),
-    householdRegister: localStorage.getItem('householdRegister'),
-    image: localStorage.getItem('image'),
-    invitationId: localStorage.getItem('invitationId'),
-    mail: localStorage.getItem('mail'),
-    occupation: localStorage.getItem('occupation'),
-    openid: localStorage.getItem('openid'),
-    passWord: localStorage.getItem('passWord'),
-    phone: localStorage.getItem('phone'),
-    realName: localStorage.getItem('realName'),
-    sex: localStorage.getItem('sex'),
-    updateTime: localStorage.getItem('updateTime'),
-    userId: localStorage.getItem('userId'),
-    userName: localStorage.getItem('userName'),
-    userState: localStorage.getItem('userState'),
-    userType: localStorage.getItem('userType'),
-    wechatType: localStorage.getItem('wechatType'),
-
-    // birthday: "1988-09-06"
-    // blood: "AB型"
-    // createTime: "2018-04-29 11:13:05"
-    // dataFlag: 1
-    // domicile: "福建省-福州市-仓山区"
-    // householdRegister: ""
-    // image: "http://yinafimg.oss-cn-hangzhou.aliyuncs.com/user/201910/2411/1910241149257139.jpg"
-    // invitationId: 0
-    // mail: ""
-    // occupation: "律师/法务"
-    // openid: ""
-    // passWord: ""
-    // phone: ""
-    // realName: "cxx"
-    // sex: 1
-    // updateTime: "2019-12-11 16:35:06"
-    // userId: 1455
-    // userName: "15080090142"
-    // userState: 1
-    // userType: 0
-    // wechatType: 1
-  },
-  mutations: {
-    SET_LOADING: (state, status) => {
-      state.requestLoading = !!status
-    },
-    SET_SINGLE_STATE: (state, status) => {
-      let x = status[0]
-      let y = status[1]
-      let beArray = [
-        // 'memberList',
-        'cityHistory',
-        'noticeList',
-        'houseList',
-        'bannerList',
-        'appList',
-        'headLines',
-        'propertyHL',
-        'expBanners'
-      ]
-      state[x] = y
-      if (beArray.includes(x)) {
-        localStorage.setItem(x, JSON.stringify(y))
-      }else{
-        localStorage.setItem(x,y)
-      }
-    },
-    CLEAR_SINGLE_STATE: (state, name) => {
-      let beArray = [
-        // 'memberList',
-        'cityHistory',
-        'noticeList',
-        'houseList',
-        'bannerList',
-        'headLines',
-        'propertyHL',
-        'appList',
-        'expBanners'
-      ]
-      let defaultZero = [
-        'rankAgeStart',
-        'houseIndex'
-      ]      
-      if (beArray.includes(name)) {
-        state[name] = []
-      }
-      else if (defaultZero.includes(name)) {
-        state[name] = 0
-      }
-      else if (name == 'positionCity') {
-        state[name] = '正在定位'
-      }
-      else if (name == 'currentColor') {
-        state[name] = '#00aaef'
-      }
-      else if (name == 'rankAgeEnd') {
-        state[name] = 99
-      } else {
-        state[name] = ''
-      }
-      localStorage.setItem(name,'')
-    },
-    CLEAR_STATE: (state) => {
-      let beArray = [
-        // 'memberList',
-        'cityHistory',
-        'noticeList',
-        'houseList',
-        'bannerList',
-        'appList',
-        'headLines',
-        'propertyHL',
-        'expBanners'        
-      ]
-      let defaultZero = [
-        'rankAgeStart',
-        'houseIndex'
-      ]
-
-      for(let x in state){
-        localStorage.clear()
-
-        if (beArray.includes(x)){
-          state[x] = []
-        }
-        else if (defaultZero.includes(x)){
-          state[x] = 0
-        }
-        else if (x =='positionCity'){
-          state[x] = '正在定位'
-        }
-        else if (x =='currentColor'){
-          state[x] = '#00aaef'
-        }
-        else if (x =='rankAgeEnd'){
-          state[x] = 99
-        }else{
-          state[x] = ''
-        }
-      }
-      state.guideOver = true
-      localStorage.setItem('guideOver', true)
-    },
-    SET_EACH_STATE: (state,status) => {
-      let beArray = [
-        // 'memberList',
-        'cityHistory',
-        'noticeList',
-        'houseList',
-        'bannerList',
-        'propertyHL',
-        'headLines',
-        'appList',
-        'expBanners'
-      ]
-      for (let x in status) {
-        state[x] = status[x]
-        if (beArray.includes(x)) {
-          localStorage.setItem(x, JSON.stringify(state[x]))
-        } else {
-          localStorage.setItem(x, state[x])
-        }
-        // localStorage.setItem(x, state[x])
-        // if(status[x]){
-
-        // }
-      }
-    }
-  },
-  actions: {
-    SetLoading({ commit }, status) {
-      commit('SET_LOADING', status)
-    },
-    setSingleState({ commit }, status){
-      commit('SET_SINGLE_STATE', status)
-    },
-    setEachState({ commit }, status){
-      commit('SET_EACH_STATE', status)
-    },
-  }
+import Utils from '../../utils/storageMw.js'
+const state = {
+  image: Utils.getLocal('image') || '',
+  realName: Utils.getLocal('realName') || '',
+  token: Utils.getLocal('token') || '',
+  userId: Utils.getLocal('userId') || 0,
+  userName: Utils.getLocal('userName') || '',
+  userType: Utils.getLocal('userType') || 0,
+  tabbarIndex: Utils.getLocal('tabbarIndex') || 0,
+  origin: Utils.getLocal('origin'),
+  env: Utils.getLocal('env'),
+  loading: !!Utils.getLocal('loading'),
+  // 搜索
+  searchList: Utils.getLocal('searchList') || [],
+  current_key: Utils.getLocal('current_key') || '',
+  // 订单确认数据
+  orderConfirmData: Utils.getLocal('orderConfirmData'),
+  cartIdsInOrder: Utils.getLocal('cartIdsInOrder'),
+  newAddressData: Utils.getLocal('newAddressData'),
+  cartGoods: Utils.getLocal('cartGoods') || [],
+  addressList: Utils.getLocal('addressList') || [],
+  couponList: Utils.getLocal('couponList') || [],
+  addressBackFlag: Utils.getLocal('addressBackFlag'),
+  newAddress: Utils.getLocal('newAddress'),
+  newCoupon: Utils.getLocal('newCoupon'),
+  orderToPay: Utils.getLocal('orderToPay') // addOrderSubmit创建订单需要的data
 }
 
-export default app
-//this.$store.commit('SET_SINGLE_STATE',['',])
+const mutations = {
+  SET_LOADING: (state, res) => { // state不可或缺，不因没用到就省去
+    Utils.setLocal('loading', res)
+    state.loading = res
+  },
+  SET_ORIGIN: (state, res) => {
+    Utils.setLocal('origin', res)
+    state.origin = res
+  },
+  NEW_BUILD_ADDRESS: (state, res) => {
+    Utils.setLocal('newAddressData', res)
+    state.newAddressData = res
+  },
+  SELECT_ADDRESS_FOR_ORDER: (state, res) => {
+    Utils.setLocal('newAddress', res)
+    state.newAddress = res
+  },
+  SELECT_COUPON_FOR_ORDER: (state, res) => {
+    Utils.setLocal('newCoupon', res)
+    state.newCoupon = res
+  },
+  SET_ENV: (state, res) => {
+    Utils.setLocal('env', res)
+    state.env = res
+  },
+  BOTTOM_NAV_INDEX: (state, res) => {
+    Utils.setLocal('tabbarIndex', res)
+    state.tabbarIndex = res
+  },
+  XHR_401: (state) => {
+    const arr = [
+      'image',
+      'realName',
+      'token',
+      'userId',
+      'userName',
+      'userType'
+    ]
+    arr.forEach(res => {
+      Utils.clearLocal(state, res)
+      state[res] = null
+    })
+  },
+  SET_EACH_USER_INFO: (state, res) => {
+    for (const x in res) {
+      Utils.setLocal(x, res[x])
+      state[x] = res[x]
+    }
+    // state.loading = res
+  },
+  ADD_SEARCH: (state, res) => {
+    console.log(state, res)
+    if (state.searchList.indexOf(state, res) !== -1) {
+      return
+    }
+    const searchList = state.searchList
+    searchList.unshift(res)
+    Utils.setLocal('searchList', searchList)
+    // console.log('res:', res)
+    state.searchList = searchList
+  },
+  CLEAR_SEARCH: () => {
+    Utils.setLocal('searchList', [])
+    state.searchList = []
+  },
+  SET_CURRENT_SEARCH: (state, res) => {
+    Utils.setLocal('current_key', res)
+    state.current_key = res
+  },
+  SET_ORDER_CONFIRM_DATA: (state, res) => {
+    Utils.setLocal('orderConfirmData', res)
+    state.orderConfirmData = res
+  },
+  SET_CARTIDS_IN_ORDER: (state, res) => {
+    Utils.setLocal('cartIdsInOrder', res)
+    state.cartIdsInOrder = res
+  },
+  ORDER_TO_PAY: (state, res) => {
+    Utils.setLocal('orderToPay', res)
+    state.orderToPay = res
+  },
+  SET_ADDRESS_LIST: (state, res) => {
+    Utils.setLocal('addressList', res)
+    state.addressList = res
+  },
+  SET_COUPON_LIST: (state, res) => {
+    Utils.setLocal('couponList', res)
+    state.couponList = res
+  },
+  ADDRESS_BACK_FLAG: (state, res) => {
+    Utils.setLocal('addressBackFlag', res)
+    state.addressBackFlag = res
+  },
+  CART_GOODS: (state, res) => {
+    Utils.setLocal('cartGoods', res)
+    state.cartGoods = res
+  }
+
+}
+
+export default {
+  state,
+  mutations
+}

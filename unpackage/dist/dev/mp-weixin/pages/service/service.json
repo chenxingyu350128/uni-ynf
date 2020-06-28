@@ -1,6 +1,4 @@
 {
   "navigationStyle": "custom",
-  "usingComponents": {
-    "uni-bottom-nav": "/components/uni-bottom-nav/uni-bottom-nav"
-  }
+  "usingComponents": {}
 }

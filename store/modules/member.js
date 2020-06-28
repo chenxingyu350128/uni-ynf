@@ -1,39 +1,41 @@
+import Utils from '../../utils/storageMw.js'
+
 const member = {
   state: {
-    memberIndex: localStorage.getItem('m-memberIndex')||0,
-    memberList: JSON.parse(localStorage.getItem('m-memberList')) || [],
-    dietRecTime: localStorage.getItem('m-dietRecTime'),
-    rate: localStorage.getItem('m-rate')?JSON.parse(localStorage.getItem('m-rate')) : [],
-    batNum: localStorage.getItem('m-batNum')||0,
-    genderChangable: localStorage.getItem('m-genderChangable'),
+    memberIndex: Utils.getLocal('m-memberIndex')||0,
+    memberList: Utils.getLocal('m-memberList') || [],
+    dietRecTime: Utils.getLocal('m-dietRecTime'),
+    rate: Utils.getLocal('m-rate') || [],
+    batNum: Utils.getLocal('m-batNum') || 0,
+    genderChangable: Utils.getLocal('m-genderChangable'),
     //来自接口的属性
-    address: localStorage.getItem('m-address'),
-    birthday: localStorage.getItem('m-birthday'),
-    blood: localStorage.getItem('m-blood'),
-    cityCode: localStorage.getItem('m-cityCode'),
-    countyCode: localStorage.getItem('m-countyCode'),
-    domicile: localStorage.getItem('m-domicile'),
-    education: localStorage.getItem('m-education'),
-    height: localStorage.getItem('m-height'),
-    householdRegister: localStorage.getItem('m-householdRegister'),
-    identity: localStorage.getItem('m-identity'),
-    image: localStorage.getItem('m-image'),
-    isLead: localStorage.getItem('m-isLead'),
-    marriage: localStorage.getItem('m-marriage'),
-    memberId: localStorage.getItem('m-memberId'),
-    memberNum: localStorage.getItem('m-memberNum'),
-    nation: localStorage.getItem('m-nation'),
-    occupation: localStorage.getItem('m-occupation'),
-    phone: localStorage.getItem('m-phone'),
-    provinceCode: localStorage.getItem('m-provinceCode'),
-    realName: localStorage.getItem('m-realName'),
-    rela: localStorage.getItem('m-rela'),
-    sex: localStorage.getItem('m-sex'),
-    trueName: localStorage.getItem('m-trueName'),
-    watchId: localStorage.getItem('m-watchId'),
-    watchPhone: localStorage.getItem('m-watchPhone'),
-    weight: localStorage.getItem('m-weight'),
-    adviceGet: localStorage.getItem('m-adviceGet'),
+    address: Utils.getLocal('m-address'),
+    birthday: Utils.getLocal('m-birthday'),
+    blood: Utils.getLocal('m-blood'),
+    cityCode: Utils.getLocal('m-cityCode'),
+    countyCode: Utils.getLocal('m-countyCode'),
+    domicile: Utils.getLocal('m-domicile'),
+    education: Utils.getLocal('m-education'),
+    height: Utils.getLocal('m-height'),
+    householdRegister: Utils.getLocal('m-householdRegister'),
+    identity: Utils.getLocal('m-identity'),
+    image: Utils.getLocal('m-image'),
+    isLead: Utils.getLocal('m-isLead'),
+    marriage: Utils.getLocal('m-marriage'),
+    memberId: Utils.getLocal('m-memberId'),
+    memberNum: Utils.getLocal('m-memberNum'),
+    nation: Utils.getLocal('m-nation'),
+    occupation: Utils.getLocal('m-occupation'),
+    phone: Utils.getLocal('m-phone'),
+    provinceCode: Utils.getLocal('m-provinceCode'),
+    realName: Utils.getLocal('m-realName'),
+    rela: Utils.getLocal('m-rela'),
+    sex: Utils.getLocal('m-sex'),
+    trueName: Utils.getLocal('m-trueName'),
+    watchId: Utils.getLocal('m-watchId'),
+    watchPhone: Utils.getLocal('m-watchPhone'),
+    weight: Utils.getLocal('m-weight'),
+    adviceGet: Utils.getLocal('m-adviceGet'),
     //饮食记录
     
   },
@@ -47,16 +49,16 @@ const member = {
       let y = status[1]
       state[x] = y
       if (beArray.includes(x)) {
-        localStorage.setItem('m-' + x, JSON.stringify(y))
+        Utils.setLocal('m-' + x, y)
 
       }else{
 
-        localStorage.setItem('m-' + x, y)
+        Utils.setLocal('m-' + x, y)
       }
     },
     CLEAR_SINGLE_MEMBER_STATE: (state, name) => {
       state[name] = null
-      localStorage.setItem('m-' + name, '')
+      Utils.setLocal('m-' + name, '')
     },
     CLEAR_ALL_MEMBER_STATE: (state) => {
       let beArray = [
@@ -90,11 +92,11 @@ const member = {
         state[x] = status[x]
 
         if (beArray.includes(x)) {
-          localStorage.setItem('m-' + x, JSON.stringify(status[x]))
+          Utils.setLocal('m-' + x, status[x])
 
         } else {
 
-          localStorage.setItem('m-' + x, status[x])
+          Utils.setLocal('m-' + x, status[x])
         }
       }
     }
@@ -102,30 +104,3 @@ const member = {
 }
 
 export default member
-//this.$store.commit('SET_SINGLE_STATE',['',])
-// address: ""
-// birthday: "1986-02-02"
-// blood: "A型"
-// cityCode: 0
-// countyCode: 0
-// domicile: "浙江省-杭州市-西湖区"
-// education: ""
-// height: "177.00"
-// householdRegister: ""
-// identity: ""
-// image: "http://yinafimg.oss-cn-hangzhou.aliyuncs.com/user/201911/2816/1911281629025826.jpg"
-// isLead: 0
-// marriage: ""
-// memberId: 55
-// memberNum: "1804299155"
-// nation: "侗族"
-// occupation: ""
-// phone: "18695789388"
-// provinceCode: 0
-// realName: "测试111"
-// rela: "奶奶"
-// sex: 2
-// trueName: "烈日下"
-// watchId: 0
-// watchPhone: ""
-// weight: "50.00"

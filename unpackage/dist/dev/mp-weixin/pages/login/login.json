@@ -1,10 +1,4 @@
 {
   "navigationStyle": "custom",
-  "usingComponents": {
-    "uni-vcard": "/components/uni-vcard/uni-vcard",
-    "uni-text-field": "/components/uni-text-field/uni-text-field",
-    "uni-footer": "/components/uni-footer/uni-footer",
-    "uni-row": "/components/uni-row/uni-row",
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
+  "usingComponents": {}
 }

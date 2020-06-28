@@ -4,14 +4,11 @@
 
 <script>
 	// #ifdef APP-NVUE
-	// var domModule = weex.requireModule('dom');
+	var domModule = weex.requireModule('dom');
 	domModule.addRule('fontFace', {
-		'fontFamily': "Material Design Icons",
-		'src': url("./fonts/materialdesignicons-webfont.eot") format("embedded-opentype"), 
-					 url("./fonts/materialdesignicons-webfont.woff2") format("woff2"), 
-					 url("./fonts/materialdesignicons-webfont.woff") format("woff"), 
-					 url("./fonts/materialdesignicons-webfont.ttf") format("truetype");
-		});
+		'fontFamily': "mdi",
+    'src': "url('https://at.alicdn.com/t/font_1480855_xjtdg9ah1t.css')"
+	});
 	// #endif
 
 	/**
@@ -41,6 +38,7 @@
 		},
 		data() {
 			return {
+				icons: icons
 			}
 		},
 		methods: {
@@ -51,12 +49,18 @@
 	}
 </script>
 
-<style scoped>
-	@import './css/materialdesignicons.css';
-	
+<style lang="scss" scoped>
 	/* #ifndef APP-NVUE */
-		@import './css/materialdesignicons.css';
-
+	@font-face {
+		font-family: mdi;
+    src: url('https://at.alicdn.com/t/font_1480855_xjtdg9ah1t.css')
+	}
 
 	/* #endif */
+
+	.uni-icons {
+		font-family: mdi;
+		text-decoration: none;
+		text-align: center;
+	}
 </style>
