@@ -1,86 +1,192 @@
 {
+  "easycom": {
+  	"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue",
+    "^uni-(.*)": "@/components/uni-$1/uni-$1.vue"
+  },
 	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/tabbar/index/index",
 			"style": {
-				// "navigationStyle": "custom",
-        "backgroundColor":"#f2f2f2"
+        "navigationBarTitleText": "颐纳福"
 			}
 		},
-		{
-			"path" : "pages/login/login",
-			"style" : {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path" : "pages/family/family",
-			"style" : {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path" : "pages/service/service",
-			"style" : {
-				"navigationStyle": "custom"
-			}
+    {
+    	"path" : "pages/tabbar/family/family",
+    	"style" : {
+        "navigationBarTitleText": "家人"
+    	}
+    },
+    {
+    	"path" : "pages/tabbar/mine/mine",
+    	"style" : {
+        "navigationBarTitleText": "我的"
+    	}
+    },
+    {
+      "path": "uview-ui/components/u-avatar-cropper/u-avatar-cropper",
+      "style": {
+        "navigationBarTitleText": "头像裁剪",
+        "navigationBarBackgroundColor": "#000000"
+      }
     },
 		{
-			"path" : "pages/mine/mine",
+			"path" : "pages/public/login/login",
 			"style" : {
 				"navigationStyle": "custom"
 			}
+		},
+    {
+      "path" : "pages/public/webviewPage/webviewPage",
+      "style" : {}
+    },
+    {
+      "path" : "pages/public/firstCome/firstCome",
+      "style" : {}
     }
   ],
-	"globalStyle": {
+	"subPackages": [
+    {
+      "root": "pages/index",
+      "pages": [
+        {
+          "path" : "cityPicker/cityPicker",
+          "style" : {
+             "navigationBarTitleText":"选择城市"
+          }
+        },
+        {
+          "path" : "newsDetails/newsDetails",
+          "style" : {
+            "navigationBarTitleText":"资讯详情"
+          }
+        }          
+      ]
+    },
+    {
+      "root": "pages/family",
+      "pages": [
+        {
+          "path" : "QrCode",
+          "style" : {
+            "navigationBarTitleText": "二维码"
+          }
+        }
+        ,{
+            "path" : "deviceData",
+            "style" : {
+              "navigationStyle": "custom"
+            }
+        }
+        ,{
+            "path" : "servicePackages",
+            "style" : {
+              "navigationBarTitleText": "服务套餐"
+            }
+        }
+        ,{
+            "path" : "contacts",
+            "style" : {
+              "navigationBarTitleText": "联系人"
+            }
+        }
+        ,{
+            "path" : "location",
+            "style" : {
+              "navigationBarTitleText": "定位"
+            }
+        }
+        ,{
+            "path" : "chat",
+            "style" : {
+              "navigationBarTitleText": "微聊"
+            }
+        }
+        ,{
+            "path" : "alarms",
+            "style" : {
+              "navigationBarTitleText": "警报提醒"
+            }
+        }
+        ,{
+            "path" : "watchSetting",
+            "style" : {
+              "navigationBarTitleText": "腕表设置"
+            }
+        }
+        ,{
+            "path" : "dietRecord",
+            "style" : {
+              "navigationBarTitleText": "饮食记录"
+            }
+        }
+        ,{
+            "path" : "dietRecommend",
+            "style" : {
+              "navigationBarTitleText": "膳食推荐"
+            }
+        }
+        ,{
+            "path" : "lifeLog",
+            "style" : {
+              "navigationBarTitleText": "生活日志"
+            }
+        }
+        ,{
+            "path" : "healthRecord",
+            "style" : {
+              "navigationBarTitleText": "健康档案"
+            }
+        }
+          ,{
+                "path" : "hourData",
+                "style" : {
+                  "navigationStyle":"custom"
+                }
+              }
+                ,{
+                    "path" : "totalData",
+                    "style" : {"navigationStyle":"custom"}
+                }
+            ]
+    },
+    {
+      "root": "pages/mine",
+      "pages": [
+        {
+          "path": "mineA/mineA"
+        }
+      ]
+    }
+  ],
+	
+  "globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "颐纳福",
-		"navigationBarBackgroundColor": "#00AAEF",
-		"backgroundColor": "#FFFFFF"
+		"navigationBarBackgroundColor": "#00aaef",
+		"backgroundColor": "#F8F8F8"
 	},
-	"eazycom": {
-		"autoscan": true,
-		"custom": {
-			"uni-(.*)": "@/components/uni-$1/uni-$1.vue"
-		}
-	},
+  
 	"tabBar":{
 		"color":"#adadad",
 		"selectedColor":"#00afee",
 		"list": [
 			{
-				"pagePath":"pages/index/index",
+				"pagePath":"pages/tabbar/index/index",
 				"iconPath":"static/img/tabbarIcons/home.png",
 				"selectedIconPath":"static/img/tabbarIcons/home_HL.png",
 				"text":"首页"
 			},
 			{
-				"pagePath":"pages/family/family",
+				"pagePath":"pages/tabbar/family/family",
 				"iconPath":"static/img/tabbarIcons/clock.png",
 				"selectedIconPath":"static/img/tabbarIcons/clock_HL.png",
 				"text":"家人"
 			},
 			{
-				"pagePath":"pages/service/service",
-				"iconPath":"static/img/tabbarIcons/service.png",
-				"selectedIconPath":"static/img/tabbarIcons/service_HL.png",
-				"text":"服务"
-			},
-			{
-				"pagePath":"pages/mine/mine",
+				"pagePath":"pages/tabbar/mine/mine",
 				"iconPath":"static/img/tabbarIcons/account.png",
 				"selectedIconPath":"static/img/tabbarIcons/account_HL.png",
 				"text":"我的"
-			}
-		]
-	},
-	"condition" : { //模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]
 	}

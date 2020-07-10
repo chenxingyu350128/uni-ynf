@@ -1,7 +1,6 @@
 <!-- 行组件 -->
 <template>
-    <view class="row" :style="'justify-content:'+align ">
-      <view v-if="offset!=0" :class="'row-'+offset"></view>
+    <view class="row" :style="{'justify-content': justify, 'align-items': align }">
       <slot></slot>
     </view>
 </template>
@@ -10,14 +9,14 @@
   export default {
     name: 'Row',
     props: {           
-      align:{
+      justify:{
         type:String,
-        default: 'flex-start',                
+        default: 'flex-start'
       },
-     offset: {
-       type: [Number, String],
-       default:0
-     }
+      align: {
+        type: String,
+        default: 'center'
+      }
     },        
     mounted() {            
     }
@@ -33,8 +32,5 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-  }
-  @for $i from 1 through 100 {
-    .row-#{$i} { width: $i/100*750rpx; }
   }
 </style>

@@ -1,3 +1,4 @@
+$primary: #00aaef;
 .text--primary {
   color: rgba(0, 0, 0, 0.87) !important;
 }
@@ -8,7 +9,11 @@
   color: rgba(0, 0, 0, 0.38) !important;
 }
 .primary{
-	background-color: $primary;
+	background-color: $primary!important;
+}
+.primary--text{
+	color: $primary!important;
+	caret-color: $primary!important;
 }
 .black {
   background-color: #000000 !important;
@@ -2866,7 +2871,7 @@ input {
 .elevation-0 {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;
 }
-
+// l
 /* 字体 */
 html {
   font-size: 16px;
@@ -2958,7 +2963,7 @@ html {
   font-weight: 400;
   letter-spacing: 0.1666666667em !important;
   line-height: 1rem;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   font-family: "Roboto", sans-serif !important;
 }
 .v-application p {
@@ -3229,6 +3234,17 @@ html {
 		order: $i !important;
 	}
 }
+@for $i from 1 through 12 {
+	.col-#{$i} {
+		width: 100% / 12 * $i !important;
+	}
+}
+
+@for $i from 1 through 12 {
+	.offset-#{$i} {
+		margin-left: 100% / 12 * $i!important;
+	}
+}
 
 .order-last {
   order: 13 !important;
@@ -3283,7 +3299,11 @@ html {
 		margin-bottom: -$i*4px !important;
 	}
 }
-
+@for $i from 0 through 100 {
+  .radius-#{$i} {
+    border-radius: $i*1rpx !important;
+  }
+}
 @for $i from 0 through 12 {
 	.pa-#{$i} {
 		padding: $i*4px !important;

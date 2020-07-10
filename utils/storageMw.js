@@ -1,13 +1,19 @@
 export default {
   // 获取
-  async getLocal (key) {
+  getLocal (key) {
     let result = null
-    await uni.getStorage({
+    uni.getStorage({
       key,
       success (e) {
+        console.log(e)
         result = e.data
+      },
+      fail (e) {
+        console.log(key)
+        console.log(e)
       }
     })
+    console.log('result:', result)
     return result
   },
   // 设置用

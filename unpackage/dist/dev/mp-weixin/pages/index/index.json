@@ -1,8 +1,0 @@
-{
-  "backgroundColor": "#f2f2f2",
-  "usingComponents": {
-    "uni-row": "/components/uni-row/uni-row",
-    "uni-col": "/components/uni-col/uni-col",
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
-}

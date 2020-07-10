@@ -7,23 +7,25 @@
 
 <script>    
     export default {
-        name: 'Col',
-        props: {
-            cols: {
-                type: [Number, String]
-            }         
-        },
-        data() {               
-            return {              
-            }
-        }
+      name: 'Col',
+      props: {
+          cols: {
+             type: [Number, String]
+          }              ,
+          offset: {
+             type: [Number, String]
+          }         
+      }
     }
 </script>
 
 <style scoped lang="scss">
 @for $i from 1 through 12 {
   .col-#{$i} {
-    width: $i * 750rpx / 12; 
-   }
+    width: 100% / 12 * $i; 
+  }
+  .offset-#{$i} {
+    margin-left: 100% / 12 * $i; 
+  }
 }     
 </style>

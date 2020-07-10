@@ -1,1 +1,0 @@
-<view class="row data-v-7cf3dd00" style="{{('justify-content:'+align)}}"><block wx:if="{{offset!=0}}"><view class="{{['data-v-7cf3dd00','row-'+offset]}}"></view></block><slot></slot></view>
