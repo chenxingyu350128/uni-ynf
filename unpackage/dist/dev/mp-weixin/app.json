@@ -32,13 +32,17 @@
         "lifeLog",
         "healthRecord",
         "hourData",
-        "totalData"
+        "totalData",
+        "addNewMember"
       ]
     },
     {
       "root": "pages/mine",
       "pages": [
-        "mineA/mineA"
+        "mineA/mineA",
+        "myWallet",
+        "usageAssistant",
+        "feedback"
       ]
     }
   ],
@@ -77,6 +81,5 @@
       "desc": "获取位置以便我们提供更优质的服务"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap16.json"
+  "usingComponents": {}
 }

@@ -29,6 +29,76 @@ uni.$on('routerToLogin', function () {
 
 });
 
+uni.$on('scanCode', function (e) {
+  console.log(e);
+  _vue.default.prototype.scanType = e;
+  uni.scanCode({
+    scanType: [e ? 'qrCode' : 'barCode'], // 添加设备条形码， 添加好友二维码
+    success: function success(res) {
+      console.log(res);
+      dealScanResult(res.result);
+    } });
+
+});
+
+function dealScanResult(e) {
+  var data = _vue.default.prototype.scanType ?
+  { // 添加好友
+    sessionId: _store.default.state.app.sessionId,
+    memberNum: e } :
+
+
+  { // 添加设备
+    memberId: _store.default.state.member.memberId,
+    sessionId: _store.default.state.app.sessionId,
+    watchImei: e };
+
+
+  var url = _vue.default.prototype.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch';
+
+  _vue.default.prototype.$http.post(url, data).
+  then(function (res) {
+    if (res.data.success) {
+      if (_vue.default.prototype.scanType) {
+        addMember(res.data.obj.memberId);
+      } else {// 添加设备
+        getMemberList();
+        uni.showToast({
+          title: '腕表绑定成功' });
+
+      }
+    }
+  });
+}
+
+function addMember(memberId) {
+  var data = {
+    sessionId: _store.default.state.app.sessionId,
+    memberId: memberId };
+
+  _vue.default.prototype.$http.post('/mobile/healthy/addEwmMember', data).
+  then(function (res) {
+    if (res.data.success) {
+      getMemberList();
+      uni.showToast({
+        title: '添加好友成功' });
+
+    }
+  });
+}
+function getMemberList() {
+  _vue.default.prototype.$http.get('/mobile/user/getMemberList', { sessionId: _store.default.state.app.sessionId }).
+  then(function (res) {
+    if (res.data.success) {
+      console.log(_store.default.state.app);
+      _store.default.commit('SET_SINGLE_ITEM', ['memberList', res.data.obj]);
+      console.log(_store.default.state.app);
+    }
+  });
+}
+uni.$on('getMemberList', function () {
+  getMemberList();
+});
 var app = new _vue.default(_objectSpread({
   store: _store.default },
 _App.default));

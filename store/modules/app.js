@@ -76,8 +76,14 @@ const mutations = {
     }
   }
 }
+const actions = {
+  setMemberList: (context, res) => {
+    context.commit('SET_SINGLE_ITEM', res)
+  }
+}
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }

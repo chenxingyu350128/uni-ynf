@@ -25,8 +25,14 @@
     width: 100%;
     box-sizing: border-box;
   }
+  .border-box{
+    box-sizing: border-box;
+  }
   .posAbs{
     position: absolute!important;
+  }
+  .posFix{
+    position: fixed!important;
   }
   .posRela{
     position: relative;
@@ -46,5 +52,8 @@
   }
   .b0{
     bottom: 0;
+  }
+  .b-radius0{
+    border-radius: 0!important;
   }
 </style>

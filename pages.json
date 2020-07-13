@@ -44,7 +44,7 @@
       "style" : {}
     }
   ],
-	"subPackages": [
+	"subpackages": [
     {
       "root": "pages/index",
       "pages": [
@@ -147,6 +147,10 @@
                     "path" : "totalData",
                     "style" : {"navigationStyle":"custom"}
                 }
+                ,{
+                    "path" : "addNewMember",
+                    "style" : {"navigationBarTitleText": "添加新成员"}
+                }
             ]
     },
     {
@@ -155,7 +159,19 @@
         {
           "path": "mineA/mineA"
         }
-      ]
+          ,{
+                    "path" : "myWallet",
+                    "style" : {"navigationBarTitleText": "我的钱包"}
+                }
+                ,{
+                    "path" : "usageAssistant",
+                    "style" : {"navigationBarTitleText": "使用帮助"}
+                }
+                ,{
+                    "path" : "feedback",
+                    "style" : {"navigationBarTitleText": "意见反馈"}
+                }
+            ]
     }
   ],
 	
