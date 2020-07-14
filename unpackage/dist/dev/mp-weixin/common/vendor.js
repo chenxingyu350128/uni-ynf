@@ -760,7 +760,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8040,7 +8040,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8061,14 +8061,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8144,7 +8144,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -10854,7 +10854,7 @@ var index_esm = {
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _storageMw = _interopRequireDefault(__webpack_require__(/*! ../../utils/storageMw.js */ 42));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}
 var state = {
   isLoading: _storageMw.default.getLocal('isLoading'),
-  // 获取用户信息
+  // 获取微信用户信息
   userInfo: _storageMw.default.getLocal('userInfo'),
   locationPoint: _storageMw.default.getLocal('locationPoint'),
   encryptedData: _storageMw.default.getLocal('encryptedData'),
@@ -10880,11 +10880,20 @@ var state = {
   userId: _storageMw.default.getLocal('userId'),
   token: _storageMw.default.getLocal('token'),
   userName: _storageMw.default.getLocal('userName'),
-  image: _storageMw.default.getLocal('image'),
-  realName: _storageMw.default.getLocal('realName'),
   openId: _storageMw.default.getLocal('openId'),
   vxName: _storageMw.default.getLocal('vxName'),
-  wechatType: _storageMw.default.getLocal('wechatType') };
+  wechatType: _storageMw.default.getLocal('wechatType'),
+  image: _storageMw.default.getLocal('image'),
+  realName: _storageMw.default.getLocal('realName'),
+  birthday: _storageMw.default.getLocal('birthday'),
+  sex: _storageMw.default.getLocal('sex'),
+  blood: _storageMw.default.getLocal('blood'),
+  domicile: _storageMw.default.getLocal('domicile'),
+  householdRegister: _storageMw.default.getLocal('householdRegister'),
+  mail: _storageMw.default.getLocal('mail'),
+  occupation: _storageMw.default.getLocal('occupation') };
+
+
 
 
 
@@ -10923,6 +10932,7 @@ var mutations = {
     }
   },
   SET_EACH_ITEM: function SET_EACH_ITEM(state, res) {
+    console.log('');
     for (var x in res) {
       state[x] = res[x];
       _storageMw.default.setLocal(x, res[x]);
@@ -11009,6 +11019,8 @@ var member = {
     watchPhone: _storageMw.default.getLocal('watchPhone'),
     isLead: _storageMw.default.getLocal('isLead'),
     realName: _storageMw.default.getLocal('realName'),
+    trueName: _storageMw.default.getLocal('trueName'),
+    identity: _storageMw.default.getLocal('identity'),
     rela: _storageMw.default.getLocal('rela'),
     address: _storageMw.default.getLocal('address'),
     birthday: _storageMw.default.getLocal('birthday'),
@@ -11838,112 +11850,6 @@ module.exports = function (engine) {
 
 /***/ }),
 
-/***/ 479:
-/*!**************************************************!*\
-  !*** E:/learn/xxx/components/uni-icons/icons.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'contact': "\uE100",
-  'person': "\uE101",
-  'personadd': "\uE102",
-  'contact-filled': "\uE130",
-  'person-filled': "\uE131",
-  'personadd-filled': "\uE132",
-  'phone': "\uE200",
-  'email': "\uE201",
-  'chatbubble': "\uE202",
-  'chatboxes': "\uE203",
-  'phone-filled': "\uE230",
-  'email-filled': "\uE231",
-  'chatbubble-filled': "\uE232",
-  'chatboxes-filled': "\uE233",
-  'weibo': "\uE260",
-  'weixin': "\uE261",
-  'pengyouquan': "\uE262",
-  'chat': "\uE263",
-  'qq': "\uE264",
-  'videocam': "\uE300",
-  'camera': "\uE301",
-  'mic': "\uE302",
-  'location': "\uE303",
-  'mic-filled': "\uE332",
-  'speech': "\uE332",
-  'location-filled': "\uE333",
-  'micoff': "\uE360",
-  'image': "\uE363",
-  'map': "\uE364",
-  'compose': "\uE400",
-  'trash': "\uE401",
-  'upload': "\uE402",
-  'download': "\uE403",
-  'close': "\uE404",
-  'redo': "\uE405",
-  'undo': "\uE406",
-  'refresh': "\uE407",
-  'star': "\uE408",
-  'plus': "\uE409",
-  'minus': "\uE410",
-  'circle': "\uE411",
-  'checkbox': "\uE411",
-  'close-filled': "\uE434",
-  'clear': "\uE434",
-  'refresh-filled': "\uE437",
-  'star-filled': "\uE438",
-  'plus-filled': "\uE439",
-  'minus-filled': "\uE440",
-  'circle-filled': "\uE441",
-  'checkbox-filled': "\uE442",
-  'closeempty': "\uE460",
-  'refreshempty': "\uE461",
-  'reload': "\uE462",
-  'starhalf': "\uE463",
-  'spinner': "\uE464",
-  'spinner-cycle': "\uE465",
-  'search': "\uE466",
-  'plusempty': "\uE468",
-  'forward': "\uE470",
-  'back': "\uE471",
-  'left-nav': "\uE471",
-  'checkmarkempty': "\uE472",
-  'home': "\uE500",
-  'navigate': "\uE501",
-  'gear': "\uE502",
-  'paperplane': "\uE503",
-  'info': "\uE504",
-  'help': "\uE505",
-  'locked': "\uE506",
-  'more': "\uE507",
-  'flag': "\uE508",
-  'home-filled': "\uE530",
-  'gear-filled': "\uE532",
-  'info-filled': "\uE534",
-  'help-filled': "\uE535",
-  'more-filled': "\uE537",
-  'settings': "\uE560",
-  'list': "\uE562",
-  'bars': "\uE563",
-  'loop': "\uE565",
-  'paperclip': "\uE567",
-  'eye': "\uE568",
-  'arrowup': "\uE580",
-  'arrowdown': "\uE581",
-  'arrowleft': "\uE582",
-  'arrowright': "\uE583",
-  'arrowthinup': "\uE584",
-  'arrowthindown': "\uE585",
-  'arrowthinleft': "\uE586",
-  'arrowthinright': "\uE587",
-  'pulldown': "\uE588",
-  'closefill': "\uE589",
-  'sound': "\uE590",
-  'scan': "\uE612" };exports.default = _default;
-
-/***/ }),
-
 /***/ 51:
 /*!*********************************************************************************************!*\
   !*** ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator/index.js ***!
@@ -12732,6 +12638,112 @@ if (hadRuntime) {
   })() || Function("return this")()
 );
 
+
+/***/ }),
+
+/***/ 533:
+/*!**************************************************!*\
+  !*** E:/learn/xxx/components/uni-icons/icons.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'contact': "\uE100",
+  'person': "\uE101",
+  'personadd': "\uE102",
+  'contact-filled': "\uE130",
+  'person-filled': "\uE131",
+  'personadd-filled': "\uE132",
+  'phone': "\uE200",
+  'email': "\uE201",
+  'chatbubble': "\uE202",
+  'chatboxes': "\uE203",
+  'phone-filled': "\uE230",
+  'email-filled': "\uE231",
+  'chatbubble-filled': "\uE232",
+  'chatboxes-filled': "\uE233",
+  'weibo': "\uE260",
+  'weixin': "\uE261",
+  'pengyouquan': "\uE262",
+  'chat': "\uE263",
+  'qq': "\uE264",
+  'videocam': "\uE300",
+  'camera': "\uE301",
+  'mic': "\uE302",
+  'location': "\uE303",
+  'mic-filled': "\uE332",
+  'speech': "\uE332",
+  'location-filled': "\uE333",
+  'micoff': "\uE360",
+  'image': "\uE363",
+  'map': "\uE364",
+  'compose': "\uE400",
+  'trash': "\uE401",
+  'upload': "\uE402",
+  'download': "\uE403",
+  'close': "\uE404",
+  'redo': "\uE405",
+  'undo': "\uE406",
+  'refresh': "\uE407",
+  'star': "\uE408",
+  'plus': "\uE409",
+  'minus': "\uE410",
+  'circle': "\uE411",
+  'checkbox': "\uE411",
+  'close-filled': "\uE434",
+  'clear': "\uE434",
+  'refresh-filled': "\uE437",
+  'star-filled': "\uE438",
+  'plus-filled': "\uE439",
+  'minus-filled': "\uE440",
+  'circle-filled': "\uE441",
+  'checkbox-filled': "\uE442",
+  'closeempty': "\uE460",
+  'refreshempty': "\uE461",
+  'reload': "\uE462",
+  'starhalf': "\uE463",
+  'spinner': "\uE464",
+  'spinner-cycle': "\uE465",
+  'search': "\uE466",
+  'plusempty': "\uE468",
+  'forward': "\uE470",
+  'back': "\uE471",
+  'left-nav': "\uE471",
+  'checkmarkempty': "\uE472",
+  'home': "\uE500",
+  'navigate': "\uE501",
+  'gear': "\uE502",
+  'paperplane': "\uE503",
+  'info': "\uE504",
+  'help': "\uE505",
+  'locked': "\uE506",
+  'more': "\uE507",
+  'flag': "\uE508",
+  'home-filled': "\uE530",
+  'gear-filled': "\uE532",
+  'info-filled': "\uE534",
+  'help-filled': "\uE535",
+  'more-filled': "\uE537",
+  'settings': "\uE560",
+  'list': "\uE562",
+  'bars': "\uE563",
+  'loop': "\uE565",
+  'paperclip': "\uE567",
+  'eye': "\uE568",
+  'arrowup': "\uE580",
+  'arrowdown': "\uE581",
+  'arrowleft': "\uE582",
+  'arrowright': "\uE583",
+  'arrowthinup': "\uE584",
+  'arrowthindown': "\uE585",
+  'arrowthinleft': "\uE586",
+  'arrowthinright': "\uE587",
+  'pulldown': "\uE588",
+  'closefill': "\uE589",
+  'sound': "\uE590",
+  'scan': "\uE612" };exports.default = _default;
 
 /***/ }),
 

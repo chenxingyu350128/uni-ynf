@@ -1,7 +1,7 @@
 import Utils from '../../utils/storageMw.js'
 const state = {
   isLoading: Utils.getLocal('isLoading'),
-  // 获取用户信息
+  // 获取微信用户信息
   userInfo: Utils.getLocal('userInfo'),
   locationPoint: Utils.getLocal('locationPoint'),
   encryptedData: Utils.getLocal('encryptedData'),
@@ -27,11 +27,20 @@ const state = {
   userId: Utils.getLocal('userId'),
   token: Utils.getLocal('token'),
   userName: Utils.getLocal('userName'),
-  image: Utils.getLocal('image'),
-  realName: Utils.getLocal('realName'),
   openId: Utils.getLocal('openId'),
   vxName: Utils.getLocal('vxName'),
   wechatType: Utils.getLocal('wechatType'),
+  image: Utils.getLocal('image'),
+  realName: Utils.getLocal('realName'),
+  birthday: Utils.getLocal('birthday'),
+  sex: Utils.getLocal('sex'),
+  blood: Utils.getLocal('blood'),
+  domicile: Utils.getLocal('domicile'),
+  householdRegister: Utils.getLocal('householdRegister'),
+  mail: Utils.getLocal('mail'),
+  occupation: Utils.getLocal('occupation')
+
+  
   
 }
 
@@ -70,6 +79,7 @@ const mutations = {
     }
   },
   SET_EACH_ITEM: (state, res) => {
+    console.log('')
     for (const x in res) {
       state[x] = res[x]
       Utils.setLocal(x, res[x])

@@ -150,6 +150,38 @@
                 ,{
                     "path" : "addNewMember",
                     "style" : {"navigationBarTitleText": "添加新成员"}
+                } 
+                ,{
+                    "path" : "alarmDetails",
+                    "style" : {"navigationBarTitleText": "警报详情"}
+                }
+                ,{
+                    "path" : "InformationDetails",
+                    "style" : {"navigationBarTitleText": "成员设置"}
+                }              
+                ,{
+                    "path" : "modifySingleItem",
+                    "style" : {"navigationBarTitleText": "编辑详细信息"}
+                }            
+                ,{
+                    "path" : "sosSetting",
+                    "style" : {"navigationBarTitleText": "SOS设置"}
+                }
+                ,{
+                    "path" : "watchInfo",
+                    "style" : {"navigationBarTitleText": "腕表信息"}
+                }
+                ,{
+                    "path" : "AddressBook",
+                    "style" : {"navigationBarTitleText": "通讯录"}
+                }
+                ,{
+                    "path" : "alarmAlert",
+                    "style" : {"navigationBarTitleText": "闹钟提醒"}
+                }
+                ,{
+                    "path" : "AssociatedApp",
+                    "style" : {"navigationBarTitleText": "关联App"}
                 }
             ]
     },

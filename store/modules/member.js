@@ -9,6 +9,8 @@ const member = {
     watchPhone: Utils.getLocal('watchPhone'),
     isLead: Utils.getLocal('isLead'),
     realName: Utils.getLocal('realName'),
+    trueName: Utils.getLocal('trueName'),
+    identity: Utils.getLocal('identity'),
     rela: Utils.getLocal('rela'),
     address: Utils.getLocal('address'),
     birthday: Utils.getLocal('birthday'),

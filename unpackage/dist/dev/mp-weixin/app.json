@@ -33,7 +33,15 @@
         "healthRecord",
         "hourData",
         "totalData",
-        "addNewMember"
+        "addNewMember",
+        "alarmDetails",
+        "InformationDetails",
+        "modifySingleItem",
+        "sosSetting",
+        "watchInfo",
+        "AddressBook",
+        "alarmAlert",
+        "AssociatedApp"
       ]
     },
     {
@@ -81,5 +89,6 @@
       "desc": "获取位置以便我们提供更优质的服务"
     }
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap57.json"
 }
