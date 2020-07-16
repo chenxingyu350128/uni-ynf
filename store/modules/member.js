@@ -12,6 +12,7 @@ const member = {
     trueName: Utils.getLocal('trueName'),
     identity: Utils.getLocal('identity'),
     rela: Utils.getLocal('rela'),
+    sex: Utils.getLocal('sex'),
     address: Utils.getLocal('address'),
     birthday: Utils.getLocal('birthday'),
     domicile: Utils.getLocal('domicile'), // 户籍地？

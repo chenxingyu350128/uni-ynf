@@ -19,12 +19,12 @@ fly.config.baseURL = 'http://192.168.1.101:8090/yinaf'
 fly.interceptors.request.use(
 	config=>{
 		config.body = qs.stringify(config.body)
-		const token = store.state.app.token
-		if(token){
-			config.headers = {
-				token
-			}
-		}
+		// const token = store.state.app.token
+		// if(token){
+		// 	config.headers = {
+		// 		token
+		// 	}
+		// }
 		if(config.method === "post"){
 			const uploadUrl = [
 				'/mobile/user/sendMessage',
@@ -40,6 +40,9 @@ fly.interceptors.request.use(
 		// if(config.method === "get"){
 		// 	config.params = qs.stringify(config.body)
 		// }
+    uni.showLoading({
+      title: '加载中'
+    })
     store.commit('SET_SINGLE_ITEM', ['isLoading', true])
 		return config
 	},
@@ -70,6 +73,7 @@ fly.interceptors.response.use(
 
 		setTimeout(() => {
       store.commit('SET_SINGLE_ITEM', ['isLoading', false])
+      uni.hideLoading()
 		}, 300);
     console.log(config)
 		return config;
@@ -77,6 +81,7 @@ fly.interceptors.response.use(
 	err=>{
 		setTimeout(() => {
       store.commit('SET_SINGLE_ITEM', ['isLoading', false])
+      uni.hideLoading()
 		}, 300);
 		return err
 	}

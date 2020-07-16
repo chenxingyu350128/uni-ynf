@@ -9,6 +9,10 @@ Vue.prototype.$http = http.fly
 
 import store from 'store.js'
 
+Vue.prototype.sessionId = store.state.app.sessionId
+Vue.prototype.userId = store.state.app.userId
+Vue.prototype.memberId = store.state.member.memberId
+
 Vue.config.productionTip = false
 
 App.mpType = 'app'
@@ -87,8 +91,36 @@ function getMemberList () {
       }
     })
 }
+function getUser () {
+  Vue.prototype.$http.get('/mobile/user/getUser', { sessionId: store.state.app.sessionId })
+    .then(res => {
+      if (res.data.success) {
+        const obj = res.data.obj
+        store.commit('SET_EACH_ITEM', obj)
+      }
+    })        
+}
+function getMember () {
+  const data = {
+    memberId: store.state.member.memberId,
+    sessionId: store.state.app.sessionId
+  }
+  Vue.prototype.$http.get('/mobile/user/getMember', data)
+    .then(res => {
+      if (res.data.success) {
+        const obj = res.data.obj
+        store.commit('SET_EACH_MEMBER_ITEM', obj)
+      }
+    })        
+}
 uni.$on('getMemberList', () => {
   getMemberList()
+})
+uni.$on('getMember', () => {
+  getMember()
+})
+uni.$on('getUser', () => {
+  getUser()
 })
 const app = new Vue({
   store,

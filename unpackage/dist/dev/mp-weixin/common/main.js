@@ -18,6 +18,10 @@ var _flyIO = _interopRequireDefault(__webpack_require__(/*! @/utils/flyIO.js */ 
 
 var _store = _interopRequireDefault(__webpack_require__(/*! store.js */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.use(_uviewUi.default);_vue.default.prototype.$http = _flyIO.default.fly;
 
+_vue.default.prototype.sessionId = _store.default.state.app.sessionId;
+_vue.default.prototype.userId = _store.default.state.app.userId;
+_vue.default.prototype.memberId = _store.default.state.member.memberId;
+
 _vue.default.config.productionTip = false;
 
 _App.default.mpType = 'app';
@@ -96,8 +100,36 @@ function getMemberList() {
     }
   });
 }
+function getUser() {
+  _vue.default.prototype.$http.get('/mobile/user/getUser', { sessionId: _store.default.state.app.sessionId }).
+  then(function (res) {
+    if (res.data.success) {
+      var obj = res.data.obj;
+      _store.default.commit('SET_EACH_ITEM', obj);
+    }
+  });
+}
+function getMember() {
+  var data = {
+    memberId: _store.default.state.member.memberId,
+    sessionId: _store.default.state.app.sessionId };
+
+  _vue.default.prototype.$http.get('/mobile/user/getMember', data).
+  then(function (res) {
+    if (res.data.success) {
+      var obj = res.data.obj;
+      _store.default.commit('SET_EACH_MEMBER_ITEM', obj);
+    }
+  });
+}
 uni.$on('getMemberList', function () {
   getMemberList();
+});
+uni.$on('getMember', function () {
+  getMember();
+});
+uni.$on('getUser', function () {
+  getUser();
 });
 var app = new _vue.default(_objectSpread({
   store: _store.default },

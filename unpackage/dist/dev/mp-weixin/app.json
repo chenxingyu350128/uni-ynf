@@ -27,6 +27,7 @@
         "chat",
         "alarms",
         "watchSetting",
+        "modifyRemind",
         "dietRecord",
         "dietRecommend",
         "lifeLog",
@@ -38,6 +39,8 @@
         "InformationDetails",
         "modifySingleItem",
         "sosSetting",
+        "EmergencyInfo",
+        "modifyContact",
         "watchInfo",
         "AddressBook",
         "alarmAlert",
@@ -47,10 +50,14 @@
     {
       "root": "pages/mine",
       "pages": [
-        "mineA/mineA",
         "myWallet",
+        "addFeedback",
+        "myFeedback",
+        "feedbackDetails",
+        "cashTake",
         "usageAssistant",
-        "feedback"
+        "feedback",
+        "aboutUs"
       ]
     }
   ],
@@ -90,5 +97,5 @@
     }
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap57.json"
+  "sitemapLocation": "sitemap80.json"
 }

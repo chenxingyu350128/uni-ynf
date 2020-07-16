@@ -114,6 +114,12 @@
             }
         }
         ,{
+            "path" : "modifyRemind",
+            "style" : {
+              "navigationBarTitleText": "编辑提醒"
+            }
+        }
+        ,{
             "path" : "dietRecord",
             "style" : {
               "navigationBarTitleText": "饮食记录"
@@ -168,6 +174,14 @@
                     "style" : {"navigationBarTitleText": "SOS设置"}
                 }
                 ,{
+                    "path" : "EmergencyInfo",
+                    "style" : {"navigationBarTitleText": "个人紧急信息"}
+                }
+                ,{
+                    "path" : "modifyContact",
+                    "style" : {"navigationBarTitleText": "编辑联系人"}
+                }
+                ,{
                     "path" : "watchInfo",
                     "style" : {"navigationBarTitleText": "腕表信息"}
                 }
@@ -189,21 +203,38 @@
       "root": "pages/mine",
       "pages": [
         {
-          "path": "mineA/mineA"
+          "path" : "myWallet",
+          "style" : {"navigationBarTitleText": "我的钱包"}
         }
-          ,{
-                    "path" : "myWallet",
-                    "style" : {"navigationBarTitleText": "我的钱包"}
-                }
-                ,{
-                    "path" : "usageAssistant",
-                    "style" : {"navigationBarTitleText": "使用帮助"}
-                }
-                ,{
-                    "path" : "feedback",
-                    "style" : {"navigationBarTitleText": "意见反馈"}
-                }
-            ]
+        ,{
+          "path" : "addFeedback",
+          "style" : {"navigationBarTitleText": "添加反馈"}
+        }
+        ,{
+          "path" : "myFeedback",
+          "style" : {"navigationBarTitleText": "我的反馈"}
+        }
+        ,{
+          "path" : "feedbackDetails",
+          "style" : {"navigationBarTitleText": "反馈处理详情"}
+        }
+        ,{
+          "path" : "cashTake",
+          "style" : {"navigationBarTitleText": "提现申请"}
+        }
+        ,{
+          "path" : "usageAssistant",
+          "style" : {"navigationBarTitleText": "使用帮助"}
+        }
+        ,{
+          "path" : "feedback",
+          "style" : {"navigationBarTitleText": "意见反馈"}
+        }
+        ,{
+          "path" : "aboutUs",
+          "style" : {"navigationBarTitleText": "关于我们"}
+        }
+      ]
     }
   ],
 	

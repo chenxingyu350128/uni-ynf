@@ -1,27 +1,12 @@
 export default {
   // 获取
   getLocal (key) {
-    let result = null
-    uni.getStorage({
-      key,
-      success (e) {
-        console.log(e)
-        result = e.data
-      },
-      fail (e) {
-        console.log(key)
-        console.log(e)
-      }
-    })
-    console.log('result:', result)
-    return result
+    
+    return uni.getStorageSync(key)
   },
   // 设置用
   setLocal (key, data) {
-    uni.setStorage({
-      key,
-      data
-    })
+    uni.setStorageSync(key, data)
   },
   removeLocal (key) {
     uni.removeStorage({
@@ -32,6 +17,6 @@ export default {
     });
   },
   clearLocal () {
-    uni.clearStorage()
+    uni.clearStorageSync()
   }
 }
