@@ -12,7 +12,7 @@
   "dependencies": {
     "@dcloudio/uni-helper-json": "^1.0.5",
     "flyio": "^0.6.14",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "miniprogram-sm-crypto": "^0.1.2",
     "vue": "^2.6.11",
     "vuex": "^3.1.3"
