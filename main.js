@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
 Vue.use(uView);
-
+// check git
 import http from '@/utils/flyIO.js'
 
 Vue.prototype.$http = http.fly
