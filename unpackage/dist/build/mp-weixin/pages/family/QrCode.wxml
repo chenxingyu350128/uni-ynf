@@ -1,0 +1,1 @@
+<view class="py-12 d-flex flex-column align-center"><u-image vue-id="7dd43e56-1" shape="circle" src="{{image}}" width="240" height="240" bind:__l="__l"></u-image><text class="mt-8">{{realName||'???'}}</text><text class="my-8">{{"编号："+memberNum}}</text><canvas style="width:150px;height:150px;" canvas-id="qrcode"></canvas></view>

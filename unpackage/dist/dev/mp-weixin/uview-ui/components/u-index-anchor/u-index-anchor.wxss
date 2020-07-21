@@ -1,0 +1,26 @@
+/* uni.scss */
+image.data-v-51a42180 {
+  display: inline-block;
+  will-change: transform;
+}
+view.data-v-51a42180,
+text.data-v-51a42180 {
+  box-sizing: border-box;
+}
+.u-index-anchor.data-v-51a42180 {
+  box-sizing: border-box;
+  padding: 14rpx 24rpx;
+  color: #606266;
+  width: 100%;
+  font-weight: 500;
+  font-size: 28rpx;
+  line-height: 1.2;
+  background-color: whitesmoke;
+}
+.u-index-anchor--active.data-v-51a42180 {
+  right: 0;
+  left: 0;
+  color: #2979ff;
+  background-color: #fff;
+}
+

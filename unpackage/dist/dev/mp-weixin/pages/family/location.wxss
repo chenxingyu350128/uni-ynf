@@ -1,0 +1,12 @@
+/* uni.scss */
+.page.data-v-7b285e97 {
+  height: 100vh;
+}
+.setPos.data-v-7b285e97 {
+  right: 20rpx;
+  top: 20px;
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+}
+

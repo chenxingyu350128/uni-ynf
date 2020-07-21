@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "编辑提醒",
+  "usingComponents": {
+    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-field": "/uview-ui/components/u-field/u-field",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-picker": "/uview-ui/components/u-picker/u-picker"
+  }
+}

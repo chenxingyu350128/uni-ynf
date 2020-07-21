@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "步数排行榜",
+  "usingComponents": {
+    "u-tabs": "/uview-ui/components/u-tabs/u-tabs",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-line": "/uview-ui/components/u-line/u-line",
+    "u-empty": "/uview-ui/components/u-empty/u-empty",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
+    "u-popup": "/uview-ui/components/u-popup/u-popup",
+    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-select": "/uview-ui/components/u-select/u-select"
+  }
+}

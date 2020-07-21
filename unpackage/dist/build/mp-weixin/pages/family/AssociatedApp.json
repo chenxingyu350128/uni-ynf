@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "关联App",
+  "usingComponents": {
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-line": "/uview-ui/components/u-line/u-line",
+    "u-empty": "/uview-ui/components/u-empty/u-empty"
+  }
+}

@@ -1,0 +1,5 @@
+/* uni.scss */
+.contentWidth.data-v-696aa9b8 {
+  width: calc(100% - 5em) !important;
+}
+

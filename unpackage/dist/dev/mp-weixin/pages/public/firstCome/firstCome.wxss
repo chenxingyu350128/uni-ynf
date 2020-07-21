@@ -1,0 +1,12 @@
+/* uni.scss */
+.height65.data-v-6d67cc6c {
+  height: 65vh;
+}
+.height35.data-v-6d67cc6c {
+  height: 35vh;
+}
+.logoImg.data-v-6d67cc6c {
+  width: 180rpx;
+  height: 120rpx;
+}
+

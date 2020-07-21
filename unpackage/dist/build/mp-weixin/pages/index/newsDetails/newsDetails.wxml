@@ -1,0 +1,1 @@
+<view class="pa-1"><view class="title font-weight-bold mb-4">{{''+newTitle+''}}</view><view class="mb-2 grey--text">{{createTime}}</view><rich-text class="richText" nodes="{{newContent}}"></rich-text><image src="{{newPic}}" mode="widthFix"></image></view>

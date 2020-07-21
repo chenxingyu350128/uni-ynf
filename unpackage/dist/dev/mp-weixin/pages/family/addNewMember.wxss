@@ -1,0 +1,12 @@
+/* uni.scss */
+.page.data-v-4d2d46ca {
+  height: 100vh;
+}
+.genderImage.data-v-4d2d46ca {
+  width: 225rpx;
+  height: 225rpx;
+}
+.pl5em.data-v-4d2d46ca {
+  padding-left: 5em;
+}
+

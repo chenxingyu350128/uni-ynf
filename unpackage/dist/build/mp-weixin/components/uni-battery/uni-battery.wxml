@@ -1,0 +1,1 @@
+<view class="battery data-v-08a6d6ac"><view class="{{['fill-height data-v-08a6d6ac',battery<=20?'red':'white']}}" style="{{'width:'+(battery+'%')+';'}}"></view><view class="extra data-v-08a6d6ac"></view></view>

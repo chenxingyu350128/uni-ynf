@@ -1,0 +1,1 @@
+<view><u-cell-group vue-id="6d349f03-1" bind:__l="__l" vue-slots="{{['default']}}"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="i" wx:key="i"><u-cell-item vue-id="{{('6d349f03-2-'+i)+','+('6d349f03-1')}}" title="{{item.title}}" data-event-opts="{{[['^click',[['cellClick',[i]]]]]}}" bind:click="__e" bind:__l="__l"></u-cell-item></block></u-cell-group></view>

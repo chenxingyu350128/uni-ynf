@@ -1,0 +1,9 @@
+/* uni.scss */
+.setPos.data-v-85d0530c {
+  right: 20rpx;
+  top: 20vh;
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+}
+

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "我的反馈",
+  "usingComponents": {
+    "u-swipe-action": "/uview-ui/components/u-swipe-action/u-swipe-action",
+    "u-line": "/uview-ui/components/u-line/u-line",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
+    "u-empty": "/uview-ui/components/u-empty/u-empty"
+  }
+}

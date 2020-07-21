@@ -1,0 +1,108 @@
+{
+  "pages": [
+    "pages/tabbar/index/index",
+    "pages/tabbar/family/family",
+    "pages/tabbar/mine/mine",
+    "uview-ui/components/u-avatar-cropper/u-avatar-cropper",
+    "pages/public/login/login",
+    "pages/public/webviewPage/webviewPage",
+    "pages/public/firstCome/firstCome"
+  ],
+  "subPackages": [
+    {
+      "root": "pages/index",
+      "pages": [
+        "cityPicker/cityPicker",
+        "newsDetails/newsDetails"
+      ]
+    },
+    {
+      "root": "pages/family",
+      "pages": [
+        "QrCode",
+        "deviceData",
+        "addMeasureData",
+        "stepAim",
+        "stepRank",
+        "servicePackages",
+        "contacts",
+        "location",
+        "electricFence",
+        "modifyFence",
+        "locationHistory",
+        "locationHistoryMap",
+        "chat",
+        "alarms",
+        "watchSetting",
+        "modifyRemind",
+        "dietRecord",
+        "dietRecommend",
+        "lifeLog",
+        "healthRecord",
+        "hourData",
+        "totalData",
+        "addNewMember",
+        "alarmDetails",
+        "InformationDetails",
+        "modifySingleItem",
+        "sosSetting",
+        "EmergencyInfo",
+        "modifyContact",
+        "watchInfo",
+        "AddressBook",
+        "alarmAlert",
+        "AssociatedApp"
+      ]
+    },
+    {
+      "root": "pages/mine",
+      "pages": [
+        "myWallet",
+        "addFeedback",
+        "myFeedback",
+        "feedbackDetails",
+        "cashTake",
+        "usageAssistant",
+        "feedback",
+        "aboutUs"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "颐纳福",
+    "navigationBarBackgroundColor": "#00aaef",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#adadad",
+    "selectedColor": "#00afee",
+    "list": [
+      {
+        "pagePath": "pages/tabbar/index/index",
+        "iconPath": "static/img/tabbarIcons/home.png",
+        "selectedIconPath": "static/img/tabbarIcons/home_HL.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tabbar/family/family",
+        "iconPath": "static/img/tabbarIcons/clock.png",
+        "selectedIconPath": "static/img/tabbarIcons/clock_HL.png",
+        "text": "家人"
+      },
+      {
+        "pagePath": "pages/tabbar/mine/mine",
+        "iconPath": "static/img/tabbarIcons/account.png",
+        "selectedIconPath": "static/img/tabbarIcons/account_HL.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取位置以便我们提供更优质的服务"
+    }
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,11 @@
+/* uni.scss */
+.logoImg.data-v-3d369a70 {
+  width: 112rpx;
+  height: 76rpx;
+}
+.boxShadow.data-v-3d369a70 {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 20rpx;
+}
+

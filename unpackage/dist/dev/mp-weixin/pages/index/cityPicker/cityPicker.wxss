@@ -1,0 +1,9 @@
+/* uni.scss */
+.recommend {
+  margin-right: 8px;
+}
+.tag {
+  right: 0;
+  top: -4px;
+}
+
