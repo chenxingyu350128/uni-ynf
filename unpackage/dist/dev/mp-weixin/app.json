@@ -21,9 +21,16 @@
       "pages": [
         "QrCode",
         "deviceData",
+        "addMeasureData",
+        "stepAim",
+        "stepRank",
         "servicePackages",
         "contacts",
         "location",
+        "electricFence",
+        "modifyFence",
+        "locationHistory",
+        "locationHistoryMap",
         "chat",
         "alarms",
         "watchSetting",
@@ -97,5 +104,5 @@
     }
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap80.json"
+  "sitemapLocation": "sitemap5.json"
 }

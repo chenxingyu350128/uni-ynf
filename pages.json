@@ -78,6 +78,24 @@
             }
         }
         ,{
+            "path" : "addMeasureData",
+            "style" : {
+              "navigationStyle": "custom"
+            }
+        }
+        ,{
+            "path" : "stepAim",
+            "style" : {
+              "navigationBarTitleText": "每日目标"
+            }
+        }
+        ,{
+            "path" : "stepRank",
+            "style" : {
+              "navigationBarTitleText": "步数排行榜"
+            }
+        }
+        ,{
             "path" : "servicePackages",
             "style" : {
               "navigationBarTitleText": "服务套餐"
@@ -93,6 +111,30 @@
             "path" : "location",
             "style" : {
               "navigationBarTitleText": "定位"
+            }
+        }
+        ,{
+            "path" : "electricFence",
+            "style" : {
+              "navigationBarTitleText": "电子围栏"
+            }
+        }
+        ,{
+            "path" : "modifyFence",
+            "style" : {
+              "navigationBarTitleText": "编辑电子围栏"
+            }
+        }
+        ,{
+            "path" : "locationHistory",
+            "style" : {
+              "navigationBarTitleText": "历史定位"
+            }
+        }
+        ,{
+            "path" : "locationHistoryMap",
+            "style" : {
+              "navigationBarTitleText": "历史定位详情"
             }
         }
         ,{
@@ -163,7 +205,7 @@
                 }
                 ,{
                     "path" : "InformationDetails",
-                    "style" : {"navigationBarTitleText": "成员设置"}
+                    "style" : {"navigationBarTitleText": "用户信息"}
                 }              
                 ,{
                     "path" : "modifySingleItem",

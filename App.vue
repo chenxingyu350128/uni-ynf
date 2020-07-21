@@ -47,6 +47,9 @@
     position: sticky;
     top: 0;
   }
+  .zIndexHigh{
+    z-index: 999;
+  }
   .borderBox{
     box-sizing: border-box;
   }

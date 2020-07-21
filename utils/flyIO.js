@@ -12,8 +12,8 @@ Fly = require("flyio/dist/npm/fly")
 // 初始设置
 const fly = new Fly
 fly.config.timeout = 5000
-// fly.config.baseURL = 'http://mobile.yinaf.com'
-fly.config.baseURL = 'http://192.168.1.101:8090/yinaf'
+fly.config.baseURL = 'http://mobile.yinaf.com'
+// fly.config.baseURL = 'http://192.168.1.101:8090/yinaf'
 
 //请求拦截
 fly.interceptors.request.use(
@@ -59,7 +59,7 @@ fly.interceptors.response.use(
     		icon: 'none'
     	})    
     }
-    const reloadCodes = ['5001', '5120']
+    const reloadCodes = ['5001', '5120', '5107']
 		if (reloadCodes.includes(config.data.code)){
       uni.$emit('routerToLogin')
       // uni.navigateTo({
@@ -75,7 +75,7 @@ fly.interceptors.response.use(
       store.commit('SET_SINGLE_ITEM', ['isLoading', false])
       uni.hideLoading()
 		}, 300);
-    console.log(config)
+    // console.log(config)
 		return config;
 	},
 	err=>{
