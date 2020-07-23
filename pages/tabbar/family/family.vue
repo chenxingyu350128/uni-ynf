@@ -57,13 +57,13 @@
       <!-- 蓝色底部 -->
       <view class="d-flex align-end mt-4">
         <view class="col-3">
-          <u-image @click="toQrcode" height="55" width="55" src="@/static/img/qrCode.png"></u-image>
+          <u-image @click="toQrcode" height="55" width="55" src="@/static/img/qrCode.jpg"></u-image>
         </view>
         <view class="col-6 d-flex flex-column align-center">
           <text>{{realName}}</text>
           <view
             class="d-flex align-end justify-center"
-            @click="showIntegralDetail"
+            @tap="toScoreDetails('err', $event)"
           >
             <u-icon size="35" name="database" customPrefix="mdi"></u-icon>
             <span>{{ memberIntegral }}</span>
@@ -119,11 +119,11 @@
             color: '#97e08e',
             icon: 'chart-bar'
           },         
-          // {
-          //   title: '服务套餐',
-          //   color: '#f4d47a',
-          //   icon: 'room-service-outline'
-          // },
+          {
+            title: '服务套餐',
+            color: '#f4d47a',
+            icon: 'room-service-outline'
+          },
           {
             title: '联系人',
             color: '#f4c293',
@@ -134,11 +134,11 @@
             color: '#f9b4b4',
             icon: 'location'
           },
-          // {
-          //   title: '在线聊天',
-          //   color: '#97e08e',
-          //   icon: 'comment-multiple'
-          // },         
+          {
+            title: '在线聊天',
+            color: '#97e08e',
+            icon: 'comment-multiple'
+          },         
           {
             title: '电话呼叫',
             color: '#f4d47a',
@@ -154,26 +154,26 @@
             color: '#f9b4b4',
             icon: 'watch-nice'
           },
-          // {
-          //   title: '饮食记录',
-          //   color: '#97e08e',
-          //   icon: 'silverware-variant'
-          // },         
-          // {
-          //   title: '膳食推荐',
-          //   color: '#f4d47a',
-          //   icon: 'rgoblet-fill'
-          // },
-          // {
-          //   title: '生活日志',
-          //   color: '#f4c293',
-          //   icon: 'sprout'
-          // },
-          // {
-          //   title: '健康档案',
-          //   color: '#f9b4b4',
-          //   icon: 'order'
-          // }
+          {
+            title: '饮食记录',
+            color: '#97e08e',
+            icon: 'silverware-variant'
+          },         
+          {
+            title: '膳食推荐',
+            color: '#f4d47a',
+            icon: 'rgoblet-fill'
+          },
+          {
+            title: '生活日志',
+            color: '#f4c293',
+            icon: 'sprout'
+          },
+          {
+            title: '健康档案',
+            color: '#f9b4b4',
+            icon: 'order'
+          }
         ],
 				showMenu: false,
 				showModal: false,
@@ -220,6 +220,10 @@
       },
       battery () {
         return this.$store.state.app.battery
+      },
+      toScoreDetails (a, e) {
+        console.log(a)
+        console.log(e)
       },
       memberList: {
         get: function () {
@@ -411,8 +415,8 @@
         }
         
         // 处理未绑定腕表
-        // const needWatchArr = [3, 4, 5, 7] // 完整版
-        const needWatchArr = [2, 3, 5] // 简化版
+        const needWatchArr = [3, 4, 5, 7] // 完整版
+        // const needWatchArr = [2, 3, 5] // 简化版
         if (needWatchArr.includes(i)) {
           if (!this.watchId) {
             // this.showModal = true
@@ -430,8 +434,8 @@
           }
         }
         // 腕表已绑定
-        // if (i === 5 ) { // 拨打电话 // 完整版
-        if (i === 3 ) { // 拨打电话 // 简化版
+        if (i === 5 ) { // 拨打电话 // 完整版
+        // if (i === 3 ) { // 拨打电话 // 简化版
           if (this.watchPhone) {
             uni.makePhoneCall({
               phoneNumber: this.watchPhone
@@ -447,17 +451,17 @@
         // 除拨打电话外的其他情形  
         const urls = [
           '../../family/deviceData',
-          // '../../family/servicePackages',
+          '../../family/servicePackages',
           '../../family/contacts',
           '../../family/location',
-          // '../../family/chat',
+          '../../family/chat',
           '', // 空， 电话的占位
           '../../family/alarms',
           '../../family/watchSetting',
-          // '../../family/dietRecord',
-          // '../../family/dietRecommend',
-          // '../../family/lifeLog',
-          // '../../family/healthRecord'
+          '../../family/dietRecord',
+          '../../family/dietRecommend',
+          '../../family/lifeLog',
+          '../../family/healthRecord'
         ]
         uni.navigateTo({
           url: urls[i]

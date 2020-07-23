@@ -94,16 +94,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uButton: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 491))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 521))
   },
   uIcon: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 414))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 444))
   },
   uIndexList: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-index-list/u-index-list */ "uview-ui/components/u-index-list/u-index-list").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-index-list/u-index-list.vue */ 505))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-index-list/u-index-list */ "uview-ui/components/u-index-list/u-index-list").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-index-list/u-index-list.vue */ 535))
   },
   uIndexAnchor: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-index-anchor/u-index-anchor */ "uview-ui/components/u-index-anchor/u-index-anchor").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-index-anchor/u-index-anchor.vue */ 512))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-index-anchor/u-index-anchor */ "uview-ui/components/u-index-anchor/u-index-anchor").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-index-anchor/u-index-anchor.vue */ 542))
   }
 }
 var render = function() {

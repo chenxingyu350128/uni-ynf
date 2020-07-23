@@ -1,7 +1,7 @@
 
 <template>
 	<view class="page posRela">
-		<image class="BG" src="./static/img/stepAim.png"></image>
+		<image class="BG" src="./static/img/stepAim.jpg"></image>
     <view class="posAbs full-size fill-height">
       <view class="pa-4 text-center">
         请设定运动目标

@@ -39,7 +39,14 @@
       }      
     },
     onShow() {
-      this.init()
+      const enterAlarmDetails = this.$store.state.app.enterAlarmDetails
+      if (enterAlarmDetails) {
+        this.$store.commit('SET_SINGLE_ITEM', ['enterAlarmDetails', false])
+      } else {   
+        
+        this.init()
+      }
+      
     },
     onReachBottom() {
       if (!this.allLoaded) {

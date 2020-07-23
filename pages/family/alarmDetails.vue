@@ -182,6 +182,7 @@
       this.alarmId = e.alarmId
       this.memberId = e.memberId
       this.type = parseInt(e.type)
+      this.$store.commit('SET_SINGLE_ITEM', ['enterAlarmDetails', true])
     },
     onShow() {
       let warpper = uni.createSelectorQuery().in(this).select('.page')

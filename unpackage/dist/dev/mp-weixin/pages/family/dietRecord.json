@@ -1,4 +1,11 @@
 {
   "navigationBarTitleText": "饮食记录",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-circle-progress": "/uview-ui/components/u-circle-progress/u-circle-progress",
+    "u-line-progress": "/uview-ui/components/u-line-progress/u-line-progress",
+    "u-picker": "/uview-ui/components/u-picker/u-picker",
+    "u-popup": "/uview-ui/components/u-popup/u-popup"
+  }
 }

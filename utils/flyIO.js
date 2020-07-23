@@ -12,8 +12,8 @@ Fly = require("flyio/dist/npm/fly")
 // 初始设置
 const fly = new Fly
 fly.config.timeout = 5000
-fly.config.baseURL = 'http://mobile.yinaf.com'
-// fly.config.baseURL = 'http://192.168.1.101:8090/yinaf'
+// fly.config.baseURL = 'https://www.yinaf.net'
+fly.config.baseURL = 'http://192.168.1.101:8090/yinaf'
 
 //请求拦截
 fly.interceptors.request.use(

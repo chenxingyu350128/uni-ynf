@@ -94,22 +94,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniBattery: function() {
-    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 442))
+    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 472))
   },
   uIcon: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 414))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 444))
   },
   uLine: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 449))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 479))
   },
   uAvatar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 456))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 486))
   },
   uImage: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 428))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 458))
   },
   uNoticeBar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 463))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 493))
   }
 }
 var render = function() {
@@ -275,11 +275,11 @@ var _default =
         color: '#97e08e',
         icon: 'chart-bar' },
 
-      // {
-      //   title: '服务套餐',
-      //   color: '#f4d47a',
-      //   icon: 'room-service-outline'
-      // },
+      {
+        title: '服务套餐',
+        color: '#f4d47a',
+        icon: 'room-service-outline' },
+
       {
         title: '联系人',
         color: '#f4c293',
@@ -290,11 +290,11 @@ var _default =
         color: '#f9b4b4',
         icon: 'location' },
 
-      // {
-      //   title: '在线聊天',
-      //   color: '#97e08e',
-      //   icon: 'comment-multiple'
-      // },         
+      {
+        title: '在线聊天',
+        color: '#97e08e',
+        icon: 'comment-multiple' },
+
       {
         title: '电话呼叫',
         color: '#f4d47a',
@@ -308,29 +308,29 @@ var _default =
       {
         title: '腕表设置',
         color: '#f9b4b4',
-        icon: 'watch-nice' }
+        icon: 'watch-nice' },
 
-      // {
-      //   title: '饮食记录',
-      //   color: '#97e08e',
-      //   icon: 'silverware-variant'
-      // },         
-      // {
-      //   title: '膳食推荐',
-      //   color: '#f4d47a',
-      //   icon: 'rgoblet-fill'
-      // },
-      // {
-      //   title: '生活日志',
-      //   color: '#f4c293',
-      //   icon: 'sprout'
-      // },
-      // {
-      //   title: '健康档案',
-      //   color: '#f9b4b4',
-      //   icon: 'order'
-      // }
-      ],
+      {
+        title: '饮食记录',
+        color: '#97e08e',
+        icon: 'silverware-variant' },
+
+      {
+        title: '膳食推荐',
+        color: '#f4d47a',
+        icon: 'rgoblet-fill' },
+
+      {
+        title: '生活日志',
+        color: '#f4c293',
+        icon: 'sprout' },
+
+      {
+        title: '健康档案',
+        color: '#f9b4b4',
+        icon: 'order' }],
+
+
       showMenu: false,
       showModal: false,
       defaultAvatar: __webpack_require__(/*! @/static/img/defaultAvatar.png */ 63),
@@ -376,6 +376,10 @@ var _default =
     },
     battery: function battery() {
       return this.$store.state.app.battery;
+    },
+    toScoreDetails: function toScoreDetails(a, e) {
+      console.log(a);
+      console.log(e);
     },
     memberList: {
       get: function get() {
@@ -567,8 +571,8 @@ var _default =
       }
 
       // 处理未绑定腕表
-      // const needWatchArr = [3, 4, 5, 7] // 完整版
-      var needWatchArr = [2, 3, 5]; // 简化版
+      var needWatchArr = [3, 4, 5, 7]; // 完整版
+      // const needWatchArr = [2, 3, 5] // 简化版
       if (needWatchArr.includes(i)) {
         if (!this.watchId) {
           // this.showModal = true
@@ -586,8 +590,8 @@ var _default =
         }
       }
       // 腕表已绑定
-      // if (i === 5 ) { // 拨打电话 // 完整版
-      if (i === 3) {// 拨打电话 // 简化版
+      if (i === 5) {// 拨打电话 // 完整版
+        // if (i === 3 ) { // 拨打电话 // 简化版
         if (this.watchPhone) {
           uni.makePhoneCall({
             phoneNumber: this.watchPhone });
@@ -603,18 +607,18 @@ var _default =
       // 除拨打电话外的其他情形  
       var urls = [
       '../../family/deviceData',
-      // '../../family/servicePackages',
+      '../../family/servicePackages',
       '../../family/contacts',
       '../../family/location',
-      // '../../family/chat',
+      '../../family/chat',
       '', // 空， 电话的占位
       '../../family/alarms',
-      '../../family/watchSetting'
-      // '../../family/dietRecord',
-      // '../../family/dietRecommend',
-      // '../../family/lifeLog',
-      // '../../family/healthRecord'
-      ];
+      '../../family/watchSetting',
+      '../../family/dietRecord',
+      '../../family/dietRecommend',
+      '../../family/lifeLog',
+      '../../family/healthRecord'];
+
       uni.navigateTo({
         url: urls[i] });
 

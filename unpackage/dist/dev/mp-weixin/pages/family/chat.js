@@ -90,7 +90,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  uImage: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 458))
+  },
+  uIcon: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 444))
+  },
+  uLoadmore: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 465))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -128,7 +138,31 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -137,10 +171,57 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      list: [],
+      page: 1,
+      rows: 10,
+      allLoaded: false,
+      loadMoreStatus: 'loadmore' };
 
+  },
+  computed: {
+    sessionId: function sessionId() {
+      return this.$store.state.app.sessionId;
+    } },
 
-  } };exports.default = _default;
+  onReachBottom: function onReachBottom() {
+    if (!this.allLoaded) {
+      console.log('allLoaded值为：' + this.allLoaded);
+      this.loadMoreStatus = 'loading';
+      this.page++;
+      this.init('Yo');
+    } else {
+      return false;
+    }
+  },
+  onShow: function onShow() {
+    this.init();
+  },
+  methods: {
+    init: function init(e) {var _this = this;
+      var data = {
+        sessionId: this.sessionId,
+        page: this.page,
+        rows: this.rows };
+
+      this.$http.get('/mobile/user/getMemberBindedList', data).
+      then(function (res) {
+        if (res.data.success) {
+          var rows = res.data.obj;
+          var pager = res.data.pager;
+          _this.allLoaded = pager.currentPage === pager.totalPages;
+          _this.loadMoreStatus = _this.allLoaded ? 'nomore' : 'loading';
+          _this.list = e ? _this.list.concat(rows) : rows;
+        }
+      });
+    },
+    toDetail: function toDetail(item) {var
+      memberId = item.memberId,realName = item.realName,messagesType = item.messagesType;
+      uni.navigateTo({
+        url: "./chatDetails?memberId=".concat(memberId, "&realName=").concat(realName, "&type=").concat(messagesType) });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

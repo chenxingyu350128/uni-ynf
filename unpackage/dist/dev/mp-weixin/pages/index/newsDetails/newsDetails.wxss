@@ -1,5 +1,5 @@
 /* uni.scss */
- .richImg {
+.richImg {
   width: 100%;
   height: auto;
 }

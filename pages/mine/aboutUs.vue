@@ -1,7 +1,7 @@
 <template>
 	<view class="py-6">
     <view class="d-flex flex-column align-center justify-center grey--text">
-      <view class="boxShadow d-flex elevation-3">
+      <view @click="test($event)" class="boxShadow d-flex elevation-3">
         <image class="logoImg ma-auto" src="@/static/img/logo.png" mode="aspectFit"></image>
       </view>
       <text class="title font-weight-bold"></text>
@@ -22,7 +22,12 @@
 			return {
 				
 			};
-		}
+		},
+    methods: {
+      test (e) {
+        console.log(e)
+      }
+    }
 	}
 </script>
 

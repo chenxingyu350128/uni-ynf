@@ -1,9 +1,6 @@
 <template>
 	<view class="page">
-    <!-- 蓝色块 -->
-    
-    <view 
-      :style="{position: eazyMode?'fixed':'relative', height: eazyMode?'44px':'220px', 'z-index': eazyMode?99:0}" 
+    <view  
       class="primary full-width caption white--text py-2 transitionMain"
     >
       <u-row gutter="16" class="d-block">
@@ -14,8 +11,8 @@
           </view>
         </u-col>      
         <u-col span="6">
-          <view v-if="eazyMode" class="subtitle-1 font-weight-bold text-center">颐纳福</view>
-          <view v-else class="d-flex flex-column justify-center align-center">
+
+          <view  class="d-flex flex-column justify-center align-center">
             <view  class="circle-white d-flex flex-column align-center justify-center">
               <u-icon @click="iconClick" :name="watchId?'watch':'plus-circle'" custom-prefix="mdi" size="114" color="#cdcdcd"></u-icon>
             </view>
@@ -24,13 +21,10 @@
         </u-col>
         <u-col span="3">
           <view class="d-flex justify-end">
-            <!-- <u-icon name="email" custom-prefix="mdi" size="48" color="#fff"></u-icon> -->
           </view>
         </u-col>
       </u-row>
-<!--      <map id="mmpId"></map>
- -->      <!--  腕表数据 -->
-      <u-row v-if="!eazyMode" class="pb-4">
+      <u-row class="pb-4">
         <u-col span="4">
           <view class="d-flex flex-column align-center justify-center">
             <text>步数</text>
@@ -118,7 +112,7 @@
       </view>
     </view>
     <!-- 健康头条 -->
-    <view class="pa-2 subtitle-2 d-flex align-center white">
+    <view @click="testClick($event)" class="pa-2 subtitle-2 d-flex align-center white posSticky t0 zIndexHigh">
       <u-image width="30rpx" height="32rpx" src="@/static/img/titleIcon.png"></u-image>
       <text class="font-weight-bold ml-2">健康头条</text>
     </view>
@@ -131,8 +125,8 @@
       <!-- <image class="newsPic" :src="item.newPic" mode="scaleToFill"></image> -->
       
       <u-image width="120rpx" height="120rpx" :src="item.newPic"></u-image>
-      <view class="ml-5 flex-fill pa-2 u-line-2">
-        <text>{{item.newTitle}}</text>
+      <view class="ml-5 flex-fill pa-2">
+        <text class="u-line-2">{{item.newTitle}}</text>
       </view>
     </view>
     <!-- 加载跟多 -->
@@ -247,6 +241,10 @@ export default {
     this.findNewsPage()
   },
   methods: {
+    testClick (e) {
+      console.log('???caniuse?')
+      console.log(e)
+    },
     async init () {      
       await this.getLocation() // 获取城市定位
       this.findNewsPage()
@@ -503,7 +501,8 @@ export default {
     },
     findNewsPage(i){
       const params = {
-        sessionId: this.sessionId,
+        cityId: this.cityId,
+        platform: 2,
         rows: this.rows,
         page: this.page
       }

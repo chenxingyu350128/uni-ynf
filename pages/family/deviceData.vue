@@ -207,7 +207,7 @@
           </view>
         </view>
         <view class="lowZIndex flex1" :class="'canvasShell'+x">
-           <canvas @touchstart= "seeDetails" :canvas-id="'canvasColumn'+x" :id="'canvasColumn'+x" :style="{width: cWidth*pixelRatio + 'px', height: cHeight*pixelRatio + 'px', 'margin-left': showDatePicker? '100vw' : '0'}" class="fill-height full-width lowZIndex"></canvas>
+          <canvas @touchstart= "seeDetails" :canvas-id="'canvasColumn'+x" :id="'canvasColumn'+x" :style="{width: cWidth*pixelRatio + 'px', height: cHeight*pixelRatio + 'px', 'margin-left': showDatePicker? '100vw' : '0'}" class="fill-height full-width lowZIndex"></canvas>
         </view>
       </swiper-item>
     

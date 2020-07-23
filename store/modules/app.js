@@ -21,7 +21,8 @@ const state = {
   indexList: Utils.getLocal('indexList'),
   indexItem: Utils.getLocal('indexItem'),
   cityHistory: Utils.getLocal('cityHistory') || [],
-  
+  // 警报详情进入
+  enterAlarmDetails: Utils.getLocal('enterAlarmDetails'),
   // 登录信息
   sessionId: Utils.getLocal('sessionId'),
   userId: Utils.getLocal('userId'),
@@ -38,9 +39,10 @@ const state = {
   domicile: Utils.getLocal('domicile'),
   householdRegister: Utils.getLocal('householdRegister'),
   mail: Utils.getLocal('mail'),
-  occupation: Utils.getLocal('occupation')
+  occupation: Utils.getLocal('occupation'),
 
-  
+  // 录音权限
+  scope_record: Utils.getLocal('scope_record')
   
 }
 

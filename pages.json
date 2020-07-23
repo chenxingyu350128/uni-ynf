@@ -144,6 +144,12 @@
             }
         }
         ,{
+            "path" : "chatDetails",
+            "style" : {
+              "navigationBarTitleText": "聊天详情"
+            }
+        }
+        ,{
             "path" : "alarms",
             "style" : {
               "navigationBarTitleText": "警报提醒"
@@ -165,6 +171,24 @@
             "path" : "dietRecord",
             "style" : {
               "navigationBarTitleText": "饮食记录"
+            }
+        }
+        ,{
+            "path" : "mealPlan",
+            "style" : {
+              "navigationBarTitleText": "饮食计划"
+            }
+        }
+        ,{
+            "path" : "foodIndex",
+            "style" : {
+              "navigationBarTitleText": "食物索引"
+            }
+        }
+        ,{
+            "path" : "foodDetails",
+            "style" : {
+              "navigationBarTitleText": "食物详情"
             }
         }
         ,{
