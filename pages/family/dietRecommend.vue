@@ -91,7 +91,7 @@
             >
               <view
                 class="d-flex align-center px-3 py-2 u-border-bottom"
-                @click="toDetail(food.caipId, meal.foodType)"
+                @click="toDetail(food, meal.foodType)"
               >
                 <u-avatar :src="food.foodImg" size="90" mode="circle"></u-avatar>
                 <text class="subtitle-2 ml-4">{{ food.foodName }}</text>
@@ -99,9 +99,9 @@
               </view>
               <!-- <u-line color="grey" /> -->
             </view>
-<!--            <view class="caption pa-2">
-              {{ meal.tips }}
-            </view> -->
+           <view v-if="meal.tips" class="caption pa-2">
+              <rich-text :nodes="meal.tips"></rich-text>
+            </view>
           </view>
         </view>
       </view>
@@ -252,9 +252,12 @@
             }
           })        
       },
-      toDetail (caipId, foodType) {
+      toDetail (food, foodType) {
+        console.log(food)
+        const {caipId, biteId, foodNum, foodUnit} = food
+        const biteTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd')
         uni.navigateTo({
-          url: `./foodDetails?caipId=${caipId}&biteId=${biteId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}`
+          url: `./foodDetails?caipId=${caipId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}&fromRecommend=true`
         })
       },
       getHealthy () {

@@ -42,7 +42,10 @@
         "foodDetails",
         "dietRecommend",
         "lifeLog",
-        "healthRecord",
+        "addLifeLog",
+        "healthFile",
+        "healthReport",
+        "medicalReport",
         "hourData",
         "totalData",
         "addNewMember",
@@ -107,6 +110,5 @@
       "desc": "获取位置以便我们提供更优质的服务"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap90.json"
+  "usingComponents": {}
 }

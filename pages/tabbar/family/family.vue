@@ -461,7 +461,7 @@
           '../../family/dietRecord',
           '../../family/dietRecommend',
           '../../family/lifeLog',
-          '../../family/healthRecord'
+          '../../family/healthFile'
         ]
         uni.navigateTo({
           url: urls[i]

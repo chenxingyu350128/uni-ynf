@@ -202,11 +202,29 @@
             "style" : {
               "navigationBarTitleText": "生活日志"
             }
-        }
+        }        
         ,{
-            "path" : "healthRecord",
+            "path" : "addLifeLog",
+            "style" : {
+              "navigationBarTitleText": "添加生活日志"
+            }
+        }       
+        ,{
+            "path" : "healthFile",
             "style" : {
               "navigationBarTitleText": "健康档案"
+            }
+        }
+        ,{
+            "path" : "healthReport",
+            "style" : {
+              "navigationBarTitleText": "健康报告"
+            }
+        }
+        ,{
+            "path" : "medicalReport",
+            "style" : {
+              "navigationBarTitleText": "体检报告"
             }
         }
           ,{
