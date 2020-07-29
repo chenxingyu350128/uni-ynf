@@ -70,6 +70,18 @@
           "style" : {
             "navigationBarTitleText": "二维码"
           }
+        },
+        {
+          "path" : "integralPage",
+          "style" : {
+            "navigationBarTitleText": "积分详情"
+          }
+        },
+        {
+          "path" : "integralDetails",
+          "style" : {
+            "navigationBarTitleText": "积分明细"
+          }
         }
         ,{
             "path" : "deviceData",
@@ -96,6 +108,12 @@
             }
         }
         ,{
+            "path" : "remindResult",
+            "style" : {
+              "navigationStyle": "custom"
+            }
+        }
+        ,{
             "path" : "servicePackages",
             "style" : {
               "navigationBarTitleText": "服务套餐"
@@ -116,7 +134,7 @@
         ,{
             "path" : "electricFence",
             "style" : {
-              "navigationBarTitleText": "电子围栏"
+              "navigationBarTitleText": "安全围栏"
             }
         }
         ,{
@@ -222,9 +240,21 @@
             }
         }
         ,{
+            "path" : "healthReportDetails",
+            "style" : {
+              "navigationBarTitleText": "健康报告详情"
+            }
+        }
+        ,{
             "path" : "medicalReport",
             "style" : {
               "navigationBarTitleText": "体检报告"
+            }
+        }
+        ,{
+            "path" : "medicalReportDetails",
+            "style" : {
+              "navigationBarTitleText": "体检报告详情"
             }
         }
           ,{
@@ -276,6 +306,30 @@
                 ,{
                     "path" : "alarmAlert",
                     "style" : {"navigationBarTitleText": "闹钟提醒"}
+                }
+                ,{
+                    "path" : "sportSetting",
+                    "style" : {"navigationBarTitleText": "运动设置"}
+                }
+                ,{
+                    "path" : "sleepSetting",
+                    "style" : {"navigationBarTitleText": "睡眠设置"}
+                }
+                ,{
+                    "path" : "HrSetting",
+                    "style" : {"navigationBarTitleText": "心率设置"}
+                }
+                ,{
+                    "path" : "BpSetting",
+                    "style" : {"navigationBarTitleText": "血压设置"}
+                }
+                ,{
+                    "path" : "BsSetting",
+                    "style" : {"navigationBarTitleText": "血糖设置"}
+                }
+                ,{
+                    "path" : "locationSetting",
+                    "style" : {"navigationBarTitleText": "定位设置"}
                 }
                 ,{
                     "path" : "AssociatedApp",

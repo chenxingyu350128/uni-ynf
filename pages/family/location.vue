@@ -9,7 +9,7 @@
       :markers="markers"
     >
     </map>
-<!--    <view class="d-inline-flex posFix white setPos zIndexHigh elevation-11">
+   <view class="d-inline-flex posFix white setPos zIndexHigh elevation-11">
       <u-icon 
         color="#00aaef" 
         name="list-dot" 
@@ -18,7 +18,7 @@
         @click="openMenu"
       >
       </u-icon>
-    </view> -->
+    </view>
     <u-action-sheet @click="actionClick" :list="actionList" v-model="showMenu"></u-action-sheet>
 	</view>
 </template>
@@ -70,8 +70,8 @@
       }
     },
     onShow() {
-      this.longitude = this.locationPoint.longitude
-      this.latitude = this.locationPoint.latitude
+      // this.longitude = this.locationPoint.longitude
+      // this.latitude = this.locationPoint.latitude
       // 获取父元素节点高度
       let warpper = uni.createSelectorQuery().in(this).select('.page')
       warpper.fields(

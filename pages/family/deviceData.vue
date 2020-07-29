@@ -75,11 +75,13 @@
               </view>
             </view>
             <!-- 右上角功能 -->
-<!--            <view class="d-inline-flex flex-column align-center posAbs r0 t0">
-              <u-icon color="#bfbfbf" size="65" :name="current>1?'info-filled':'launch'" customPrefix="mdi"></u-icon>
-              <u-icon color="#bfbfbf" size="65" name="cog-box" customPrefix="mdi"></u-icon>
-            </view> -->
-             <!-- <u-button type="primary" rounded class="posAbs">日期</u-button> -->
+            <view class="d-inline-flex flex-column align-center posAbs r0 t0">
+              <u-button v-if="current<2" open-type="share" :custom-style="shareBtn" type="primary">
+                <u-icon color="grey" size="45" name="launch" customPrefix="mdi"></u-icon>
+              </u-button>
+              <u-icon v-else @click="upperBtn" color="#bfbfbf" size="65" name="info-filled" customPrefix="mdi"></u-icon>
+              <u-icon @click="bottomBtn" color="#bfbfbf" size="65" name="cog-box" customPrefix="mdi"></u-icon>
+            </view>
           </view>
 
         </view>
@@ -225,6 +227,13 @@
 	export default {
 		data() {
 			return {
+        shareBtn: {
+          // display: 'inline-flex',
+          width: '60rpx',
+          height: '60rpx',
+          padding: '6px',
+          background: 'transparent'
+        },
         tabList: [
           {
             name: '运动'
@@ -329,7 +338,10 @@
         return this.monthPickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm')
       }
     },
-    onLoad() {
+    onLoad(e) {
+      if (e.type) {
+        this.current = e.type
+      }
       _this = this
       // this.cWidth=uni.upx2px(750);
       // uni.getSystemInfo({
@@ -347,6 +359,13 @@
       this.getStepAim()
       this.getData()
     },
+    onShareAppMessage(e) {
+      console.log(e)
+      return {
+        title: '健康数据分享',
+        path: '/pages/family/deviceDate?type=' + this.current
+      }
+    },
     methods: {
       measure () {
         if (this.current > 2) {
@@ -356,6 +375,31 @@
         } else {
           this.$u.toast('小程序功能未开放，可前往app使用该功能')
         }
+      },
+      upperBtn () {
+        if (this.current > 1) {
+          uni.navigateTo({
+            url: `./remindResult?type=${this.current - 2}&navBG=${this.tabBG}`
+          })
+        } else {
+          uni.showShareMenu({
+            success: res => {
+              console.log(res)
+            }
+          })
+        }
+      },
+      bottomBtn () {
+        const urls = [
+          './sportSetting',
+          './sleepSetting',
+          './HrSetting',
+          './BpSetting',
+          './BsSetting',
+        ]
+        uni.navigateTo({
+          url: urls[this.current]
+        })
       },
       getRange () {
         const data = {

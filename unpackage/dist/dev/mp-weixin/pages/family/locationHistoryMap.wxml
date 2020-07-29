@@ -1,1 +1,1 @@
-<view><map style="width:750rpx;height:100vh;" polyline="{{polyline}}" markers="{{markers}}"></map></view>
+<view><map style="width:750rpx;height:100vh;" latitude="{{latitude}}" longitude="{{longitude}}" polyline="{{polyline}}" include-points="{{includePoints}}" markers="{{SE_markers}}"></map></view>

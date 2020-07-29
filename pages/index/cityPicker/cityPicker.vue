@@ -7,7 +7,7 @@
       定位/推荐
     </view>
     <view class="d-flex px-6 py-2 align-center flex-wrap">
-      <u-button @click="btnClick(item)" :custom-style="customStyle" class="recommend posRela mb-2" size="mini" v-for="(item, i) in recommendCity" type="primary">
+      <u-button @click="btnClick(item)" :custom-style="customStyle" class="recommend posRela mb-2" size="mini" v-for="(item, i) in recommendCity" :key="i" type="primary">
         {{item.areaName}}
         <u-icon 
           v-if="locationCity === item.areaName"

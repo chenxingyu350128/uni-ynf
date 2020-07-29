@@ -94,22 +94,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniBattery: function() {
-    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 486))
+    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 578))
   },
   uIcon: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 458))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 550))
   },
   uLine: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 493))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 585))
   },
   uAvatar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 500))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 592))
   },
   uImage: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 472))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 564))
   },
   uNoticeBar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 507))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 599))
   }
 }
 var render = function() {
@@ -377,10 +377,6 @@ var _default =
     battery: function battery() {
       return this.$store.state.app.battery;
     },
-    toScoreDetails: function toScoreDetails(a, e) {
-      console.log(a);
-      console.log(e);
-    },
     memberList: {
       get: function get() {
         return this.$store.state.app.memberList;
@@ -420,7 +416,7 @@ var _default =
       this.clickValid = false;
       setTimeout(function () {
         _this.clickValid = true;
-      }, 1000);
+      }, 300);
 
       var i;
       this.memberList.some(function (res, index) {
@@ -448,6 +444,12 @@ var _default =
     },
     toQrcode: function toQrcode() {
       uni.navigateTo({ url: '../../family/QrCode' });
+    },
+    toScoreDetails: function toScoreDetails() {
+      console.log('qqq');
+      uni.navigateTo({
+        url: '../../family/integralPage' });
+
     },
     toMemberInfo: function toMemberInfo() {
       uni.navigateTo({

@@ -20,10 +20,13 @@
       "root": "pages/family",
       "pages": [
         "QrCode",
+        "integralPage",
+        "integralDetails",
         "deviceData",
         "addMeasureData",
         "stepAim",
         "stepRank",
+        "remindResult",
         "servicePackages",
         "contacts",
         "location",
@@ -45,7 +48,9 @@
         "addLifeLog",
         "healthFile",
         "healthReport",
+        "healthReportDetails",
         "medicalReport",
+        "medicalReportDetails",
         "hourData",
         "totalData",
         "addNewMember",
@@ -58,6 +63,12 @@
         "watchInfo",
         "AddressBook",
         "alarmAlert",
+        "sportSetting",
+        "sleepSetting",
+        "HrSetting",
+        "BpSetting",
+        "BsSetting",
+        "locationSetting",
         "AssociatedApp"
       ]
     },
@@ -110,5 +121,6 @@
       "desc": "获取位置以便我们提供更优质的服务"
     }
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap38.json"
 }

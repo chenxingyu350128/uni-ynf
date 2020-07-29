@@ -63,7 +63,7 @@
           <text>{{realName}}</text>
           <view
             class="d-flex align-end justify-center"
-            @tap="toScoreDetails('err', $event)"
+            @click="toScoreDetails"
           >
             <u-icon size="35" name="database" customPrefix="mdi"></u-icon>
             <span>{{ memberIntegral }}</span>
@@ -221,10 +221,6 @@
       battery () {
         return this.$store.state.app.battery
       },
-      toScoreDetails (a, e) {
-        console.log(a)
-        console.log(e)
-      },
       memberList: {
         get: function () {
           return this.$store.state.app.memberList
@@ -264,7 +260,7 @@
         this.clickValid = false
         setTimeout(() => {
           this.clickValid = true
-        },1000)
+        },300)
         
         let i
         this.memberList.some((res, index) => {
@@ -292,6 +288,12 @@
       },
       toQrcode () {
         uni.navigateTo({ url: '../../family/QrCode' })        
+      },
+      toScoreDetails () {
+        console.log('qqq')
+        uni.navigateTo({
+          url: '../../family/integralPage'
+        })
       },
       toMemberInfo () {
         uni.navigateTo({

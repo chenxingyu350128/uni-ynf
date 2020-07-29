@@ -1,4 +1,10 @@
 {
   "navigationBarTitleText": "服务套餐",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-select": "/uview-ui/components/u-select/u-select"
+  }
 }
