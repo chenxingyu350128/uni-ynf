@@ -1,16 +1,6 @@
 <template>
     <view class="page">
-      <!-- v-if="rec.length" -->
-			
       <view class="posRela hasBG">
-        <!-- <img :src="topBG"> -->
-
-<!--        <view class="posAbs full-size pb-6">
-          <image
-            src="./static/img/recDietBg.jpg" 
-            class="full-width full-height"
-           />
-        </view> -->
         <view>
           <view class="border-box d-flex align-center px-4 py-2">
             <u-avatar :src="avatar" size="large" mode="circle"></u-avatar>
@@ -78,7 +68,7 @@
           <view class="d-flex py-2 align-center justify-space-between u-border-bottom">
             <view class="d-flex align-center">
               <u-icon color="#ffb300" name="room-service-outline" size="45" customPrefix="mdi"></u-icon>
-              <text class="subtitle-2 font-weight-bold">{{ meal.foodType|mealName }}</text>
+              <text class="subtitle-2 font-weight-bold ml-2">{{ meal.foodType|mealName }}</text>
             </view>
             <text class="subtitle-2 coffee--text">热量： {{ meal.heatQuantity }}千卡</text>
           </view>
@@ -95,7 +85,7 @@
               >
                 <u-avatar :src="food.foodImg" size="90" mode="circle"></u-avatar>
                 <text class="subtitle-2 ml-4">{{ food.foodName }}</text>
-                <text class="flex-fill text-right grey--text caption">{{ food.nutritive }}</text>
+                <text class="flex-fill text-right grey--text caption">{{ food.foodNum }}{{food.foodUnit}}</text>
               </view>
               <!-- <u-line color="grey" /> -->
             </view>

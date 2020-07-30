@@ -9,7 +9,7 @@
       </view>
       <view v-if="showLogin" class="full-width">
         <u-button @click="wxLogin" type="primary">微信用户一键登录</u-button>
-        <u-button @click="normalSign" class="d-block mt-4">其他号码登录/注册</u-button>
+        <!-- <u-button @click="normalSign" class="d-block mt-4">其他号码登录/注册</u-button> -->
       </view>
       <view v-else class="full-width">
         <u-button :ripple="true" @click="getUserInfo" open-type="getUserInfo" type="primary">允许</u-button>
@@ -283,7 +283,7 @@
   height: 65vh;
 }
 .height35{
-  height: 35vh;
+  height: 25vh;
 }
 .logoImg{
   width: 180rpx;

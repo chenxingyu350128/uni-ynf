@@ -17,10 +17,10 @@
         <text>{{ realName }}</text>
         <text class="caption mt-3">{{ top }}</text>
       </view>
-      <view class="flex-fill text-center headline">
+      <view class="flex-fill text-right headline">
         {{ step||'0' }}
       </view>
-      <u-icon name="launch" size="50" customPrefix="mdi"></u-icon>
+      <!-- <u-icon name="launch" size="50" customPrefix="mdi"></u-icon> -->
     </view>
     <view v-if="rankList.length">
       <view
@@ -28,10 +28,7 @@
         :key="i"
       >
         <view
-          class="py-2 white mx-0 px-4"
-          xs12
-          row
-          align-center
+          class="py-2 white mx-0 px-4 d-flex align-center"
         >
           <text class="subtitle-1 mr-4 font-weight-bold">{{ i+1 }}</text>
           <u-image shape="circle" width="100rpx" height="100rpx" :src="item.image" mode=""></u-image>
@@ -44,12 +41,12 @@
         </view>
         <u-line color="grey" />
       </view>      
+      <u-loadmore :status="loadMoreStatus"/>
     </view>
     <view v-else>
       <!-- car   购物车为空 page   页面不存在 search   没有搜索结果 address   没有收货地址 wifi   没有WiFi order   订单为空 coupon   没有优惠券 favor   无收藏 permission   无权限 history   无历史记录 news   无新闻列表 message   消息列表为空 list   列表为空(通用) data   数据为空(默认，通用) -->
       <u-empty text="暂无排行" mode="data"></u-empty>
     </view>
-    <u-loadmore :status="loadMoreStatus"/>
     <u-popup v-model="showPopup" mode="right" length="60%">
       <view class="pa-4">设置查询条件</view>
       <u-cell-group>

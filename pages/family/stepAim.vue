@@ -77,6 +77,7 @@
       },
     },
     onLoad(e) {
+      console.log(e)
       if (e.aim) {
         this.aim = Number(e.aim)
       }
@@ -96,7 +97,7 @@
         let data ={
           memberId: this.memberId,
           sessionId: this.sessionId,
-          goalNum: this.aim
+          goalNum: this.aim || 5000
   
         }
         this.$http.post('mobile/healthy/setGoalStep', data)

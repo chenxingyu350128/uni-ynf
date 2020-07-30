@@ -575,7 +575,7 @@ var canvaColumn = null;var _default =
         }
       });
     },
-    getStepAim: function getStepAim() {
+    getStepAim: function getStepAim() {var _this3 = this;
       var data = {
         memberId: this.memberId,
         sessionId: this.sessionId };
@@ -583,7 +583,7 @@ var canvaColumn = null;var _default =
       this.$http.post('mobile/healthy/getGoalStep', data).
       then(function (res) {
         if (res.data.success) {
-          // this.stepAim = res.data.obj.goalNum
+          _this3.stepAim = res.data.obj.goalNum.replace(',', '');
         }
       });
     },
@@ -618,7 +618,7 @@ var canvaColumn = null;var _default =
         this.getCurrent(); // 获取当天数据
       }
     },
-    getDataTo: function getDataTo() {var _this3 = this;
+    getDataTo: function getDataTo() {var _this4 = this;
       var data = {
         memberId: this.memberId,
         type: this.tab + 1,
@@ -634,12 +634,12 @@ var canvaColumn = null;var _default =
         if (res.data.success) {
           var obj = res.data.obj;
           for (var x in obj) {
-            _this3[x] = obj[x];
+            _this4[x] = obj[x];
           }
         }
       });
     },
-    getCurrent: function getCurrent() {var _this4 = this;
+    getCurrent: function getCurrent() {var _this5 = this;
       var params = {
         sessionId: this.sessionId,
         memberId: this.memberId };
@@ -659,7 +659,7 @@ var canvaColumn = null;var _default =
         if (res.data.success) {
           var obj = res.data.obj;
           for (var x in obj) {
-            _this4[x] = obj[x];
+            _this5[x] = obj[x];
           }
         }
       });
@@ -669,7 +669,7 @@ var canvaColumn = null;var _default =
         url: "./totalData?type=".concat(this.current, "&tabBG=").concat(this.tabBG) });
 
     },
-    getDataBy: function getDataBy() {var _this5 = this;
+    getDataBy: function getDataBy() {var _this6 = this;
       var data = {
         memberId: this.memberId,
         sessionId: this.sessionId };
@@ -713,23 +713,23 @@ var canvaColumn = null;var _default =
           var obj = res.data.obj;
           for (var x in obj) {
             if (x !== 'deviceTime') {
-              _this5[x] = obj[x];
+              _this6[x] = obj[x];
             }
             // if (this.deviceTime.split(' ').length === 2) {
             //   this.deviceTime = this.deviceTime.split(' ')[1]
             // }
           }
-          var chartData = _this5.current > 1 ? obj.data : obj;
+          var chartData = _this6.current > 1 ? obj.data : obj;
           var chart0 = [];
           var chart1 = [];
           var labels = [];
           var series = [];
-          if (_this5.current === 0) {// 运动
+          if (_this6.current === 0) {// 运动
             var strs = ['hour', 'day', 'day'];
             chartData.forEach(function (rs) {
               chart0.push(rs.step);
-              var _labels = rs[strs[_this5.tab]];
-              if (_this5.tab === 1) {
+              var _labels = rs[strs[_this6.tab]];
+              if (_this6.tab === 1) {
                 var arr = _labels.split('-');
                 arr.shift();
                 _labels = arr.join('-');
@@ -742,13 +742,13 @@ var canvaColumn = null;var _default =
               'data': chart0 });
 
           }
-          if (_this5.current === 1) {// 睡眠
+          if (_this6.current === 1) {// 睡眠
             var _strs = ['hour', 'day', 'day'];
             chartData.forEach(function (rs) {
               chart0.push(rs.heartDuration);
               chart1.push(rs.quietDuration);
-              var _labels = rs[_strs[_this5.tab]];
-              if (_this5.tab === 1) {
+              var _labels = rs[_strs[_this6.tab]];
+              if (_this6.tab === 1) {
                 var arr = _labels.split('-');
                 arr.shift();
                 _labels = arr.join('-');
@@ -765,13 +765,13 @@ var canvaColumn = null;var _default =
               data: chart1 });
 
           }
-          if (_this5.current === 2) {// 心率
+          if (_this6.current === 2) {// 心率
             var _strs2 = ['hour', 'day', 'day'];
             chartData.forEach(function (rs) {
               chart0.push(rs.bpm);
               chart1.push(rs.minBpm);
-              var _labels = rs[_strs2[_this5.tab]];
-              if (_this5.tab === 1) {
+              var _labels = rs[_strs2[_this6.tab]];
+              if (_this6.tab === 1) {
                 var arr = _labels.split('-');
                 arr.shift();
                 _labels = arr.join('-');
@@ -788,13 +788,13 @@ var canvaColumn = null;var _default =
               data: chart1 });
 
           }
-          if (_this5.current === 3) {// 血压
+          if (_this6.current === 3) {// 血压
             var _strs3 = ['hour', 'day', 'day'];
             chartData.forEach(function (rs) {
               chart0.push(rs.sbp);
               chart1.push(rs.dbp);
-              var _labels = rs[_strs3[_this5.tab]];
-              if (_this5.tab === 1) {
+              var _labels = rs[_strs3[_this6.tab]];
+              if (_this6.tab === 1) {
                 var arr = _labels.split('-');
                 arr.shift();
                 _labels = arr.join('-');
@@ -811,12 +811,12 @@ var canvaColumn = null;var _default =
               data: chart1 });
 
           }
-          if (_this5.current === 4) {// 血糖
+          if (_this6.current === 4) {// 血糖
             var _strs4 = ['hour', 'day', 'day'];
             chartData.forEach(function (rs) {
               chart0.push(rs.gi);
 
-              var _labels = rs[_strs4[_this5.tab]];
+              var _labels = rs[_strs4[_this6.tab]];
               // if (this.tab === 1) {
               //   let arr = _labels.split('-')
               //   arr.shift()
@@ -830,8 +830,8 @@ var canvaColumn = null;var _default =
               data: chart0 });
 
           }
-          _this5.$nextTick(function () {
-            _this5.showChart(series, labels);
+          _this6.$nextTick(function () {
+            _this6.showChart(series, labels);
           }, 100);
         }
       });
@@ -856,7 +856,7 @@ var canvaColumn = null;var _default =
         url: "./hourData?hour=".concat(hour, "&type=").concat(this.current, "&time=").concat(this.dateStr, "&tabBG=").concat(this.tabBG) });
 
     },
-    showChart: function showChart(series, categories) {var _this6 = this;
+    showChart: function showChart(series, categories) {var _this7 = this;
       var that = this;
       console.log(series, categories);
       this.chartCategories = categories;
@@ -875,7 +875,7 @@ var canvaColumn = null;var _default =
       // 获取父元素节点高度
       this.$nextTick(function () {
 
-        var warpper = uni.createSelectorQuery().in(_this6).select('.canvasShell' + _this6.current);
+        var warpper = uni.createSelectorQuery().in(_this7).select('.canvasShell' + _this7.current);
         warpper.fields(
         {
           size: true,
@@ -890,7 +890,7 @@ var canvaColumn = null;var _default =
           }
           canvaColumn = new _uCharts2.default((_uCharts = {
             $this: that,
-            canvasId: 'canvasColumn' + _this6.current,
+            canvasId: 'canvasColumn' + _this7.current,
             type: that.current > 1 ? 'area' : 'column',
             dataPointShape: that.current < 2,
             legend: {
@@ -936,12 +936,12 @@ var canvaColumn = null;var _default =
     transition: function transition(_ref2) {var dx = _ref2.detail.dx;
       this.$refs.tabs.setDx(dx);
     },
-    animationfinish: function animationfinish(_ref3) {var _this7 = this;var current = _ref3.detail.current;
+    animationfinish: function animationfinish(_ref3) {var _this8 = this;var current = _ref3.detail.current;
       this.$refs.tabs.setFinishCurrent(current);
       this.swiperCurrent = current;
       this.current = current;
       this.$nextTick(function () {
-        _this7.getData();
+        _this8.getData();
       }, 1000);
     },
     dataChange: function dataChange(e) {

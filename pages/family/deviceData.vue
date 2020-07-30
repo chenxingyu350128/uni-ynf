@@ -424,7 +424,7 @@
         this.$http.post('mobile/healthy/getGoalStep', data) 
           .then(res => {
             if (res.data.success) {
-              // this.stepAim = res.data.obj.goalNum
+               this.stepAim = res.data.obj.goalNum.replace(',', '')
             }
           })
       },
