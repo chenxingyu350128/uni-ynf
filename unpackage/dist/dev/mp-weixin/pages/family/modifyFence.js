@@ -294,8 +294,13 @@ var _default =
       var pos = e.detail;
       var lat = pos.latitude.toFixed(6);
       var lng = pos.longitude.toFixed(6);
-
-      console.log(lat, lng);
+      // const fenceMap = uni.createMapContext('fenceMap', this)
+      // console.log(fenceMap)
+      // fenceMap.reverseGeocode(pos, (e) => {
+      //   console.log('yyyyy')
+      //   console.log(e)
+      // })
+      // console.log(lat, lng)
       var data = {
         key: 'ac35d325fe51d2ef03496f3a152ab818',
         location: lng + ',' + lat };

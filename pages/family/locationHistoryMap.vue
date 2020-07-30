@@ -1,6 +1,7 @@
 <template>
 	<view>
 		<map 
+    id="historyMap"
     :latitude="latitude" :longitude="longitude"
      style="width: 750rpx; height: 100vh" 
     :polyline="polyline" 
@@ -71,6 +72,18 @@
       this.init()
     },
     methods: {
+      translateMarker () {
+        const moveRail = uni.createMapContext('historyMap', this)
+        const steps = this.polyline[0].points
+        const len = steps.length
+        for (let i = 0; i<len-1; i++) {
+          moveRail.translateMarker({
+            markerId: 'marker_s',
+            destination: steps[i+1],
+            duration: 2500
+          })
+        }
+      },
       init () {
         let data = {
           memberId: this.memberId,
@@ -107,6 +120,7 @@
               }]
               this.markers = markers
               this.includePoints = includePoints
+              this.translateMarker()
             }
         })
       }

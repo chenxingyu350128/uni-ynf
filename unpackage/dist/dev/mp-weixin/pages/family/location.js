@@ -93,6 +93,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
+  uButton: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 627))
+  },
+  uniBattery: function() {
+    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 578))
+  },
   uIcon: function() {
     return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 550))
   },
@@ -162,6 +168,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 // const amapFile = require('../../sdk/amap/amap-wx.js')
 // let myMap = null
@@ -176,6 +190,7 @@ var _default = {
       longitude: 0,
       latitude: 0,
       showMenu: false,
+      battery: 0,
       actionList: [
       { text: '历史记录', color: '#00aaef' },
       { text: '安全围栏', color: '#00aaef' }] };
@@ -239,9 +254,23 @@ var _default = {
           if (res.data.success) {
             _this2.longitude = parseFloat(res.data.obj.lon);
             _this2.latitude = parseFloat(res.data.obj.lat);
+            _this2.getBettary();
           }
         });
       }
+    },
+    getBettary: function getBettary() {var _this3 = this;
+      var params = {
+        sessionId: this.sessionId,
+        watchId: this.watchId,
+        memberId: this.memberId };
+
+      this.$http.get('/mobile/healthy/getWatchBattery', params).
+      then(function (res) {
+        if (res.data.success) {
+          _this3.battery = res.data.obj;
+        }
+      });
     },
     actionClick: function actionClick(e) {
       uni.navigateTo({

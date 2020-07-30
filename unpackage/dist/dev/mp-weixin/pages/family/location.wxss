@@ -4,7 +4,7 @@
 }
 .setPos.data-v-7b285e97 {
   right: 20rpx;
-  top: 20px;
+  top: 20rpx;
   height: 60rpx;
   width: 60rpx;
   border-radius: 50%;

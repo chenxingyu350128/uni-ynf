@@ -114,7 +114,7 @@
     <!-- 健康头条 -->
     <view @click="testClick($event)" class="pa-2 subtitle-2 d-flex align-center white posSticky t0 zIndexHigh">
       <u-image width="30rpx" height="32rpx" src="@/static/img/titleIcon.png"></u-image>
-      <text class="font-weight-bold ml-2">健康头条</text>
+      <text class="font-weight-bold ml-2 body-1">健康头条</text>
     </view>
     <view 
       v-for="(item,index) in headLines" 

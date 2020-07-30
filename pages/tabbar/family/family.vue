@@ -18,14 +18,14 @@
               <u-icon @click="showMenu=!showMenu" size="45" name="plus-circle"></u-icon>
               <view class="posAbs menuPos d-flex flex-column align-center" v-if="showMenu">
                 <text class="triangle"></text>
-                <view class="white ml-n8 px-1 py-2 grey--text text--lighten-1 overline nowrap">
+                <view class="white ml-n8 px-1 py-2 grey--text text--lighten-1 caption nowrap">
                   <view @click.stop="menuClick(0)" class="d-flex align-center">
-                    <u-icon color="#BBBEBF" size="35" name="watch-nice" customPrefix="mdi"></u-icon>
+                    <u-icon color="#BBBEBF" size="45" name="watch-nice" customPrefix="mdi"></u-icon>
                     <text class="ml-2">添加设备</text>
                   </view>           
                   <u-line class="d-block my-1" color="#BBBEBF" />
                   <view @click.stop="menuClick(1)" class="d-flex align-center">
-                    <u-icon color="#BBBEBF" size="35" name="sub-account" customPrefix="mdi"></u-icon>
+                    <u-icon color="#BBBEBF" size="45" name="sub-account" customPrefix="mdi"></u-icon>
                     <text class="ml-2">添加好友</text>
                   </view>
    <!--               <u-line class="d-block my-1" color="#BBBEBF" />
@@ -35,7 +35,7 @@
                   </view> -->
                   <u-line class="d-block my-1" color="#BBBEBF" />
                   <view @click.stop="menuClick(3)" class="d-flex align-center">
-                    <u-icon color="#BBBEBF" size="35" name="question-circle"></u-icon>
+                    <u-icon color="#BBBEBF" size="45" name="question-circle"></u-icon>
                     <text class="ml-2">帮助与反馈</text>
                   </view>
                 </view>
@@ -89,7 +89,7 @@
         <view :style="{background: item.color}" class="icon-wrapper d-flex justify-center align-center">
           <u-icon size="55" color="#fff" :name="item.icon" customPrefix="mdi"></u-icon>
         </view>
-        <text class="fz11">{{item.title}}</text>        
+        <text class="fz12">{{item.title}}</text>        
       </view>
     </view>
     <view class="text-center white pb-2 overline grey--text text--lighten-1">颐纳福关爱，从这一刻开始！</view>
@@ -567,8 +567,8 @@
     height: 88rpx;
     border-radius: 50%;
   }
-  .fz11{
-    font-size: 22rpx;
+  .fz12{
+    font-size: 24rpx;
   }
   .seriesImg{
     width: 60rpx;

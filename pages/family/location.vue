@@ -1,6 +1,14 @@
 <template>
 	<view class="page">
 		<!-- <image :src="mapSrc"></image> -->
+    <view class="posFix t0 d-inline-flex ma-2 zIndexHigh">
+      <u-button v-if="battery" size="medium" type="primary" shape="circle">
+        <uni-battery :battery="battery"></uni-battery>剩余电量{{battery}}%
+      </u-button>
+      <u-button v-else size="medium" disabled type="error" shape="circle">
+        腕表未连接
+      </u-button>
+    </view>
     <map 
       :style="{width: cWidth*pixelRatio + 'px', height: cHeight*pixelRatio + 'px'}"  
       :latitude="locationPoint.latitude" 
@@ -37,6 +45,7 @@
         longitude: 0,
         latitude: 0,
         showMenu: false,
+        battery: 0,
         actionList: [
           { text: '历史记录', color: '#00aaef' },
           { text: '安全围栏', color: '#00aaef' }
@@ -100,9 +109,23 @@
               if (res.data.success) {
                 this.longitude = parseFloat(res.data.obj.lon)
                 this.latitude = parseFloat(res.data.obj.lat)
+                this.getBettary()
               }
             })
         }
+      },
+      getBettary () {
+        const params = {
+          sessionId: this.sessionId,
+          watchId: this.watchId,
+          memberId: this.memberId
+        }
+        this.$http.get('/mobile/healthy/getWatchBattery', params)
+        .then(res=>{
+          if(res.data.success){
+            this.battery = res.data.obj
+          }
+        })        
       },
       actionClick (e) {
         uni.navigateTo({
@@ -122,7 +145,7 @@
 }
 .setPos{
   right: 20rpx;
-  top: 20px;
+  top: 20rpx;
   height: 60rpx;
   width: 60rpx;
   border-radius: 50%;

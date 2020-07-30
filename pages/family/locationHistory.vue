@@ -27,6 +27,7 @@
       :params="params" 
       :default-time="dateStr + ' 13:00'"
        mode="time" 
+       :end-year="yearNow"
        v-model="showDatePicker"
      />
 	</view>
@@ -53,6 +54,9 @@
     computed: {
       dateStr () {
         return this.datePickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm-dd')
+      },
+      yearNow () {
+        return this.$u.timeFormat(new Date(), 'yyyy')
       },
       monthStr () {
         return this.monthPickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm')
@@ -88,7 +92,7 @@
       },
       dataChange (e) {
         console.log(e)
-        this.datePickerValue = e.year +'-' + e.month + '-' + e.day
+        this.datePickerValue = e.year +'-' + e.month + '-01'
         this.monthPickerValue = e.year +'-' + e.month
         this.init()
       }

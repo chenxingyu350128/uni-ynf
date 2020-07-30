@@ -172,43 +172,46 @@
         this.realCreateOrder()
         
       },
-      async realCreateOrder () {
-        const data = {
-          sessionId: this.sessionId,
-          memberId: this.memberId,
-          goodsNum: this.goodsNum,
-          payWay: 1
-        }
-        const res = await this.$http.post('/mobile/healthy/addPackageOrder', data)
-        if (res.data.success) {
-          const obj = res.data.obj
-          const result = await uni.getProvider({
-                service: 'payment'
-              })
-          if (result[1].errMsg === 'getProvider:ok') {
-            const provider = result[1].provider[0]
-            const timeStamp = obj.timestamp
-            const nonceStr = obj.noncestr
-            const packages = obj.package
-            // const signType = obj.signtype
-            const paySign = obj.sign
-            uni.requestPayment({
-              provider,
-              timeStamp,
-              nonceStr,
-              package: packages,
-              signType: 'MD5',
-              paySign,
-              success: function (e) {
-                console.log(JSON.stringify(e))
-              },
-              fail: function (err) {
-                console.log(JSON.stringify(err))
-              }
-            })
-          }  
-        }
+      // 接口返回的package参数有问题，提示去app支付
+      realCreateOrder () {
+        this.$u.toast('套餐购买，请前往颐纳福APP')
       },
+      // async realCreateOrder () {
+      //   const data = {
+      //     sessionId: this.sessionId,
+      //     memberId: this.memberId,
+      //     goodsNum: this.goodsNum,
+      //     payWay: 1
+      //   }
+      //   const res = await this.$http.post('/mobile/healthy/addPackageOrder', data)
+      //   if (res.data.success) {
+      //     const obj = res.data.obj
+      //     const result = await uni.getProvider({
+      //           service: 'payment'
+      //         })
+      //     if (result[1].errMsg === 'getProvider:ok') {
+      //       const provider = result[1].provider[0]
+      //       const timeStamp = obj.timestamp
+      //       const nonceStr = obj.noncestr
+      //       const packages = obj.package
+      //       const paySign = obj.sign
+      //       uni.requestPayment({
+      //         provider,
+      //         timeStamp,
+      //         nonceStr,
+      //         package: packages,
+      //         signType: 'MD5',
+      //         paySign,
+      //         success: function (e) {
+      //           console.log(JSON.stringify(e))
+      //         },
+      //         fail: function (err) {
+      //           console.log(JSON.stringify(err))
+      //         }
+      //       })
+      //     }  
+      //   }
+      // },
       selectConfirm (e) {
         console.log(e)
         this.serviceDuration = e[0].label

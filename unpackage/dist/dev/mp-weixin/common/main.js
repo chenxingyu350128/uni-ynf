@@ -205,17 +205,64 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
+  computed: {
+    sessionId: function sessionId() {
+      return this.$store.state.app.sessionId;
+    },
+    token: function token() {
+      return this.$store.state.app.token;
+    } },
+
   onLaunch: function onLaunch() {
     console.log('App Launch');
+    if (this.sessionId) {
+      this.addLog();
+    }
   },
   onShow: function onShow() {
     console.log('App Show');
   },
   onHide: function onHide() {
     console.log('App Hide');
-  } };exports.default = _default;
+  },
+  methods: {
+    addLog: function addLog() {
+      var that = this;
+      // 登陆后添加用户日志
+      uni.getNetworkType({
+        success: function success(e) {
+          console.log('network', e);
+          var networkType = e.networkType;
+          uni.getSystemInfo({
+            success: function success(e) {
+              console.log(e);var
+              model = e.model,system = e.system,devicePixelRatio = e.devicePixelRatio,screenWidth = e.screenWidth,screenHeight = e.screenHeight;
+              var resolutionRatio = "".concat(devicePixelRatio * screenHeight, "*").concat(devicePixelRatio * screenWidth);
+              var systemVersion = system;
+              var deviceNumber = model;
+              var sessionId = that.sessionId;
+              var token = that.token;
+              var loginPlatform = 2;
+              var data = {
+                sessionId: sessionId,
+                token: token,
+                deviceNumber: deviceNumber,
+                networkWay: networkType,
+                systemVersion: systemVersion,
+                resolutionRatio: resolutionRatio,
+                // clientVersion,
+                loginPlatform: loginPlatform };
+
+              console.log(data);
+              that.$http.post('/mobile/user/addLoginLog', data);
+            } });
+
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 8 */

@@ -128,7 +128,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
 //
 //
 //
@@ -201,6 +202,18 @@ var _default =
     this.init();
   },
   methods: {
+    translateMarker: function translateMarker() {
+      var moveRail = uni.createMapContext('historyMap', this);
+      var steps = this.polyline[0].points;
+      var len = steps.length;
+      for (var i = 0; i < len - 1; i++) {
+        moveRail.translateMarker({
+          markerId: 'marker_s',
+          destination: steps[i + 1],
+          duration: 2500 });
+
+      }
+    },
     init: function init() {var _this = this;
       var data = {
         memberId: this.memberId,
@@ -237,9 +250,11 @@ var _default =
 
           _this.markers = markers;
           _this.includePoints = includePoints;
+          _this.translateMarker();
         }
       });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

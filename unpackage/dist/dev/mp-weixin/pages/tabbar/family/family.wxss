@@ -24,8 +24,8 @@
   height: 88rpx;
   border-radius: 50%;
 }
-.fz11.data-v-8d664512 {
-  font-size: 22rpx;
+.fz12.data-v-8d664512 {
+  font-size: 24rpx;
 }
 .seriesImg.data-v-8d664512 {
   width: 60rpx;

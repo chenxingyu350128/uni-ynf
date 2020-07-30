@@ -323,43 +323,46 @@ var _default =
                 _this2.realCreateOrder();case 6:case "end":return _context.stop();}}}, _callee);}))();
 
     },
-    realCreateOrder: function realCreateOrder() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var data, res, obj, result, provider, timeStamp, nonceStr, packages, paySign;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                data = {
-                  sessionId: _this3.sessionId,
-                  memberId: _this3.memberId,
-                  goodsNum: _this3.goodsNum,
-                  payWay: 1 };_context2.next = 3;return (
-
-                  _this3.$http.post('/mobile/healthy/addPackageOrder', data));case 3:res = _context2.sent;if (!
-                res.data.success) {_context2.next = 10;break;}
-                obj = res.data.obj;_context2.next = 8;return (
-                  uni.getProvider({
-                    service: 'payment' }));case 8:result = _context2.sent;
-
-                if (result[1].errMsg === 'getProvider:ok') {
-                  provider = result[1].provider[0];
-                  timeStamp = obj.timestamp;
-                  nonceStr = obj.noncestr;
-                  packages = obj.package;
-                  // const signType = obj.signtype
-                  paySign = obj.sign;
-                  uni.requestPayment({
-                    provider: provider,
-                    timeStamp: timeStamp,
-                    nonceStr: nonceStr,
-                    package: packages,
-                    signType: 'MD5',
-                    paySign: paySign,
-                    success: function success(e) {
-                      console.log(JSON.stringify(e));
-                    },
-                    fail: function fail(err) {
-                      console.log(JSON.stringify(err));
-                    } });
-
-                }case 10:case "end":return _context2.stop();}}}, _callee2);}))();
-
+    // 接口返回的package参数有问题，提示去app支付
+    realCreateOrder: function realCreateOrder() {
+      this.$u.toast('套餐购买，请前往颐纳福APP');
     },
+    // async realCreateOrder () {
+    //   const data = {
+    //     sessionId: this.sessionId,
+    //     memberId: this.memberId,
+    //     goodsNum: this.goodsNum,
+    //     payWay: 1
+    //   }
+    //   const res = await this.$http.post('/mobile/healthy/addPackageOrder', data)
+    //   if (res.data.success) {
+    //     const obj = res.data.obj
+    //     const result = await uni.getProvider({
+    //           service: 'payment'
+    //         })
+    //     if (result[1].errMsg === 'getProvider:ok') {
+    //       const provider = result[1].provider[0]
+    //       const timeStamp = obj.timestamp
+    //       const nonceStr = obj.noncestr
+    //       const packages = obj.package
+    //       const paySign = obj.sign
+    //       uni.requestPayment({
+    //         provider,
+    //         timeStamp,
+    //         nonceStr,
+    //         package: packages,
+    //         signType: 'MD5',
+    //         paySign,
+    //         success: function (e) {
+    //           console.log(JSON.stringify(e))
+    //         },
+    //         fail: function (err) {
+    //           console.log(JSON.stringify(err))
+    //         }
+    //       })
+    //     }  
+    //   }
+    // },
     selectConfirm: function selectConfirm(e) {
       console.log(e);
       this.serviceDuration = e[0].label;

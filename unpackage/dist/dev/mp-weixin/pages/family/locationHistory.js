@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
@@ -204,6 +205,9 @@ var _default =
   computed: {
     dateStr: function dateStr() {
       return this.datePickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
+    },
+    yearNow: function yearNow() {
+      return this.$u.timeFormat(new Date(), 'yyyy');
     },
     monthStr: function monthStr() {
       return this.monthPickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm');
@@ -239,7 +243,7 @@ var _default =
     },
     dataChange: function dataChange(e) {
       console.log(e);
-      this.datePickerValue = e.year + '-' + e.month + '-' + e.day;
+      this.datePickerValue = e.year + '-' + e.month + '-01';
       this.monthPickerValue = e.year + '-' + e.month;
       this.init();
     } } };exports.default = _default;

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<map @tap="mapTap" scale="12" :circles="circles" :latitude="latitude" :longitude="longitude" class="mapEL"></map>
+		<map id="fenceMap" @tap="mapTap" scale="12" :circles="circles" :latitude="latitude" :longitude="longitude" class="mapEL"></map>
     <cover-view class="posFix t0 full-width white h-auto">        
       <u-field 
         v-model="name" 
@@ -141,8 +141,13 @@
         const pos = e.detail
         const lat = pos.latitude.toFixed(6)
         const lng = pos.longitude.toFixed(6)
-
-        console.log(lat, lng)
+        // const fenceMap = uni.createMapContext('fenceMap', this)
+        // console.log(fenceMap)
+        // fenceMap.reverseGeocode(pos, (e) => {
+        //   console.log('yyyyy')
+        //   console.log(e)
+        // })
+        // console.log(lat, lng)
         const data = {
           key: 'ac35d325fe51d2ef03496f3a152ab818',
           location: lng + ',' +lat
