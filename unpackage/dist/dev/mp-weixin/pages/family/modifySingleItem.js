@@ -385,6 +385,9 @@ var _default =
 
   },
   computed: {
+    yearNow: function yearNow() {
+      return Number(this.$u.timeFormat(new Date(), 'yyyy'));
+    },
     defaultGender: function defaultGender() {var _this = this;
       var result = 0;
       this.genders.forEach(function (res, i) {

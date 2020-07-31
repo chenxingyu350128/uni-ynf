@@ -56,7 +56,7 @@
         return this.datePickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm-dd')
       },
       yearNow () {
-        return this.$u.timeFormat(new Date(), 'yyyy')
+        return Number(this.$u.timeFormat(new Date(), 'yyyy'))
       },
       monthStr () {
         return this.monthPickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm')

@@ -210,6 +210,9 @@ var _default =
         second: false };
 
     },
+    yearNow: function yearNow() {
+      return Number(this.$u.timeFormat(new Date(), 'yyyy'));
+    },
     currentTime: function currentTime() {
       return this.$u.timeFormat(new Date(), 'yyyy-mm-dd hh:MM');
     },

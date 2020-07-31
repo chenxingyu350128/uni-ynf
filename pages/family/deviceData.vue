@@ -215,7 +215,7 @@
     
     </swiper>
 
-    <u-picker class="datePicker" @confirm="dataChange" :default-time="dateStr + ' 13:00'" mode="time" v-model="showDatePicker"/>
+    <u-picker class="datePicker" :end-year="yearNow" @confirm="dataChange" :default-time="dateStr + ' 13:00'" mode="time" v-model="showDatePicker"/>
     <!-- <u-calendar @change="dataChange" v-model="showDatePicker" mode='date'></u-calendar> -->
 	</view>
 </template>
@@ -313,6 +313,9 @@
       tabBG () {
         const colors = ['#00aaef', '#c7a7dc', '#fd7b7b', '#fa6e31', '#f1ce7e']
         return colors[this.current]
+      },
+      yearNow () {
+        return Number(this.$u.timeFormat(new Date(), 'yyyy'))
       },
       sleepQuality(){
         if(this.duration>8){

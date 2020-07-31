@@ -23,7 +23,7 @@
     <view class="posFix b0 full-width">
       <u-button @click="commitModify" hair-line="false" :custom-style="customStyle" type="primary">{{medicineId?'保存修改':'添加提醒'}}</u-button>
     </view> 
-		<u-picker @confirm="timeConfirm" mode="time" :default-time="defaultTime" :params="params" v-model="showPicker"/>
+		<u-picker :start-year="yearNow" @confirm="timeConfirm" mode="time" :default-time="defaultTime" :params="params" v-model="showPicker"/>
 	</view>
 </template>
 
@@ -63,6 +63,9 @@
           minute: false,
           second: false
         }
+      },
+      yearNow () {
+        return Number(this.$u.timeFormat(new Date(), 'yyyy'))
       },
       currentTime () {
         return this.$u.timeFormat(new Date(), 'yyyy-mm-dd hh:MM')

@@ -74,7 +74,14 @@
       <u-button v-if="step < 4" class="flex-fill" :hair-line="false" :custom-style="customStyle" @click="step++" type="primary">下一步</u-button>
       <u-button v-if="step === 4" @click="addMember" class="flex-fill" :hair-line="false" :custom-style="customStyle" type="primary">完成</u-button>
     </view>
-    <u-calendar @change="dateChange" v-model="showDatePicker" mode='date'></u-calendar>
+    <u-picker 
+    v-model="showDatePicker"
+    mode="time" 
+    :default-time="birthday+ ' 12:00'"
+    :end-year="yearNow" 
+    @confirm="dateChange"
+    />
+    <!-- <u-calendar @change="dateChange" v-model="showDatePicker" mode='date'></u-calendar> -->
 	</view>
 </template>
 
@@ -169,6 +176,9 @@
       birthday () {
         return this.pickerDay || this.$u.timeFormat(this.today, 'yyyy-mm-dd')
       },
+      yearNow () {
+        return Number(this.$u.timeFormat(new Date(), 'yyyy'))
+      },
       sessionId () {
         return this.$store.state.app.sessionId
       }
@@ -195,7 +205,8 @@
         }
       },
       dateChange (e) {
-        this.pickerDay = e.result
+        console.log(e)
+        this.pickerDay = `${e.year}-${e.month}-${e.day}`
       },
       addMember () {
         const data = {

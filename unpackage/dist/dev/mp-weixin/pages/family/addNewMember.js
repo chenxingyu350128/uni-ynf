@@ -102,8 +102,8 @@ var components = {
   uSlider: function() {
     return __webpack_require__.e(/*! import() | uview-ui/components/u-slider/u-slider */ "uview-ui/components/u-slider/u-slider").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-slider/u-slider.vue */ 777))
   },
-  uCalendar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 763))
+  uPicker: function() {
+    return Promise.all(/*! import() | uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-picker/u-picker.vue */ 697))
   }
 }
 var render = function() {
@@ -157,6 +157,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -327,6 +334,9 @@ var _default =
     birthday: function birthday() {
       return this.pickerDay || this.$u.timeFormat(this.today, 'yyyy-mm-dd');
     },
+    yearNow: function yearNow() {
+      return Number(this.$u.timeFormat(new Date(), 'yyyy'));
+    },
     sessionId: function sessionId() {
       return this.$store.state.app.sessionId;
     } },
@@ -353,7 +363,8 @@ var _default =
       }
     },
     dateChange: function dateChange(e) {
-      this.pickerDay = e.result;
+      console.log(e);
+      this.pickerDay = "".concat(e.year, "-").concat(e.month, "-").concat(e.day);
     },
     addMember: function addMember() {var _this2 = this;
       var data = {

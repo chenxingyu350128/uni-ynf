@@ -473,6 +473,9 @@ var canvaColumn = null;var _default =
       var colors = ['#00aaef', '#c7a7dc', '#fd7b7b', '#fa6e31', '#f1ce7e'];
       return colors[this.current];
     },
+    yearNow: function yearNow() {
+      return Number(this.$u.timeFormat(new Date(), 'yyyy'));
+    },
     sleepQuality: function sleepQuality() {
       if (this.duration > 8) {
         return '优';
