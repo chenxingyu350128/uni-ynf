@@ -396,8 +396,10 @@ var _default =
       immediate: true },
 
     memberId: {
-      handler: function handler(val) {
-        if (val) {
+      handler: function handler(newVal, oldVal) {
+        console.log(newVal);
+        console.log(this.memberId);
+        if (newVal) {
           this.getMemberDetails();
         }
       },
@@ -406,40 +408,58 @@ var _default =
 
   methods: {
     memberChange: function memberChange(e) {var _this = this;
+      console.log('点击事件');
+      if (!this.sessionId) {
+        uni.showToast({
+          title: '请先授权登录',
+          icon: 'none' });
+
+        setTimeout(function () {
+          uni.navigateTo({
+            url: '../../public/firstCome/firstCome' });
+
+        }, 1000);
+        return false;
+      }
+
       if (this.memberList && this.memberList.length < 2) {
         return false;
       }
+
       if (!this.clickValid) {
         return false;
+      } else {
+        this.clickValid = false;
+        var i;
+        this.memberList.some(function (res, index) {
+          if (_this.memberId === res.memberId) {
+            i = index;
+            return false;
+          }
+        });
+        console.log(this.clickValid);
+
+        if (e === 'plus') {
+          if (i === this.memberList.length - 1) {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0]);
+          } else {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i + 1]);
+          }
+        }
+        if (e === 'minus') {
+          if (i === 0) {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length - 1]);
+          } else {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i - 1]);
+          }
+        }
+        setTimeout(function () {
+          console.log('banjinlai');
+          _this.clickValid = true;
+        }, 300);
       }
 
-      this.clickValid = false;
-      setTimeout(function () {
-        _this.clickValid = true;
-      }, 300);
 
-      var i;
-      this.memberList.some(function (res, index) {
-        if (_this.memberId === res.memberId) {
-          i = index;
-          return false;
-        }
-      });
-
-      if (e === 'plus') {
-        if (i === this.memberList.length - 1) {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0]);
-        } else {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i + 1]);
-        }
-      }
-      if (e === 'minus') {
-        if (i === 0) {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length - 1]);
-        } else {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i - 1]);
-        }
-      }
       // this.getMemberDetails()
     },
     toQrcode: function toQrcode() {
@@ -456,23 +476,17 @@ var _default =
         url: '../../family/InformationDetails' });
 
     },
-    getMemberDetails: function getMemberDetails() {var _this2 = this;
-      var data = {
-        memberId: this.memberId,
-        sessionId: this.sessionId };
-
-      this.$http.get('/mobile/user/getMember', data).
-      then(function (res) {
-        if (res.data.success) {
-          var obj = res.data.obj;
-          _this2.$store.commit('SET_EACH_MEMBER_ITEM', obj);
-        }
-      });
+    getMemberDetails: function getMemberDetails() {
+      console.log('memberDetails中的memberId=' + this.memberId);
       this.getDeviceInfo();
       this.getCareCarousel();
       this.getMemberIntegral();
+      // memberDetails在详情页获取，避免快速点击时
+
+      // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
+
     },
-    getCareCarousel: function getCareCarousel() {var _this3 = this;
+    getCareCarousel: function getCareCarousel() {var _this2 = this;
       var data = {
         sessionId: this.sessionId,
         memberId: this.memberId };
@@ -480,12 +494,12 @@ var _default =
       this.$http.post('/mobile/healthy/getCareCarousel', data).
       then(function (res) {
         if (res.data.success) {
-          _this3.careCarousel = res.data.obj;
-          _this3.carouselList = _this3.careCarousel.map(function (res) {return res.content;});
+          _this2.careCarousel = res.data.obj;
+          _this2.carouselList = _this2.careCarousel.map(function (res) {return res.content;});
         }
       });
     },
-    getBattery: function getBattery() {var _this4 = this;
+    getBattery: function getBattery() {var _this3 = this;
       var params = {
         sessionId: this.sessionId,
         watchId: this.watchId,
@@ -494,11 +508,11 @@ var _default =
       this.$http.get('/mobile/healthy/getWatchBattery', params).
       then(function (res) {
         if (res.data.success) {
-          _this4.$store.commit('SET_SINGLE_ITEM', ['battery', res.data.obj]);
+          _this3.$store.commit('SET_SINGLE_ITEM', ['battery', res.data.obj]);
         }
       });
     },
-    getMemberIntegral: function getMemberIntegral() {var _this5 = this;
+    getMemberIntegral: function getMemberIntegral() {var _this4 = this;
       var params = {
         memberId: this.memberId,
         sessionId: this.sessionId };
@@ -506,11 +520,11 @@ var _default =
       this.$http.get('/mobile/activity/getIntegralTack', params).
       then(function (res) {
         if (res.data.success) {
-          _this5.memberIntegral = res.data.obj.integralNum;
+          _this4.memberIntegral = res.data.obj.integralNum;
         }
       });
     },
-    getDeviceInfo: function getDeviceInfo() {var _this6 = this;
+    getDeviceInfo: function getDeviceInfo() {var _this5 = this;
       console.log(122);
       var data = {
         sessionId: this.sessionId,
@@ -520,9 +534,9 @@ var _default =
       then(function (res) {
         if (res.data.success) {
           var obj = res.data.obj;
-          _this6.seriesName = obj.seriesName;
-          _this6.seriesImg = decodeURIComponent(obj.seriesImg);
-          _this6.seriesRemarks = obj.seriesRemarks;
+          _this5.seriesName = obj.seriesName;
+          _this5.seriesImg = decodeURIComponent(obj.seriesImg);
+          _this5.seriesRemarks = obj.seriesRemarks;
         }
       });
     },

@@ -9097,8 +9097,8 @@ Fly = __webpack_require__(/*! flyio/dist/npm/wx */ 44);
 // 初始设置
 var fly = new Fly();
 fly.config.timeout = 5000;
-// fly.config.baseURL = 'https://www.yinaf.net'
-fly.config.baseURL = 'http://192.168.1.101:8090/yinaf';
+fly.config.baseURL = 'https://www.yinaf.net';
+// fly.config.baseURL = 'http://192.168.1.101:8090/yinaf'
 
 //请求拦截
 fly.interceptors.request.use(
@@ -11028,6 +11028,7 @@ var member = {
       _storageMw.default.setLocal(key, value);
     },
     SET_EACH_MEMBER_ITEM: function SET_EACH_MEMBER_ITEM(state, res) {
+      console.log('store.js中的member', res);
       for (var x in res) {
         state[x] = res[x];
         if (x === 'image') {

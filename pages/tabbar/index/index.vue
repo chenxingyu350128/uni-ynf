@@ -63,7 +63,6 @@
     <!-- 腕表导购 -->
     <view
       v-if="!watchId"
-      :class="eazyMode?'pt-11':''"
       class="full-width grey buyWatch lighten-3 d-flex align-center justify-center px-2 py-1"
     >
      <view @click="turnToH5(shopMallUrl, '颐纳福商城')" class="py-1 px-2 body-2 white full-width elevation-4 radius-10">
@@ -139,7 +138,7 @@ import amap from '../../../sdk/amap/amap-wx.js'
 export default {
 	data() {
 		return {
-			eazyMode: false,
+			// eazyMode: false,
       customStyle: {
         width: '50rpx',
         height: '30rpx',
@@ -218,14 +217,14 @@ export default {
       }, 500)
     }
   },
-  onPageScroll(e) {
-    const scrollTop = e.scrollTop
-    if (scrollTop > 50) {
-      this.eazyMode = true
-    } else {
-      this.eazyMode = false
-    }
-  },
+  // onPageScroll(e) {
+  //   const scrollTop = e.scrollTop
+  //   if (scrollTop > 50) {
+  //     this.eazyMode = true
+  //   } else {
+  //     this.eazyMode = false
+  //   }
+  // },
   onLoad() {
     // 初始化高德sdk
     this.amapPlugin = new amap.AMapWX({  

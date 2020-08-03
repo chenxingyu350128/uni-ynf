@@ -442,6 +442,8 @@ var _this = null;var _default =
   onLoad: function onLoad(e) {
     if (e.isUser) {
       this.isUser = true;
+    } else {
+      this.getMember();
     }
     _this = this;
   },
@@ -449,6 +451,20 @@ var _this = null;var _default =
     genderFilter: function genderFilter(e) {
       var arr = ['未知', '男', '女'];
       return arr[e];
+    },
+    getMember: function getMember() {var _this2 = this;
+      var data = {
+        memberId: this.memberId,
+        sessionId: this.sessionId };
+
+      // async await 否则this.$store.commit('SET_EACH_MEMBER_ITEM', obj)将导致快速点击时memberId切换延迟导致抖动
+      this.$http.get('/mobile/user/getMember', data).
+      then(function (res) {
+        if (res.data.success) {
+          var obj = res.data.obj;
+          _this2.$store.commit('SET_EACH_MEMBER_ITEM', obj);
+        }
+      });
     },
     updateAvatar: function updateAvatar() {
       var that = this;
@@ -478,7 +494,7 @@ var _this = null;var _default =
         } });
 
     },
-    uploadAvatar: function uploadAvatar(e) {var _this2 = this;
+    uploadAvatar: function uploadAvatar(e) {var _this3 = this;
       var data = {
         sessionId: this.sessionId,
         image: e };
@@ -491,8 +507,8 @@ var _this = null;var _default =
       this.$http.post(url, data).
       then(function (res) {
         if (res.data.success) {
-          _this2.isUser ? uni.$emit('getUser') : _this2.updateMember();
-          _this2.$u.toast(res.data.msg);
+          _this3.isUser ? uni.$emit('getUser') : _this3.updateMember();
+          _this3.$u.toast(res.data.msg);
         }
       });
 
@@ -501,7 +517,7 @@ var _this = null;var _default =
       uni.$emit('getMemberList');
       uni.$emit('getMember');
     },
-    cellClick: function cellClick(e) {var _this3 = this;
+    cellClick: function cellClick(e) {var _this4 = this;
       console.log(e);
       var key = e.name;
       var value = e.key;
@@ -509,7 +525,7 @@ var _this = null;var _default =
       var available = true;
       if (key === 'sex' && !this.isUser) {// 用户设置可以改性别 成员设置看请款
         this.relatives.some(function (res) {
-          if (res.gender && _this3.rela && res.rela === _this3.rela) {
+          if (res.gender && _this4.rela && res.rela === _this4.rela) {
             var gender = res.gender;
             available = !gender;
             return true;

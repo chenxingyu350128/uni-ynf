@@ -20,12 +20,12 @@
                 <text class="triangle"></text>
                 <view class="white ml-n8 px-1 py-2 grey--text text--lighten-1 caption nowrap">
                   <view @click.stop="menuClick(0)" class="d-flex align-center">
-                    <u-icon color="#BBBEBF" size="45" name="watch-nice" customPrefix="mdi"></u-icon>
+                    <u-icon color="#BBBEBF" size="35" name="watch-nice" customPrefix="mdi"></u-icon>
                     <text class="ml-2">添加设备</text>
                   </view>           
                   <u-line class="d-block my-1" color="#BBBEBF" />
                   <view @click.stop="menuClick(1)" class="d-flex align-center">
-                    <u-icon color="#BBBEBF" size="45" name="sub-account" customPrefix="mdi"></u-icon>
+                    <u-icon color="#BBBEBF" size="35" name="sub-account" customPrefix="mdi"></u-icon>
                     <text class="ml-2">添加好友</text>
                   </view>
    <!--               <u-line class="d-block my-1" color="#BBBEBF" />
@@ -35,7 +35,7 @@
                   </view> -->
                   <u-line class="d-block my-1" color="#BBBEBF" />
                   <view @click.stop="menuClick(3)" class="d-flex align-center">
-                    <u-icon color="#BBBEBF" size="45" name="question-circle"></u-icon>
+                    <u-icon color="#BBBEBF" size="35" name="question-circle"></u-icon>
                     <text class="ml-2">帮助与反馈</text>
                   </view>
                 </view>
@@ -240,8 +240,10 @@
         immediate: true
       },
       memberId: {
-        handler(val){
-          if (val) {
+        handler(newVal, oldVal){
+          console.log(newVal)
+          console.log(this.memberId)
+          if (newVal) {
             this.getMemberDetails()
           }
         },
@@ -250,40 +252,58 @@
     },
     methods: {
       memberChange (e) {
+        console.log('点击事件')
+        if (!this.sessionId) {
+          uni.showToast({
+            title: '请先授权登录',
+            icon: 'none'
+          })
+          setTimeout(() => {
+            uni.navigateTo({
+              url: '../../public/firstCome/firstCome'
+            })
+          }, 1000)
+          return false
+        }
+        
         if(this.memberList && this.memberList.length<2){
           return false
         }
+        
         if(!this.clickValid){
           return false
+        } else {
+          this.clickValid = false
+          let i
+          this.memberList.some((res, index) => {
+            if (this.memberId === res.memberId) {
+              i = index
+              return false
+            }
+          })
+          console.log(this.clickValid)
+          
+          if(e==='plus'){
+            if(i === this.memberList.length-1){
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
+            }else{
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i+1])
+            }
+          }
+          if(e==='minus'){
+            if(i===0){
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length-1])
+            } else {
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i-1])
+            }
+          } 
+          setTimeout(() => {
+            console.log('banjinlai')
+            this.clickValid = true
+          },300)
         }
         
-        this.clickValid = false
-        setTimeout(() => {
-          this.clickValid = true
-        },300)
         
-        let i
-        this.memberList.some((res, index) => {
-          if (this.memberId === res.memberId) {
-            i = index
-            return false
-          }
-        })
-        
-        if(e==='plus'){
-          if(i === this.memberList.length-1){
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
-          }else{
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i+1])
-          }
-        }
-        if(e==='minus'){
-          if(i===0){
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length-1])
-          } else {
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i-1])
-          }
-        } 
         // this.getMemberDetails()
       },
       toQrcode () {
@@ -301,20 +321,14 @@
         })
       },
       getMemberDetails () {
-        const data = {
-          memberId: this.memberId,
-          sessionId: this.sessionId
-        }
-        this.$http.get('/mobile/user/getMember', data)
-          .then(res => {
-            if (res.data.success) {
-              const obj = res.data.obj
-              this.$store.commit('SET_EACH_MEMBER_ITEM', obj)
-            }
-          })
+        console.log('memberDetails中的memberId='+ this.memberId)
         this.getDeviceInfo()
         this.getCareCarousel()
         this.getMemberIntegral() 
+        // memberDetails在详情页获取，避免快速点击时
+
+        // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
+
       },
       getCareCarousel(){
         let data = {
