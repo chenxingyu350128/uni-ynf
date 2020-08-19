@@ -121,6 +121,5 @@
       "desc": "获取位置以便我们提供更优质的服务"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }
