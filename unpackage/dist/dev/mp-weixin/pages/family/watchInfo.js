@@ -92,13 +92,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uCellGroup: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-group/u-cell-group */ "uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 606))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-group/u-cell-group */ "uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 627))
   },
   uCellItem: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 613))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 634))
   },
   uSwitch: function() {
     return __webpack_require__.e(/*! import() | uview-ui/components/u-switch/u-switch */ "uview-ui/components/u-switch/u-switch").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-switch/u-switch.vue */ 784))
+  },
+  uButton: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 641))
   }
 }
 var render = function() {
@@ -138,7 +141,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
 //
 //
 //
@@ -188,7 +194,33 @@ var _default =
         }
       });
     },
-    init: function init() {var _this2 = this;
+    unbindWatch: function unbindWatch() {var _this2 = this;
+      uni.showModal({
+        title: '解除腕表绑定',
+        content: '是否解除腕表绑定？',
+        cancelColor: '#f00',
+        success: function success(result) {
+          if (result.confirm) {
+            var data = {
+              watchId: _this2.watchId,
+              sessionId: _this2.sessionId };
+
+            _this2.$http.post('/mobile/healthy/unBindWatch', data).
+            then(function (res) {
+              if (res.data.success) {
+                _this2.$u.toast('解绑成功！');
+                uni.$emit('getMemberList');
+                uni.$emit('getMember');
+                uni.switchTab({
+                  url: '../tabbar/family/family' });
+
+              }
+            });
+          }
+        } });
+
+    },
+    init: function init() {var _this3 = this;
       var data = {
         sessionId: this.sessionId,
         memberId: this.memberId };
@@ -199,7 +231,7 @@ var _default =
         if (res.data.success) {
           var obj = res.data.obj;
           for (var x in obj) {
-            _this2[x] = obj[x];
+            _this3[x] = obj[x];
           }
         }
       });
@@ -212,6 +244,7 @@ var _default =
 
       this.$http.post('mobile/user/updateRemind', data);
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

@@ -110,6 +110,15 @@ var components = {
   },
   uNoticeBar: function() {
     return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 599))
+  },
+  uActionSheet: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-action-sheet/u-action-sheet */ "uview-ui/components/u-action-sheet/u-action-sheet").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-action-sheet/u-action-sheet.vue */ 606))
+  },
+  uPopup: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 613))
+  },
+  uField: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-field/u-field */ "uview-ui/components/u-field/u-field").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-field/u-field.vue */ 620))
   }
 }
 var render = function() {
@@ -119,6 +128,10 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.showMenu = !_vm.showMenu
+    }
+
+    _vm.e1 = function($event) {
+      _vm.showCodeInput = false
     }
   }
 }
@@ -263,12 +276,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default =
 {
   name: 'family',
   data: function data() {
     return {
       clickValid: true,
+      showBS: false,
+      scanInput: '',
+      showCodeInput: false,
+      bsList: [
+      {
+        text: '扫码添加',
+        color: '#00aaef',
+        fontSize: 28 },
+
+      {
+        text: '手动添加',
+        color: '#00aaef',
+        fontSize: 28 }],
+
+
       items: [
       {
         title: '实时数据',
@@ -406,6 +440,9 @@ var _default =
       immediate: true } },
 
 
+  onShow: function onShow() {
+    console.log(this.$store);
+  },
   methods: {
     memberChange: function memberChange(e) {var _this = this;
       console.log('点击事件');
@@ -477,12 +514,13 @@ var _default =
 
     },
     getMemberDetails: function getMemberDetails() {
-      console.log('memberDetails中的memberId=' + this.memberId);
+      console.log('memberId变动' + this.memberId);
       this.getDeviceInfo();
       this.getCareCarousel();
       this.getMemberIntegral();
       // memberDetails在详情页获取，避免快速点击时
 
+      // uni.$emit('getMember')
       // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
 
     },
@@ -572,7 +610,7 @@ var _default =
 
       }
     },
-    iconMenuClick: function iconMenuClick(i) {
+    iconMenuClick: function iconMenuClick(i) {var _this6 = this;
       if (!this.sessionId) {
         uni.showToast({
           title: '请先授权登录',
@@ -598,7 +636,9 @@ var _default =
             cancelColor: '#f00',
             success: function success(result) {
               if (result.confirm) {
-                uni.$emit('scanCode', 0);
+                _this6.scanType = 0;
+                _this6.showBS = true;
+                // uni.$emit('scanCode', 0)
               }
             } });
 
@@ -640,71 +680,70 @@ var _default =
 
 
     },
+    noneScanAdd: function noneScanAdd() {var _this7 = this; // 手动添加
+      if (!this.scanInput) {
+        this.$u.toast(this.scanType ? '请输入二维码' : '请输入IMEI码');
+        return false;
+      }
+      this.showCodeInput = false;
+      var data = this.scanType ?
+      { // 添加好友
+        sessionId: this.sessionId,
+        memberNum: this.scanInput } :
+
+
+      { // 添加设备
+        memberId: this.memberId,
+        sessionId: this.sessionId,
+        watchImei: this.scanInput };
+
+
+      var url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch';
+
+      this.$http.post(url, data).
+      then(function (res) {
+        _this7.scanInput = '';
+        if (res.data.success) {
+          if (_this7.scanType) {
+            _this7.addMember(res.data.obj.memberId);
+          } else {// 添加设备
+            uni.$emit('getMemberList');
+            uni.$emit('getMember');
+            uni.showToast({
+              title: '腕表绑定成功' });
+
+          }
+        }
+      });
+    },
+    addMember: function addMember(memberId) {
+      var data = {
+        sessionId: this.sessionId,
+        memberId: memberId };
+
+      this.$http.post('/mobile/healthy/addEwmMember', data).
+      then(function (res) {
+        if (res.data.success) {
+          uni.$emit('getMemberList');
+          uni.showToast({
+            title: '添加好友成功' });
+
+        }
+      });
+    },
+    actionSheetClick: function actionSheetClick(e) {
+      console.log(e);
+      if (e) {
+        this.showCodeInput = true;
+      } else {// 扫码
+        uni.$emit('scanCode', this.scanType);
+      }
+    },
     scanCode: function scanCode(e) {
-      uni.$emit('scanCode', e);
       this.showModal = false;
-      // this.scanType = e // 设置全局的scanType给this.dealScanResul用
-      // uni.scanCode({
-      //   scanType: [e?'qrCode':'barCode'], // 添加设备条形码， 添加好友二维码
-      //   success: res => {
-      //     console.log(res)
-      //     this.dealScanResult(res.result)
-      //   }
-      // })
-    }
-    //   dealScanResult (e) {
-    //     const data = this.scanType ? 
-    //       { // 添加好友
-    //         sessionId: this.sessionId,
-    //         memberNum: e
-    //       } 
-    //       : 
-    //       { // 添加设备
-    //         memberId: this.memberId,
-    //         sessionId: this.sessionId,
-    //         watchImei: e
-    //       }
-
-    //     const url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch'
-
-    //     this.$http.post(url, data)
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           if (this.scanType) {
-    //             this.addMember(res.data.obj.memberId)
-    //           } else { // 添加设备
-    //             this.getMemberList()
-    //             uni.showToast({
-    //               title: '腕表绑定成功'
-    //             })
-    //           }
-    //         }
-    //       })
-    //   },
-    //   addMember(memberId){
-    //     const data = {
-    //       sessionId: this.sessionId,
-    //       memberId
-    //     }
-    //     this.$http.post('/mobile/healthy/addEwmMember', data)
-    //       .then(res=>{
-    //         if(res.data.success){
-    //           this.getMemberList()
-    //           uni.showToast({
-    //             title: '添加好友成功'
-    //           })
-    //         }
-    //       })
-    //   },
-    //   getMemberList () {
-    //     this.$http.get('/mobile/user/getMemberList', { sessionId: this.sessionId })
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           this.$store.commit('SET_SINGLE_ITEM', res.data.obj)
-    //         }
-    //       })
-    //   }
-  } };exports.default = _default;
+      this.scanType = e;
+      this.showBS = true;
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

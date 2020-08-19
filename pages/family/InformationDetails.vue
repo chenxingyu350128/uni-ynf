@@ -278,7 +278,7 @@
       if (e.isUser) {
         this.isUser = true
       } else {
-        this.getMember()
+        uni.$emit('getMember')
       }
       _this = this
     },
@@ -286,20 +286,6 @@
       genderFilter (e) {
         const arr = ['未知', '男', '女']
         return arr[e]
-      },
-      getMember () {
-        const data = {
-          memberId: this.memberId,
-          sessionId: this.sessionId
-        }
-        // async await 否则this.$store.commit('SET_EACH_MEMBER_ITEM', obj)将导致快速点击时memberId切换延迟导致抖动
-        this.$http.get('/mobile/user/getMember', data)
-          .then(res => {
-            if (res.data.success) {
-              const obj = res.data.obj
-              this.$store.commit('SET_EACH_MEMBER_ITEM', obj)
-            }
-          })
       },
       updateAvatar () {
         const that = this

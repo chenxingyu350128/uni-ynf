@@ -380,17 +380,9 @@
         }
       },
       upperBtn () {
-        if (this.current > 1) {
-          uni.navigateTo({
-            url: `./remindResult?type=${this.current - 2}&navBG=${this.tabBG}`
-          })
-        } else {
-          uni.showShareMenu({
-            success: res => {
-              console.log(res)
-            }
-          })
-        }
+        uni.navigateTo({
+          url: `./remindResult?type=${this.current - 2}&navBG=${this.tabBG}`
+        })
       },
       bottomBtn () {
         const urls = [
@@ -508,6 +500,7 @@
             }
           })
       },
+      
       totalData () {
         uni.navigateTo({
           url: `./totalData?type=${this.current}&tabBG=${this.tabBG}`
@@ -680,6 +673,7 @@
             }
           })
       },
+      
       seeDetails (e) {
         const that = this
         const x = canvaColumn.getCurrentDataIndex(e)

@@ -108,10 +108,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.rec, function(meal, i) {
+    var $orig = _vm.__get_orig(meal)
+
     var f0 = _vm._f("mealName")(meal.foodType)
 
     return {
-      $orig: _vm.__get_orig(meal),
+      $orig: $orig,
       f0: f0
     }
   })

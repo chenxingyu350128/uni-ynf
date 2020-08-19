@@ -92,18 +92,24 @@
         <text class="fz12">{{item.title}}</text>        
       </view>
     </view>
+    <u-action-sheet @click="actionSheetClick" :list="bsList" v-model="showBS"></u-action-sheet>
     <view class="text-center white pb-2 overline grey--text text--lighten-1">颐纳福关爱，从这一刻开始！</view>
-    <!-- 添加腕表提示框 -->
-<!--    <u-popup v-model="showModal" width="550" :mask-close-able="false" border-radius="10" mode="center">
+    <!-- 手动添加 -->
+   <u-popup v-model="showCodeInput" width="550" :mask-close-able="false" border-radius="10" mode="center">
       <view class="pa-4">
-        <view class="title red--text">未添加腕表</view>
-        <view class="my-4 body-1">添加腕表，解锁更多功能~~</view>
+        <view class="title red--text">手动输入</view>
+         <u-field 
+           v-model="scanInput" 
+           :label="scanType?'二维码':'IMEI码'" 
+           type="number"
+           :placeholder="scanType?'请输入二维码':'请输入IMEI码'" 
+         />             
         <view class="d-flex justify-end body-1">
-          <text @click="showModal=false" class="red--text">取消</text>
-          <text @click="scanCode(0)" class="primary--text ml-4">添加</text>
+          <text @click="showCodeInput=false" class="red--text">取消</text>
+          <text @click="noneScanAdd" class="primary--text ml-4">添加</text>
         </view>
       </view>
-    </u-popup> -->
+    </u-popup>
   </view>
 </template>
 
@@ -113,6 +119,21 @@
 		data() {
 			return {
         clickValid: true,
+        showBS: false,
+        scanInput: '',
+        showCodeInput: false,
+        bsList: [
+          {
+            text: '扫码添加',
+            color: '#00aaef',
+            fontSize: 28
+          },
+          {
+            text: '手动添加',
+            color: '#00aaef',
+            fontSize: 28
+          }
+        ],
         items: [
           {
             title: '实时数据',
@@ -250,6 +271,9 @@
         immediate: true
       }
     },
+    onShow() {
+      console.log(this.$store)
+    },
     methods: {
       memberChange (e) {
         console.log('点击事件')
@@ -321,12 +345,13 @@
         })
       },
       getMemberDetails () {
-        console.log('memberDetails中的memberId='+ this.memberId)
+        console.log('memberId变动'+ this.memberId)
         this.getDeviceInfo()
         this.getCareCarousel()
         this.getMemberIntegral() 
         // memberDetails在详情页获取，避免快速点击时
-
+        
+        // uni.$emit('getMember')
         // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
 
       },
@@ -442,7 +467,9 @@
               cancelColor: '#f00',
               success: result => {
                 if (result.confirm) {
-                  uni.$emit('scanCode', 0)
+                  this.scanType = 0
+                  this.showBS = true
+                  // uni.$emit('scanCode', 0)
                 }
               }
             })
@@ -484,71 +511,71 @@
         })
         
       },
+      noneScanAdd () { // 手动添加
+        if (!this.scanInput) {
+          this.$u.toast(this.scanType?'请输入二维码':'请输入IMEI码')
+          return false
+        }
+        this.showCodeInput = false
+        const data = this.scanType ?
+          { // 添加好友
+            sessionId: this.sessionId,
+            memberNum: this.scanInput
+          } 
+          : 
+          { // 添加设备
+            memberId: this.memberId,
+            sessionId: this.sessionId,
+            watchImei: this.scanInput
+          }
+        
+        const url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch'
+        
+        this.$http.post(url, data)
+          .then(res => {
+            this.scanInput = ''
+            if (res.data.success) {
+              if (this.scanType) {
+                this.addMember(res.data.obj.memberId)
+              } else { // 添加设备
+                uni.$emit('getMemberList')
+                uni.$emit('getMember')
+                uni.showToast({
+                  title: '腕表绑定成功'
+                })
+              }
+            }
+          })
+      },
+      addMember(memberId){
+        const data = {
+          sessionId: this.sessionId,
+          memberId
+        }
+        this.$http.post('/mobile/healthy/addEwmMember', data)
+          .then(res=>{
+            if(res.data.success){
+              uni.$emit('getMemberList')
+              uni.showToast({
+                title: '添加好友成功'
+              })
+            }
+          })
+      },
+      actionSheetClick (e) {
+        console.log(e)
+        if (e) {
+          this.showCodeInput = true
+        } else { // 扫码
+          uni.$emit('scanCode', this.scanType)
+        }
+      },
       scanCode (e) {
-        uni.$emit('scanCode', e)
         this.showModal = false
-        // this.scanType = e // 设置全局的scanType给this.dealScanResul用
-        // uni.scanCode({
-        //   scanType: [e?'qrCode':'barCode'], // 添加设备条形码， 添加好友二维码
-        //   success: res => {
-        //     console.log(res)
-        //     this.dealScanResult(res.result)
-        //   }
-        // })
+        this.scanType = e
+        this.showBS = true
       }
-    //   dealScanResult (e) {
-    //     const data = this.scanType ? 
-    //       { // 添加好友
-    //         sessionId: this.sessionId,
-    //         memberNum: e
-    //       } 
-    //       : 
-    //       { // 添加设备
-    //         memberId: this.memberId,
-    //         sessionId: this.sessionId,
-    //         watchImei: e
-    //       }
-        
-    //     const url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch'
-        
-    //     this.$http.post(url, data)
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           if (this.scanType) {
-    //             this.addMember(res.data.obj.memberId)
-    //           } else { // 添加设备
-    //             this.getMemberList()
-    //             uni.showToast({
-    //               title: '腕表绑定成功'
-    //             })
-    //           }
-    //         }
-    //       })
-    //   },
-    //   addMember(memberId){
-    //     const data = {
-    //       sessionId: this.sessionId,
-    //       memberId
-    //     }
-    //     this.$http.post('/mobile/healthy/addEwmMember', data)
-    //       .then(res=>{
-    //         if(res.data.success){
-    //           this.getMemberList()
-    //           uni.showToast({
-    //             title: '添加好友成功'
-    //           })
-    //         }
-    //       })
-    //   },
-    //   getMemberList () {
-    //     this.$http.get('/mobile/user/getMemberList', { sessionId: this.sessionId })
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           this.$store.commit('SET_SINGLE_ITEM', res.data.obj)
-    //         }
-    //       })
-    //   }
-    
+   
     }
     
 	}

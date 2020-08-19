@@ -6,9 +6,9 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
-		"enhance": false,
+		"enhance": true,
 		"postcss": true,
-		"preloadBackgroundData": false,
+		"preloadBackgroundData": true,
 		"minified": true,
 		"newFeature": false,
 		"coverView": true,
@@ -20,7 +20,7 @@
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
-		"compileHotReLoad": true,
+		"compileHotReLoad": false,
 		"babelSetting": {
 			"ignore": [],
 			"disablePlugins": [],
@@ -29,10 +29,10 @@
 		"bundle": false,
 		"useIsolateContext": true,
 		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
+		"userConfirmedUseCompilerModuleSwitch": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "",
+	"libVersion": "2.12.1",
 	"appid": "wx243857db8cfaf3ee",
 	"projectname": "ynf-mp",
 	"simulatorType": "wechat",

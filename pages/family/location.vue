@@ -3,7 +3,8 @@
 		<!-- <image :src="mapSrc"></image> -->
     <view class="posFix t0 d-inline-flex ma-2 zIndexHigh">
       <u-button v-if="battery" size="medium" type="primary" shape="circle">
-        <uni-battery :battery="battery"></uni-battery>剩余电量{{battery}}%
+        <uni-battery class="mr-4" :battery="battery"></uni-battery>
+        剩余电量{{battery}}%
       </u-button>
       <u-button v-else size="medium" disabled type="error" shape="circle">
         腕表未连接

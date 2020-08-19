@@ -83,10 +83,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   var s0 = _vm.__get_style([_vm.customStyle])
 
-  var s1 = _vm.__get_style([_vm.imgStyle])
-
-  var s2 = _vm.__get_style([_vm.iconStyle])
-
+  var s1 = _vm.isImg ? _vm.__get_style([_vm.imgStyle]) : null
+  var s2 = !_vm.isImg ? _vm.__get_style([_vm.iconStyle]) : null
   _vm.$mp.data = Object.assign(
     {},
     {

@@ -162,7 +162,7 @@ var _default =
       var n = x.length;
 
       return n ? {
-        id: 'marker_s',
+        id: 1225,
         latitude: x[0].latitude,
         longitude: x[0].longitude,
         iconPath: './static/map/map_marker_start.png',
@@ -175,7 +175,7 @@ var _default =
       var n = x.length;
 
       return n ? {
-        id: 'marker_e',
+        id: 1226,
         latitude: x[n - 1].latitude,
         longitude: x[n - 1].longitude,
         iconPath: './static/map/map_marker_end.png',
@@ -208,7 +208,7 @@ var _default =
       var len = steps.length;
       for (var i = 0; i < len - 1; i++) {
         moveRail.translateMarker({
-          markerId: 'marker_s',
+          markerId: 1225,
           destination: steps[i + 1],
           duration: 2500 });
 
@@ -250,7 +250,10 @@ var _default =
 
           _this.markers = markers;
           _this.includePoints = includePoints;
-          _this.translateMarker();
+          _this.$nextTick(function () {
+
+            _this.translateMarker();
+          }, 2000);
         }
       });
     } } };exports.default = _default;

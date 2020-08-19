@@ -81,8 +81,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var s0 = _vm.__get_style([_vm.cricleStyle])
-
+  var s0 = _vm.show ? _vm.__get_style([_vm.cricleStyle]) : null
   _vm.$mp.data = Object.assign(
     {},
     {

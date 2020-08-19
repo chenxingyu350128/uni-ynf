@@ -85,9 +85,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var s0 = _vm.__get_style([_vm.getStyle])
-
-  var s1 = _vm.__get_style([_vm.getStyle])
+  var s0 = _vm.type == "textarea" ? _vm.__get_style([_vm.getStyle]) : null
+  var s1 = !(_vm.type == "textarea") ? _vm.__get_style([_vm.getStyle]) : null
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {

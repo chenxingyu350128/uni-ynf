@@ -32,7 +32,7 @@
         const n = x.length
         
         return n ? {
-          id: 'marker_s',
+          id: 1225,
           latitude: x[0].latitude,
           longitude: x[0].longitude,
           iconPath: './static/map/map_marker_start.png',
@@ -45,7 +45,7 @@
         const n = x.length
         
         return n ? {
-          id: 'marker_e',
+          id: 1226,
           latitude: x[n-1].latitude,
           longitude: x[n-1].longitude,
           iconPath: './static/map/map_marker_end.png',
@@ -76,9 +76,9 @@
         const moveRail = uni.createMapContext('historyMap', this)
         const steps = this.polyline[0].points
         const len = steps.length
-        for (let i = 0; i<len-1; i++) {
+        for (let i = 0; i<len-1; i++) {          
           moveRail.translateMarker({
-            markerId: 'marker_s',
+            markerId: 1225,
             destination: steps[i+1],
             duration: 2500
           })
@@ -120,7 +120,10 @@
               }]
               this.markers = markers
               this.includePoints = includePoints
-              this.translateMarker()
+              this.$nextTick(()=>{
+                
+                this.translateMarker()
+              },2000)
             }
         })
       }

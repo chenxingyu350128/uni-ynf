@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uNavbar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-navbar/u-navbar */ "uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-navbar/u-navbar.vue */ 669))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-navbar/u-navbar */ "uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-navbar/u-navbar.vue */ 676))
   },
   uLoadmore: function() {
     return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 571))
@@ -104,21 +104,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l1 = _vm.__map(_vm.list, function(item, index) {
-    var l0 = _vm.__map(item.obj, function(itm, idx) {
-      var g0 = itm.time.split(" ")
-      return {
-        $orig: _vm.__get_orig(itm),
-        g0: g0
-      }
-    })
+  var l1 = !(_vm.type === 1)
+    ? _vm.__map(_vm.list, function(item, index) {
+        var $orig = _vm.__get_orig(item)
 
-    return {
-      $orig: _vm.__get_orig(item),
-      l0: l0
-    }
-  })
+        var l0 = _vm.__map(item.obj, function(itm, idx) {
+          var $orig = _vm.__get_orig(itm)
 
+          var g0 = itm.time.split(" ")
+          return {
+            $orig: $orig,
+            g0: g0
+          }
+        })
+
+        return {
+          $orig: $orig,
+          l0: l0
+        }
+      })
+    : null
   _vm.$mp.data = Object.assign(
     {},
     {

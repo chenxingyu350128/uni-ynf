@@ -95,32 +95,38 @@ var components = {
     return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 564))
   },
   uCellGroup: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-group/u-cell-group */ "uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 606))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-group/u-cell-group */ "uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 627))
   },
   uCellItem: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 613))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 634))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.userCells, function(cell, i) {
-    var m0 = _vm.genderFilter(cell.key)
-    return {
-      $orig: _vm.__get_orig(cell),
-      m0: m0
-    }
-  })
+  var l0 = _vm.isUser
+    ? _vm.__map(_vm.userCells, function(cell, i) {
+        var $orig = _vm.__get_orig(cell)
 
-  var l1 = _vm.__map(_vm.memberCells, function(cell, i) {
-    var m1 = _vm.genderFilter(cell.key)
-    return {
-      $orig: _vm.__get_orig(cell),
-      m1: m1
-    }
-  })
+        var m0 = cell.name === "sex" ? _vm.genderFilter(cell.key) : null
+        return {
+          $orig: $orig,
+          m0: m0
+        }
+      })
+    : null
+  var l1 = !_vm.isUser
+    ? _vm.__map(_vm.memberCells, function(cell, i) {
+        var $orig = _vm.__get_orig(cell)
 
+        var m1 = cell.name === "sex" ? _vm.genderFilter(cell.key) : null
+        return {
+          $orig: $orig,
+          m1: m1
+        }
+      })
+    : null
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -443,7 +449,7 @@ var _this = null;var _default =
     if (e.isUser) {
       this.isUser = true;
     } else {
-      this.getMember();
+      uni.$emit('getMember');
     }
     _this = this;
   },
@@ -451,20 +457,6 @@ var _this = null;var _default =
     genderFilter: function genderFilter(e) {
       var arr = ['未知', '男', '女'];
       return arr[e];
-    },
-    getMember: function getMember() {var _this2 = this;
-      var data = {
-        memberId: this.memberId,
-        sessionId: this.sessionId };
-
-      // async await 否则this.$store.commit('SET_EACH_MEMBER_ITEM', obj)将导致快速点击时memberId切换延迟导致抖动
-      this.$http.get('/mobile/user/getMember', data).
-      then(function (res) {
-        if (res.data.success) {
-          var obj = res.data.obj;
-          _this2.$store.commit('SET_EACH_MEMBER_ITEM', obj);
-        }
-      });
     },
     updateAvatar: function updateAvatar() {
       var that = this;
@@ -494,7 +486,7 @@ var _this = null;var _default =
         } });
 
     },
-    uploadAvatar: function uploadAvatar(e) {var _this3 = this;
+    uploadAvatar: function uploadAvatar(e) {var _this2 = this;
       var data = {
         sessionId: this.sessionId,
         image: e };
@@ -507,8 +499,8 @@ var _this = null;var _default =
       this.$http.post(url, data).
       then(function (res) {
         if (res.data.success) {
-          _this3.isUser ? uni.$emit('getUser') : _this3.updateMember();
-          _this3.$u.toast(res.data.msg);
+          _this2.isUser ? uni.$emit('getUser') : _this2.updateMember();
+          _this2.$u.toast(res.data.msg);
         }
       });
 
@@ -517,7 +509,7 @@ var _this = null;var _default =
       uni.$emit('getMemberList');
       uni.$emit('getMember');
     },
-    cellClick: function cellClick(e) {var _this4 = this;
+    cellClick: function cellClick(e) {var _this3 = this;
       console.log(e);
       var key = e.name;
       var value = e.key;
@@ -525,7 +517,7 @@ var _this = null;var _default =
       var available = true;
       if (key === 'sex' && !this.isUser) {// 用户设置可以改性别 成员设置看请款
         this.relatives.some(function (res) {
-          if (res.gender && _this4.rela && res.rela === _this4.rela) {
+          if (res.gender && _this3.rela && res.rela === _this3.rela) {
             var gender = res.gender;
             available = !gender;
             return true;

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<map id="fenceMap" @tap="mapTap" scale="12" :circles="circles" :latitude="latitude" :longitude="longitude" class="mapEL"></map>
-    <cover-view class="posFix t0 full-width white h-auto">        
+    <view class="posFix t0 full-width white h-auto">        
       <u-field 
         v-model="name" 
         label="地址名称" 
@@ -18,11 +18,10 @@
         <view class="px-4 py-2" @click="selectRadius(2000)" :class="radius===2000?'primary--text':'grey--text'">2000米</view>
         <view class="px-4 py-2" @click="selectRadius(3000)" :class="radius===3000?'primary--text':'grey--text'">3000米</view>
       </view>
-    </cover-view>
-    
-    <cover-view class="posFix b0 full-width white">
+    </view>
+    <view class="posFix b0 full-width white">
       <u-button @click="modify" :custom-style="style" type="primary">{{railId?'修改':'添加'}}</u-button>
-    </cover-view>
+    </view>
 	</view>
 </template>
 
@@ -69,7 +68,8 @@
           latitude: this.latitude,
           longitude: this.longitude,
           radius: this.radius,
-          fillColor: '#dea4dd65'
+          fillColor: '#dea4dd65',
+          color: '#fff'
         }]
       }
     },

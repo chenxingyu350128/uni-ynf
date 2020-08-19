@@ -89,14 +89,15 @@ var render = function() {
     }
   ])
 
-  var s1 = _vm.__get_style([
-    _vm.blockStyle,
-    {
-      height: _vm.blockWidth + "rpx",
-      width: _vm.blockWidth + "rpx"
-    }
-  ])
-
+  var s1 = !_vm.$slots.default
+    ? _vm.__get_style([
+        _vm.blockStyle,
+        {
+          height: _vm.blockWidth + "rpx",
+          width: _vm.blockWidth + "rpx"
+        }
+      ])
+    : null
   _vm.$mp.data = Object.assign(
     {},
     {

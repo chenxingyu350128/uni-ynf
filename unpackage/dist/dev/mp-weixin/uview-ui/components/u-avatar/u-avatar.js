@@ -83,8 +83,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   var s0 = _vm.__get_style([_vm.wrapStyle])
 
-  var s1 = _vm.__get_style([_vm.imgStyle])
-
+  var s1 = !_vm.text && _vm.avatar ? _vm.__get_style([_vm.imgStyle]) : null
   _vm.$mp.data = Object.assign(
     {},
     {
