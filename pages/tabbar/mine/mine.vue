@@ -126,7 +126,7 @@
 .cardBox{
   position: relative;
   height: 160px;
-  background: url(../../../static/img/mineBG.png);
+  background: url(../../../static/img/mineBG.jpg);
   background-size: 100% 100%;
 }
 </style>

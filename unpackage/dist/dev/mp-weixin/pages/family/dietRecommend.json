@@ -1,4 +1,8 @@
 {
   "navigationBarTitleText": "膳食推荐",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-avatar": "/uview-ui/components/u-avatar/u-avatar",
+    "u-circle-progress": "/uview-ui/components/u-circle-progress/u-circle-progress",
+    "u-icon": "/uview-ui/components/u-icon/u-icon"
+  }
 }

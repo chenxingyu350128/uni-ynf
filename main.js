@@ -1,17 +1,19 @@
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
-Vue.use(uView);
+// import {debounce, throttle} from '@/utils/myLodash'
 
+Vue.use(uView);
+// check git
 import http from '@/utils/flyIO.js'
 
+// Vue.prototype.$debounce = debounce
+// Vue.prototype.$throttle = throttle
+// console.log(debounce, throttle)
 Vue.prototype.$http = http.fly
 
 import store from 'store.js'
 
-Vue.prototype.sessionId = store.state.app.sessionId
-Vue.prototype.userId = store.state.app.userId
-Vue.prototype.memberId = store.state.member.memberId
 
 Vue.config.productionTip = false
 

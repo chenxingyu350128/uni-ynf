@@ -20,10 +20,13 @@
       "root": "pages/family",
       "pages": [
         "QrCode",
+        "integralPage",
+        "integralDetails",
         "deviceData",
         "addMeasureData",
         "stepAim",
         "stepRank",
+        "remindResult",
         "servicePackages",
         "contacts",
         "location",
@@ -32,13 +35,22 @@
         "locationHistory",
         "locationHistoryMap",
         "chat",
+        "chatDetails",
         "alarms",
         "watchSetting",
         "modifyRemind",
         "dietRecord",
+        "mealPlan",
+        "foodIndex",
+        "foodDetails",
         "dietRecommend",
         "lifeLog",
-        "healthRecord",
+        "addLifeLog",
+        "healthFile",
+        "healthReport",
+        "healthReportDetails",
+        "medicalReport",
+        "medicalReportDetails",
         "hourData",
         "totalData",
         "addNewMember",
@@ -51,6 +63,12 @@
         "watchInfo",
         "AddressBook",
         "alarmAlert",
+        "sportSetting",
+        "sleepSetting",
+        "HrSetting",
+        "BpSetting",
+        "BsSetting",
+        "locationSetting",
         "AssociatedApp"
       ]
     },
@@ -104,5 +122,5 @@
     }
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap5.json"
+  "sitemapLocation": "sitemap9.json"
 }

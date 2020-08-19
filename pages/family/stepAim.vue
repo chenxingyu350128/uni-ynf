@@ -1,7 +1,7 @@
 
 <template>
 	<view class="page posRela">
-		<image class="BG" src="./static/img/stepAim.png"></image>
+		<image class="BG" src="./static/img/stepAim.jpg"></image>
     <view class="posAbs full-size fill-height">
       <view class="pa-4 text-center">
         请设定运动目标
@@ -77,6 +77,7 @@
       },
     },
     onLoad(e) {
+      console.log(e)
       if (e.aim) {
         this.aim = Number(e.aim)
       }
@@ -96,7 +97,7 @@
         let data ={
           memberId: this.memberId,
           sessionId: this.sessionId,
-          goalNum: this.aim
+          goalNum: this.aim || 5000
   
         }
         this.$http.post('mobile/healthy/setGoalStep', data)

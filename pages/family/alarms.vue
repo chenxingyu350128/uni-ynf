@@ -11,9 +11,12 @@
           <text>{{item.name}}</text>
           <text class="ml-2">{{item.title}}</text> 
         </view>
-        <text class="caption grey--text mt-2">{{item.time}}</text>
+        <view class="caption grey--text mt-2 d-flex justify-space-between">
+          <text>{{item.time}}</text>
+          <text @click="toDetails(item)" class="subtitle-2">查看详情</text>
+        </view>
       </view>
-      <view @click="toDetails(item)" style="width: 5em;" class="grey--text">查看详情</view>
+      <!-- <view @click="toDetails(item)" style="width: 5em;" class="grey--text">查看详情</view> -->
     </view>
 		<u-loadmore :status="loadMoreStatus"/>
 	</view>
@@ -39,7 +42,14 @@
       }      
     },
     onShow() {
-      this.init()
+      const enterAlarmDetails = this.$store.state.app.enterAlarmDetails
+      if (enterAlarmDetails) {
+        this.$store.commit('SET_SINGLE_ITEM', ['enterAlarmDetails', false])
+      } else {   
+        
+        this.init()
+      }
+      
     },
     onReachBottom() {
       if (!this.allLoaded) {

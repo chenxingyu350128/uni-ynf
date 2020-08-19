@@ -94,22 +94,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniBattery: function() {
-    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 442))
+    return __webpack_require__.e(/*! import() | components/uni-battery/uni-battery */ "components/uni-battery/uni-battery").then(__webpack_require__.bind(null, /*! @/components/uni-battery/uni-battery.vue */ 578))
   },
   uIcon: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 414))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 550))
   },
   uLine: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 449))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 585))
   },
   uAvatar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 456))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 592))
   },
   uImage: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 428))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 564))
   },
   uNoticeBar: function() {
-    return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 463))
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-notice-bar/u-notice-bar */ "uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-notice-bar/u-notice-bar.vue */ 599))
+  },
+  uActionSheet: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-action-sheet/u-action-sheet */ "uview-ui/components/u-action-sheet/u-action-sheet").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-action-sheet/u-action-sheet.vue */ 606))
+  },
+  uPopup: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 613))
+  },
+  uField: function() {
+    return __webpack_require__.e(/*! import() | uview-ui/components/u-field/u-field */ "uview-ui/components/u-field/u-field").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-field/u-field.vue */ 620))
   }
 }
 var render = function() {
@@ -119,6 +128,10 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.showMenu = !_vm.showMenu
+    }
+
+    _vm.e1 = function($event) {
+      _vm.showCodeInput = false
     }
   }
 }
@@ -263,23 +276,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default =
 {
   name: 'family',
   data: function data() {
     return {
       clickValid: true,
+      showBS: false,
+      scanInput: '',
+      showCodeInput: false,
+      bsList: [
+      {
+        text: '扫码添加',
+        color: '#00aaef',
+        fontSize: 28 },
+
+      {
+        text: '手动添加',
+        color: '#00aaef',
+        fontSize: 28 }],
+
+
       items: [
       {
         title: '实时数据',
         color: '#97e08e',
         icon: 'chart-bar' },
 
-      // {
-      //   title: '服务套餐',
-      //   color: '#f4d47a',
-      //   icon: 'room-service-outline'
-      // },
+      {
+        title: '服务套餐',
+        color: '#f4d47a',
+        icon: 'room-service-outline' },
+
       {
         title: '联系人',
         color: '#f4c293',
@@ -290,11 +324,11 @@ var _default =
         color: '#f9b4b4',
         icon: 'location' },
 
-      // {
-      //   title: '在线聊天',
-      //   color: '#97e08e',
-      //   icon: 'comment-multiple'
-      // },         
+      {
+        title: '在线聊天',
+        color: '#97e08e',
+        icon: 'comment-multiple' },
+
       {
         title: '电话呼叫',
         color: '#f4d47a',
@@ -308,29 +342,29 @@ var _default =
       {
         title: '腕表设置',
         color: '#f9b4b4',
-        icon: 'watch-nice' }
+        icon: 'watch-nice' },
 
-      // {
-      //   title: '饮食记录',
-      //   color: '#97e08e',
-      //   icon: 'silverware-variant'
-      // },         
-      // {
-      //   title: '膳食推荐',
-      //   color: '#f4d47a',
-      //   icon: 'rgoblet-fill'
-      // },
-      // {
-      //   title: '生活日志',
-      //   color: '#f4c293',
-      //   icon: 'sprout'
-      // },
-      // {
-      //   title: '健康档案',
-      //   color: '#f9b4b4',
-      //   icon: 'order'
-      // }
-      ],
+      {
+        title: '饮食记录',
+        color: '#97e08e',
+        icon: 'silverware-variant' },
+
+      {
+        title: '膳食推荐',
+        color: '#f4d47a',
+        icon: 'rgoblet-fill' },
+
+      {
+        title: '生活日志',
+        color: '#f4c293',
+        icon: 'sprout' },
+
+      {
+        title: '健康档案',
+        color: '#f9b4b4',
+        icon: 'order' }],
+
+
       showMenu: false,
       showModal: false,
       defaultAvatar: __webpack_require__(/*! @/static/img/defaultAvatar.png */ 63),
@@ -396,77 +430,101 @@ var _default =
       immediate: true },
 
     memberId: {
-      handler: function handler(val) {
-        if (val) {
+      handler: function handler(newVal, oldVal) {
+        console.log(newVal);
+        console.log(this.memberId);
+        if (newVal) {
           this.getMemberDetails();
         }
       },
       immediate: true } },
 
 
+  onShow: function onShow() {
+    console.log(this.$store);
+  },
   methods: {
     memberChange: function memberChange(e) {var _this = this;
+      console.log('点击事件');
+      if (!this.sessionId) {
+        uni.showToast({
+          title: '请先授权登录',
+          icon: 'none' });
+
+        setTimeout(function () {
+          uni.navigateTo({
+            url: '../../public/firstCome/firstCome' });
+
+        }, 1000);
+        return false;
+      }
+
       if (this.memberList && this.memberList.length < 2) {
         return false;
       }
+
       if (!this.clickValid) {
         return false;
+      } else {
+        this.clickValid = false;
+        var i;
+        this.memberList.some(function (res, index) {
+          if (_this.memberId === res.memberId) {
+            i = index;
+            return false;
+          }
+        });
+        console.log(this.clickValid);
+
+        if (e === 'plus') {
+          if (i === this.memberList.length - 1) {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0]);
+          } else {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i + 1]);
+          }
+        }
+        if (e === 'minus') {
+          if (i === 0) {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length - 1]);
+          } else {
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i - 1]);
+          }
+        }
+        setTimeout(function () {
+          console.log('banjinlai');
+          _this.clickValid = true;
+        }, 300);
       }
 
-      this.clickValid = false;
-      setTimeout(function () {
-        _this.clickValid = true;
-      }, 1000);
 
-      var i;
-      this.memberList.some(function (res, index) {
-        if (_this.memberId === res.memberId) {
-          i = index;
-          return false;
-        }
-      });
-
-      if (e === 'plus') {
-        if (i === this.memberList.length - 1) {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0]);
-        } else {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i + 1]);
-        }
-      }
-      if (e === 'minus') {
-        if (i === 0) {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length - 1]);
-        } else {
-          this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i - 1]);
-        }
-      }
       // this.getMemberDetails()
     },
     toQrcode: function toQrcode() {
       uni.navigateTo({ url: '../../family/QrCode' });
+    },
+    toScoreDetails: function toScoreDetails() {
+      console.log('qqq');
+      uni.navigateTo({
+        url: '../../family/integralPage' });
+
     },
     toMemberInfo: function toMemberInfo() {
       uni.navigateTo({
         url: '../../family/InformationDetails' });
 
     },
-    getMemberDetails: function getMemberDetails() {var _this2 = this;
-      var data = {
-        memberId: this.memberId,
-        sessionId: this.sessionId };
-
-      this.$http.get('/mobile/user/getMember', data).
-      then(function (res) {
-        if (res.data.success) {
-          var obj = res.data.obj;
-          _this2.$store.commit('SET_EACH_MEMBER_ITEM', obj);
-        }
-      });
+    getMemberDetails: function getMemberDetails() {
+      console.log('memberId变动' + this.memberId);
       this.getDeviceInfo();
       this.getCareCarousel();
       this.getMemberIntegral();
+      // memberDetails在详情页获取，避免快速点击时
+
+      // uni.$emit('getMember')
+      // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
+
     },
-    getCareCarousel: function getCareCarousel() {var _this3 = this;
+    getCareCarousel: function getCareCarousel() {var _this2 = this;
       var data = {
         sessionId: this.sessionId,
         memberId: this.memberId };
@@ -474,12 +532,12 @@ var _default =
       this.$http.post('/mobile/healthy/getCareCarousel', data).
       then(function (res) {
         if (res.data.success) {
-          _this3.careCarousel = res.data.obj;
-          _this3.carouselList = _this3.careCarousel.map(function (res) {return res.content;});
+          _this2.careCarousel = res.data.obj;
+          _this2.carouselList = _this2.careCarousel.map(function (res) {return res.content;});
         }
       });
     },
-    getBattery: function getBattery() {var _this4 = this;
+    getBattery: function getBattery() {var _this3 = this;
       var params = {
         sessionId: this.sessionId,
         watchId: this.watchId,
@@ -488,11 +546,11 @@ var _default =
       this.$http.get('/mobile/healthy/getWatchBattery', params).
       then(function (res) {
         if (res.data.success) {
-          _this4.$store.commit('SET_SINGLE_ITEM', ['battery', res.data.obj]);
+          _this3.$store.commit('SET_SINGLE_ITEM', ['battery', res.data.obj]);
         }
       });
     },
-    getMemberIntegral: function getMemberIntegral() {var _this5 = this;
+    getMemberIntegral: function getMemberIntegral() {var _this4 = this;
       var params = {
         memberId: this.memberId,
         sessionId: this.sessionId };
@@ -500,11 +558,11 @@ var _default =
       this.$http.get('/mobile/activity/getIntegralTack', params).
       then(function (res) {
         if (res.data.success) {
-          _this5.memberIntegral = res.data.obj.integralNum;
+          _this4.memberIntegral = res.data.obj.integralNum;
         }
       });
     },
-    getDeviceInfo: function getDeviceInfo() {var _this6 = this;
+    getDeviceInfo: function getDeviceInfo() {var _this5 = this;
       console.log(122);
       var data = {
         sessionId: this.sessionId,
@@ -514,9 +572,9 @@ var _default =
       then(function (res) {
         if (res.data.success) {
           var obj = res.data.obj;
-          _this6.seriesName = obj.seriesName;
-          _this6.seriesImg = decodeURIComponent(obj.seriesImg);
-          _this6.seriesRemarks = obj.seriesRemarks;
+          _this5.seriesName = obj.seriesName;
+          _this5.seriesImg = decodeURIComponent(obj.seriesImg);
+          _this5.seriesRemarks = obj.seriesRemarks;
         }
       });
     },
@@ -552,7 +610,7 @@ var _default =
 
       }
     },
-    iconMenuClick: function iconMenuClick(i) {
+    iconMenuClick: function iconMenuClick(i) {var _this6 = this;
       if (!this.sessionId) {
         uni.showToast({
           title: '请先授权登录',
@@ -567,8 +625,8 @@ var _default =
       }
 
       // 处理未绑定腕表
-      // const needWatchArr = [3, 4, 5, 7] // 完整版
-      var needWatchArr = [2, 3, 5]; // 简化版
+      var needWatchArr = [3, 4, 5, 7]; // 完整版
+      // const needWatchArr = [2, 3, 5] // 简化版
       if (needWatchArr.includes(i)) {
         if (!this.watchId) {
           // this.showModal = true
@@ -578,7 +636,9 @@ var _default =
             cancelColor: '#f00',
             success: function success(result) {
               if (result.confirm) {
-                uni.$emit('scanCode', 0);
+                _this6.scanType = 0;
+                _this6.showBS = true;
+                // uni.$emit('scanCode', 0)
               }
             } });
 
@@ -586,8 +646,8 @@ var _default =
         }
       }
       // 腕表已绑定
-      // if (i === 5 ) { // 拨打电话 // 完整版
-      if (i === 3) {// 拨打电话 // 简化版
+      if (i === 5) {// 拨打电话 // 完整版
+        // if (i === 3 ) { // 拨打电话 // 简化版
         if (this.watchPhone) {
           uni.makePhoneCall({
             phoneNumber: this.watchPhone });
@@ -603,88 +663,87 @@ var _default =
       // 除拨打电话外的其他情形  
       var urls = [
       '../../family/deviceData',
-      // '../../family/servicePackages',
+      '../../family/servicePackages',
       '../../family/contacts',
       '../../family/location',
-      // '../../family/chat',
+      '../../family/chat',
       '', // 空， 电话的占位
       '../../family/alarms',
-      '../../family/watchSetting'
-      // '../../family/dietRecord',
-      // '../../family/dietRecommend',
-      // '../../family/lifeLog',
-      // '../../family/healthRecord'
-      ];
+      '../../family/watchSetting',
+      '../../family/dietRecord',
+      '../../family/dietRecommend',
+      '../../family/lifeLog',
+      '../../family/healthFile'];
+
       uni.navigateTo({
         url: urls[i] });
 
 
     },
+    noneScanAdd: function noneScanAdd() {var _this7 = this; // 手动添加
+      if (!this.scanInput) {
+        this.$u.toast(this.scanType ? '请输入二维码' : '请输入IMEI码');
+        return false;
+      }
+      this.showCodeInput = false;
+      var data = this.scanType ?
+      { // 添加好友
+        sessionId: this.sessionId,
+        memberNum: this.scanInput } :
+
+
+      { // 添加设备
+        memberId: this.memberId,
+        sessionId: this.sessionId,
+        watchImei: this.scanInput };
+
+
+      var url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch';
+
+      this.$http.post(url, data).
+      then(function (res) {
+        _this7.scanInput = '';
+        if (res.data.success) {
+          if (_this7.scanType) {
+            _this7.addMember(res.data.obj.memberId);
+          } else {// 添加设备
+            uni.$emit('getMemberList');
+            uni.$emit('getMember');
+            uni.showToast({
+              title: '腕表绑定成功' });
+
+          }
+        }
+      });
+    },
+    addMember: function addMember(memberId) {
+      var data = {
+        sessionId: this.sessionId,
+        memberId: memberId };
+
+      this.$http.post('/mobile/healthy/addEwmMember', data).
+      then(function (res) {
+        if (res.data.success) {
+          uni.$emit('getMemberList');
+          uni.showToast({
+            title: '添加好友成功' });
+
+        }
+      });
+    },
+    actionSheetClick: function actionSheetClick(e) {
+      console.log(e);
+      if (e) {
+        this.showCodeInput = true;
+      } else {// 扫码
+        uni.$emit('scanCode', this.scanType);
+      }
+    },
     scanCode: function scanCode(e) {
-      uni.$emit('scanCode', e);
       this.showModal = false;
-      // this.scanType = e // 设置全局的scanType给this.dealScanResul用
-      // uni.scanCode({
-      //   scanType: [e?'qrCode':'barCode'], // 添加设备条形码， 添加好友二维码
-      //   success: res => {
-      //     console.log(res)
-      //     this.dealScanResult(res.result)
-      //   }
-      // })
-    }
-    //   dealScanResult (e) {
-    //     const data = this.scanType ? 
-    //       { // 添加好友
-    //         sessionId: this.sessionId,
-    //         memberNum: e
-    //       } 
-    //       : 
-    //       { // 添加设备
-    //         memberId: this.memberId,
-    //         sessionId: this.sessionId,
-    //         watchImei: e
-    //       }
-
-    //     const url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch'
-
-    //     this.$http.post(url, data)
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           if (this.scanType) {
-    //             this.addMember(res.data.obj.memberId)
-    //           } else { // 添加设备
-    //             this.getMemberList()
-    //             uni.showToast({
-    //               title: '腕表绑定成功'
-    //             })
-    //           }
-    //         }
-    //       })
-    //   },
-    //   addMember(memberId){
-    //     const data = {
-    //       sessionId: this.sessionId,
-    //       memberId
-    //     }
-    //     this.$http.post('/mobile/healthy/addEwmMember', data)
-    //       .then(res=>{
-    //         if(res.data.success){
-    //           this.getMemberList()
-    //           uni.showToast({
-    //             title: '添加好友成功'
-    //           })
-    //         }
-    //       })
-    //   },
-    //   getMemberList () {
-    //     this.$http.get('/mobile/user/getMemberList', { sessionId: this.sessionId })
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           this.$store.commit('SET_SINGLE_ITEM', res.data.obj)
-    //         }
-    //       })
-    //   }
-  } };exports.default = _default;
+      this.scanType = e;
+      this.showBS = true;
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

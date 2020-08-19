@@ -12,19 +12,21 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
 var _uviewUi = _interopRequireDefault(__webpack_require__(/*! uview-ui */ 11));
 
 
+
+
 var _flyIO = _interopRequireDefault(__webpack_require__(/*! @/utils/flyIO.js */ 33));
 
 
 
-var _store = _interopRequireDefault(__webpack_require__(/*! store.js */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.use(_uviewUi.default);_vue.default.prototype.$http = _flyIO.default.fly;
 
-_vue.default.prototype.sessionId = _store.default.state.app.sessionId;
-_vue.default.prototype.userId = _store.default.state.app.userId;
-_vue.default.prototype.memberId = _store.default.state.member.memberId;
 
-_vue.default.config.productionTip = false;
 
-_App.default.mpType = 'app';
+var _store = _interopRequireDefault(__webpack_require__(/*! store.js */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} // import {debounce, throttle} from '@/utils/myLodash'
+_vue.default.use(_uviewUi.default); // check git
+// Vue.prototype.$debounce = debounce
+// Vue.prototype.$throttle = throttle
+// console.log(debounce, throttle)
+_vue.default.prototype.$http = _flyIO.default.fly;_vue.default.config.productionTip = false;_App.default.mpType = 'app';
 
 // flyIO拦截器中无法处理路由跳转， 通过uni.$emit/$on处理
 uni.$on('routerToLogin', function () {
@@ -205,17 +207,64 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
+  computed: {
+    sessionId: function sessionId() {
+      return this.$store.state.app.sessionId;
+    },
+    token: function token() {
+      return this.$store.state.app.token;
+    } },
+
   onLaunch: function onLaunch() {
     console.log('App Launch');
+    if (this.sessionId) {
+      this.addLog();
+    }
   },
   onShow: function onShow() {
     console.log('App Show');
   },
   onHide: function onHide() {
     console.log('App Hide');
-  } };exports.default = _default;
+  },
+  methods: {
+    addLog: function addLog() {
+      var that = this;
+      // 登陆后添加用户日志
+      uni.getNetworkType({
+        success: function success(e) {
+          console.log('network', e);
+          var networkType = e.networkType;
+          uni.getSystemInfo({
+            success: function success(e) {
+              console.log(e);var
+              model = e.model,system = e.system,devicePixelRatio = e.devicePixelRatio,screenWidth = e.screenWidth,screenHeight = e.screenHeight;
+              var resolutionRatio = "".concat(devicePixelRatio * screenHeight, "*").concat(devicePixelRatio * screenWidth);
+              var systemVersion = system;
+              var deviceNumber = model;
+              var sessionId = that.sessionId;
+              var token = that.token;
+              var loginPlatform = 2;
+              var data = {
+                sessionId: sessionId,
+                token: token,
+                deviceNumber: deviceNumber,
+                networkWay: networkType,
+                systemVersion: systemVersion,
+                resolutionRatio: resolutionRatio,
+                // clientVersion,
+                loginPlatform: loginPlatform };
+
+              console.log(data);
+              that.$http.post('/mobile/user/addLoginLog', data);
+            } });
+
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 8 */

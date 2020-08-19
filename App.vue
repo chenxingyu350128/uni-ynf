@@ -1,14 +1,61 @@
 <script>
 	export default {
+    computed: {
+      sessionId () {
+        return this.$store.state.app.sessionId
+      },
+      token () {
+        return this.$store.state.app.token
+      }
+    },
 		onLaunch: function() {
 			console.log('App Launch')
+      if (this.sessionId) {
+        this.addLog()
+      }
 		},
 		onShow: function() {
 			console.log('App Show')
 		},
 		onHide: function() {
 			console.log('App Hide')
-		}
+		},
+    methods: {
+      addLog () {
+        const that = this  
+        // 登陆后添加用户日志
+        uni.getNetworkType({
+          success(e) {
+            console.log('network',e)
+            let networkType = e.networkType
+            uni.getSystemInfo({
+              success: (e) => {
+                console.log(e)
+                const { model, system, devicePixelRatio, screenWidth, screenHeight} = e
+                const resolutionRatio = `${devicePixelRatio*screenHeight}*${devicePixelRatio*screenWidth}`
+                const systemVersion = system
+                const deviceNumber = model
+                const sessionId = that.sessionId
+                const token = that.token
+                const loginPlatform = 2
+                const data = {
+                  sessionId,
+                  token,
+                  deviceNumber,
+                  networkWay: networkType,
+                  systemVersion,
+                  resolutionRatio,
+                  // clientVersion,
+                  loginPlatform
+                }
+                console.log(data)
+                that.$http.post('/mobile/user/addLoginLog', data)
+              }
+            })        
+          }
+        })        
+      }
+    }
 	}
 </script>
 

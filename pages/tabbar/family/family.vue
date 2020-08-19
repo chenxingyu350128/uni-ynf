@@ -18,7 +18,7 @@
               <u-icon @click="showMenu=!showMenu" size="45" name="plus-circle"></u-icon>
               <view class="posAbs menuPos d-flex flex-column align-center" v-if="showMenu">
                 <text class="triangle"></text>
-                <view class="white ml-n8 px-1 py-2 grey--text text--lighten-1 overline nowrap">
+                <view class="white ml-n8 px-1 py-2 grey--text text--lighten-1 caption nowrap">
                   <view @click.stop="menuClick(0)" class="d-flex align-center">
                     <u-icon color="#BBBEBF" size="35" name="watch-nice" customPrefix="mdi"></u-icon>
                     <text class="ml-2">添加设备</text>
@@ -57,13 +57,13 @@
       <!-- 蓝色底部 -->
       <view class="d-flex align-end mt-4">
         <view class="col-3">
-          <u-image @click="toQrcode" height="55" width="55" src="@/static/img/qrCode.png"></u-image>
+          <u-image @click="toQrcode" height="55" width="55" src="@/static/img/qrCode.jpg"></u-image>
         </view>
         <view class="col-6 d-flex flex-column align-center">
           <text>{{realName}}</text>
           <view
             class="d-flex align-end justify-center"
-            @click="showIntegralDetail"
+            @click="toScoreDetails"
           >
             <u-icon size="35" name="database" customPrefix="mdi"></u-icon>
             <span>{{ memberIntegral }}</span>
@@ -89,21 +89,27 @@
         <view :style="{background: item.color}" class="icon-wrapper d-flex justify-center align-center">
           <u-icon size="55" color="#fff" :name="item.icon" customPrefix="mdi"></u-icon>
         </view>
-        <text class="fz11">{{item.title}}</text>        
+        <text class="fz12">{{item.title}}</text>        
       </view>
     </view>
+    <u-action-sheet @click="actionSheetClick" :list="bsList" v-model="showBS"></u-action-sheet>
     <view class="text-center white pb-2 overline grey--text text--lighten-1">颐纳福关爱，从这一刻开始！</view>
-    <!-- 添加腕表提示框 -->
-<!--    <u-popup v-model="showModal" width="550" :mask-close-able="false" border-radius="10" mode="center">
+    <!-- 手动添加 -->
+   <u-popup v-model="showCodeInput" width="550" :mask-close-able="false" border-radius="10" mode="center">
       <view class="pa-4">
-        <view class="title red--text">未添加腕表</view>
-        <view class="my-4 body-1">添加腕表，解锁更多功能~~</view>
+        <view class="title red--text">手动输入</view>
+         <u-field 
+           v-model="scanInput" 
+           :label="scanType?'二维码':'IMEI码'" 
+           type="number"
+           :placeholder="scanType?'请输入二维码':'请输入IMEI码'" 
+         />             
         <view class="d-flex justify-end body-1">
-          <text @click="showModal=false" class="red--text">取消</text>
-          <text @click="scanCode(0)" class="primary--text ml-4">添加</text>
+          <text @click="showCodeInput=false" class="red--text">取消</text>
+          <text @click="noneScanAdd" class="primary--text ml-4">添加</text>
         </view>
       </view>
-    </u-popup> -->
+    </u-popup>
   </view>
 </template>
 
@@ -113,17 +119,32 @@
 		data() {
 			return {
         clickValid: true,
+        showBS: false,
+        scanInput: '',
+        showCodeInput: false,
+        bsList: [
+          {
+            text: '扫码添加',
+            color: '#00aaef',
+            fontSize: 28
+          },
+          {
+            text: '手动添加',
+            color: '#00aaef',
+            fontSize: 28
+          }
+        ],
         items: [
           {
             title: '实时数据',
             color: '#97e08e',
             icon: 'chart-bar'
           },         
-          // {
-          //   title: '服务套餐',
-          //   color: '#f4d47a',
-          //   icon: 'room-service-outline'
-          // },
+          {
+            title: '服务套餐',
+            color: '#f4d47a',
+            icon: 'room-service-outline'
+          },
           {
             title: '联系人',
             color: '#f4c293',
@@ -134,11 +155,11 @@
             color: '#f9b4b4',
             icon: 'location'
           },
-          // {
-          //   title: '在线聊天',
-          //   color: '#97e08e',
-          //   icon: 'comment-multiple'
-          // },         
+          {
+            title: '在线聊天',
+            color: '#97e08e',
+            icon: 'comment-multiple'
+          },         
           {
             title: '电话呼叫',
             color: '#f4d47a',
@@ -154,26 +175,26 @@
             color: '#f9b4b4',
             icon: 'watch-nice'
           },
-          // {
-          //   title: '饮食记录',
-          //   color: '#97e08e',
-          //   icon: 'silverware-variant'
-          // },         
-          // {
-          //   title: '膳食推荐',
-          //   color: '#f4d47a',
-          //   icon: 'rgoblet-fill'
-          // },
-          // {
-          //   title: '生活日志',
-          //   color: '#f4c293',
-          //   icon: 'sprout'
-          // },
-          // {
-          //   title: '健康档案',
-          //   color: '#f9b4b4',
-          //   icon: 'order'
-          // }
+          {
+            title: '饮食记录',
+            color: '#97e08e',
+            icon: 'silverware-variant'
+          },         
+          {
+            title: '膳食推荐',
+            color: '#f4d47a',
+            icon: 'rgoblet-fill'
+          },
+          {
+            title: '生活日志',
+            color: '#f4c293',
+            icon: 'sprout'
+          },
+          {
+            title: '健康档案',
+            color: '#f9b4b4',
+            icon: 'order'
+          }
         ],
 				showMenu: false,
 				showModal: false,
@@ -240,54 +261,83 @@
         immediate: true
       },
       memberId: {
-        handler(val){
-          if (val) {
+        handler(newVal, oldVal){
+          console.log(newVal)
+          console.log(this.memberId)
+          if (newVal) {
             this.getMemberDetails()
           }
         },
         immediate: true
       }
     },
+    onShow() {
+      console.log(this.$store)
+    },
     methods: {
       memberChange (e) {
+        console.log('点击事件')
+        if (!this.sessionId) {
+          uni.showToast({
+            title: '请先授权登录',
+            icon: 'none'
+          })
+          setTimeout(() => {
+            uni.navigateTo({
+              url: '../../public/firstCome/firstCome'
+            })
+          }, 1000)
+          return false
+        }
+        
         if(this.memberList && this.memberList.length<2){
           return false
         }
+        
         if(!this.clickValid){
           return false
+        } else {
+          this.clickValid = false
+          let i
+          this.memberList.some((res, index) => {
+            if (this.memberId === res.memberId) {
+              i = index
+              return false
+            }
+          })
+          console.log(this.clickValid)
+          
+          if(e==='plus'){
+            if(i === this.memberList.length-1){
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
+            }else{
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i+1])
+            }
+          }
+          if(e==='minus'){
+            if(i===0){
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length-1])
+            } else {
+              this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i-1])
+            }
+          } 
+          setTimeout(() => {
+            console.log('banjinlai')
+            this.clickValid = true
+          },300)
         }
         
-        this.clickValid = false
-        setTimeout(() => {
-          this.clickValid = true
-        },1000)
         
-        let i
-        this.memberList.some((res, index) => {
-          if (this.memberId === res.memberId) {
-            i = index
-            return false
-          }
-        })
-        
-        if(e==='plus'){
-          if(i === this.memberList.length-1){
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
-          }else{
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i+1])
-          }
-        }
-        if(e==='minus'){
-          if(i===0){
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[this.memberList.length-1])
-          } else {
-            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[i-1])
-          }
-        } 
         // this.getMemberDetails()
       },
       toQrcode () {
         uni.navigateTo({ url: '../../family/QrCode' })        
+      },
+      toScoreDetails () {
+        console.log('qqq')
+        uni.navigateTo({
+          url: '../../family/integralPage'
+        })
       },
       toMemberInfo () {
         uni.navigateTo({
@@ -295,20 +345,15 @@
         })
       },
       getMemberDetails () {
-        const data = {
-          memberId: this.memberId,
-          sessionId: this.sessionId
-        }
-        this.$http.get('/mobile/user/getMember', data)
-          .then(res => {
-            if (res.data.success) {
-              const obj = res.data.obj
-              this.$store.commit('SET_EACH_MEMBER_ITEM', obj)
-            }
-          })
+        console.log('memberId变动'+ this.memberId)
         this.getDeviceInfo()
         this.getCareCarousel()
         this.getMemberIntegral() 
+        // memberDetails在详情页获取，避免快速点击时
+        
+        // uni.$emit('getMember')
+        // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
+
       },
       getCareCarousel(){
         let data = {
@@ -411,8 +456,8 @@
         }
         
         // 处理未绑定腕表
-        // const needWatchArr = [3, 4, 5, 7] // 完整版
-        const needWatchArr = [2, 3, 5] // 简化版
+        const needWatchArr = [3, 4, 5, 7] // 完整版
+        // const needWatchArr = [2, 3, 5] // 简化版
         if (needWatchArr.includes(i)) {
           if (!this.watchId) {
             // this.showModal = true
@@ -422,7 +467,9 @@
               cancelColor: '#f00',
               success: result => {
                 if (result.confirm) {
-                  uni.$emit('scanCode', 0)
+                  this.scanType = 0
+                  this.showBS = true
+                  // uni.$emit('scanCode', 0)
                 }
               }
             })
@@ -430,8 +477,8 @@
           }
         }
         // 腕表已绑定
-        // if (i === 5 ) { // 拨打电话 // 完整版
-        if (i === 3 ) { // 拨打电话 // 简化版
+        if (i === 5 ) { // 拨打电话 // 完整版
+        // if (i === 3 ) { // 拨打电话 // 简化版
           if (this.watchPhone) {
             uni.makePhoneCall({
               phoneNumber: this.watchPhone
@@ -447,88 +494,88 @@
         // 除拨打电话外的其他情形  
         const urls = [
           '../../family/deviceData',
-          // '../../family/servicePackages',
+          '../../family/servicePackages',
           '../../family/contacts',
           '../../family/location',
-          // '../../family/chat',
+          '../../family/chat',
           '', // 空， 电话的占位
           '../../family/alarms',
           '../../family/watchSetting',
-          // '../../family/dietRecord',
-          // '../../family/dietRecommend',
-          // '../../family/lifeLog',
-          // '../../family/healthRecord'
+          '../../family/dietRecord',
+          '../../family/dietRecommend',
+          '../../family/lifeLog',
+          '../../family/healthFile'
         ]
         uni.navigateTo({
           url: urls[i]
         })
         
       },
+      noneScanAdd () { // 手动添加
+        if (!this.scanInput) {
+          this.$u.toast(this.scanType?'请输入二维码':'请输入IMEI码')
+          return false
+        }
+        this.showCodeInput = false
+        const data = this.scanType ?
+          { // 添加好友
+            sessionId: this.sessionId,
+            memberNum: this.scanInput
+          } 
+          : 
+          { // 添加设备
+            memberId: this.memberId,
+            sessionId: this.sessionId,
+            watchImei: this.scanInput
+          }
+        
+        const url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch'
+        
+        this.$http.post(url, data)
+          .then(res => {
+            this.scanInput = ''
+            if (res.data.success) {
+              if (this.scanType) {
+                this.addMember(res.data.obj.memberId)
+              } else { // 添加设备
+                uni.$emit('getMemberList')
+                uni.$emit('getMember')
+                uni.showToast({
+                  title: '腕表绑定成功'
+                })
+              }
+            }
+          })
+      },
+      addMember(memberId){
+        const data = {
+          sessionId: this.sessionId,
+          memberId
+        }
+        this.$http.post('/mobile/healthy/addEwmMember', data)
+          .then(res=>{
+            if(res.data.success){
+              uni.$emit('getMemberList')
+              uni.showToast({
+                title: '添加好友成功'
+              })
+            }
+          })
+      },
+      actionSheetClick (e) {
+        console.log(e)
+        if (e) {
+          this.showCodeInput = true
+        } else { // 扫码
+          uni.$emit('scanCode', this.scanType)
+        }
+      },
       scanCode (e) {
-        uni.$emit('scanCode', e)
         this.showModal = false
-        // this.scanType = e // 设置全局的scanType给this.dealScanResul用
-        // uni.scanCode({
-        //   scanType: [e?'qrCode':'barCode'], // 添加设备条形码， 添加好友二维码
-        //   success: res => {
-        //     console.log(res)
-        //     this.dealScanResult(res.result)
-        //   }
-        // })
+        this.scanType = e
+        this.showBS = true
       }
-    //   dealScanResult (e) {
-    //     const data = this.scanType ? 
-    //       { // 添加好友
-    //         sessionId: this.sessionId,
-    //         memberNum: e
-    //       } 
-    //       : 
-    //       { // 添加设备
-    //         memberId: this.memberId,
-    //         sessionId: this.sessionId,
-    //         watchImei: e
-    //       }
-        
-    //     const url = this.scanType ? '/mobile/healthy/getEwmMember' : '/mobile/healthy/bindWatch'
-        
-    //     this.$http.post(url, data)
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           if (this.scanType) {
-    //             this.addMember(res.data.obj.memberId)
-    //           } else { // 添加设备
-    //             this.getMemberList()
-    //             uni.showToast({
-    //               title: '腕表绑定成功'
-    //             })
-    //           }
-    //         }
-    //       })
-    //   },
-    //   addMember(memberId){
-    //     const data = {
-    //       sessionId: this.sessionId,
-    //       memberId
-    //     }
-    //     this.$http.post('/mobile/healthy/addEwmMember', data)
-    //       .then(res=>{
-    //         if(res.data.success){
-    //           this.getMemberList()
-    //           uni.showToast({
-    //             title: '添加好友成功'
-    //           })
-    //         }
-    //       })
-    //   },
-    //   getMemberList () {
-    //     this.$http.get('/mobile/user/getMemberList', { sessionId: this.sessionId })
-    //       .then(res => {
-    //         if (res.data.success) {
-    //           this.$store.commit('SET_SINGLE_ITEM', res.data.obj)
-    //         }
-    //       })
-    //   }
-    
+   
     }
     
 	}
@@ -561,8 +608,8 @@
     height: 88rpx;
     border-radius: 50%;
   }
-  .fz11{
-    font-size: 22rpx;
+  .fz12{
+    font-size: 24rpx;
   }
   .seriesImg{
     width: 60rpx;

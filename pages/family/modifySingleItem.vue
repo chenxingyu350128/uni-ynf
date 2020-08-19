@@ -11,7 +11,7 @@
     <!-- picker-->
     <view v-if="showPicker" class="pa-4">
       <view v-if="key==='birthday'">
-        <u-picker @confirm="dateChange" :default-time="value + ' 13:09'" mode="time" v-model="showDate"/>
+        <u-picker :end-year="yearNow" @confirm="dateChange" :default-time="value + ' 13:09'" mode="time" v-model="showDate"/>
         <view class="text-center mb-2">出生日期</view>
         <u-button @click="showDate=true" type="primary">{{value}}</u-button>
       </view>
@@ -220,6 +220,9 @@
 			};
 		},
     computed: {
+      yearNow () {
+        return Number(this.$u.timeFormat(new Date(), 'yyyy'))
+      },
       defaultGender () {
         let result = 0
         this.genders.forEach((res, i) => {

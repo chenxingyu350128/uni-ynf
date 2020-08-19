@@ -26,6 +26,7 @@ const member = {
       Utils.setLocal(key, value)
     },
     SET_EACH_MEMBER_ITEM: (state, res) => {
+      console.log('store.js中的member', res)
       for (const x in res) {
         state[x] = res[x]
         if (x === 'image') {          

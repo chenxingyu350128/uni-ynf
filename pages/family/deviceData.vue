@@ -75,11 +75,13 @@
               </view>
             </view>
             <!-- 右上角功能 -->
-<!--            <view class="d-inline-flex flex-column align-center posAbs r0 t0">
-              <u-icon color="#bfbfbf" size="65" :name="current>1?'info-filled':'launch'" customPrefix="mdi"></u-icon>
-              <u-icon color="#bfbfbf" size="65" name="cog-box" customPrefix="mdi"></u-icon>
-            </view> -->
-             <!-- <u-button type="primary" rounded class="posAbs">日期</u-button> -->
+            <view class="d-inline-flex flex-column align-center posAbs r0 t0">
+              <u-button v-if="current<2" open-type="share" :custom-style="shareBtn" type="primary">
+                <u-icon color="grey" size="45" name="launch" customPrefix="mdi"></u-icon>
+              </u-button>
+              <u-icon v-else @click="upperBtn" color="#bfbfbf" size="65" name="info-filled" customPrefix="mdi"></u-icon>
+              <u-icon @click="bottomBtn" color="#bfbfbf" size="65" name="cog-box" customPrefix="mdi"></u-icon>
+            </view>
           </view>
 
         </view>
@@ -207,13 +209,13 @@
           </view>
         </view>
         <view class="lowZIndex flex1" :class="'canvasShell'+x">
-           <canvas @touchstart= "seeDetails" :canvas-id="'canvasColumn'+x" :id="'canvasColumn'+x" :style="{width: cWidth*pixelRatio + 'px', height: cHeight*pixelRatio + 'px', 'margin-left': showDatePicker? '100vw' : '0'}" class="fill-height full-width lowZIndex"></canvas>
+          <canvas @touchstart= "seeDetails" :canvas-id="'canvasColumn'+x" :id="'canvasColumn'+x" :style="{width: cWidth*pixelRatio + 'px', height: cHeight*pixelRatio + 'px', 'margin-left': showDatePicker? '100vw' : '0'}" class="fill-height full-width lowZIndex"></canvas>
         </view>
       </swiper-item>
     
     </swiper>
 
-    <u-picker class="datePicker" @confirm="dataChange" :default-time="dateStr + ' 13:00'" mode="time" v-model="showDatePicker"/>
+    <u-picker class="datePicker" :end-year="yearNow" @confirm="dataChange" :default-time="dateStr + ' 13:00'" mode="time" v-model="showDatePicker"/>
     <!-- <u-calendar @change="dataChange" v-model="showDatePicker" mode='date'></u-calendar> -->
 	</view>
 </template>
@@ -225,6 +227,13 @@
 	export default {
 		data() {
 			return {
+        shareBtn: {
+          // display: 'inline-flex',
+          width: '60rpx',
+          height: '60rpx',
+          padding: '6px',
+          background: 'transparent'
+        },
         tabList: [
           {
             name: '运动'
@@ -305,6 +314,9 @@
         const colors = ['#00aaef', '#c7a7dc', '#fd7b7b', '#fa6e31', '#f1ce7e']
         return colors[this.current]
       },
+      yearNow () {
+        return Number(this.$u.timeFormat(new Date(), 'yyyy'))
+      },
       sleepQuality(){
         if(this.duration>8){
           return '优'
@@ -329,7 +341,10 @@
         return this.monthPickerValue || this.$u.timeFormat(new Date(), 'yyyy-mm')
       }
     },
-    onLoad() {
+    onLoad(e) {
+      if (e.type) {
+        this.current = e.type
+      }
       _this = this
       // this.cWidth=uni.upx2px(750);
       // uni.getSystemInfo({
@@ -347,6 +362,13 @@
       this.getStepAim()
       this.getData()
     },
+    onShareAppMessage(e) {
+      console.log(e)
+      return {
+        title: '健康数据分享',
+        path: '/pages/family/deviceDate?type=' + this.current
+      }
+    },
     methods: {
       measure () {
         if (this.current > 2) {
@@ -356,6 +378,23 @@
         } else {
           this.$u.toast('小程序功能未开放，可前往app使用该功能')
         }
+      },
+      upperBtn () {
+        uni.navigateTo({
+          url: `./remindResult?type=${this.current - 2}&navBG=${this.tabBG}`
+        })
+      },
+      bottomBtn () {
+        const urls = [
+          './sportSetting',
+          './sleepSetting',
+          './HrSetting',
+          './BpSetting',
+          './BsSetting',
+        ]
+        uni.navigateTo({
+          url: urls[this.current]
+        })
       },
       getRange () {
         const data = {
@@ -380,7 +419,7 @@
         this.$http.post('mobile/healthy/getGoalStep', data) 
           .then(res => {
             if (res.data.success) {
-              // this.stepAim = res.data.obj.goalNum
+               this.stepAim = res.data.obj.goalNum.replace(',', '')
             }
           })
       },
@@ -461,6 +500,7 @@
             }
           })
       },
+      
       totalData () {
         uni.navigateTo({
           url: `./totalData?type=${this.current}&tabBG=${this.tabBG}`
@@ -633,6 +673,7 @@
             }
           })
       },
+      
       seeDetails (e) {
         const that = this
         const x = canvaColumn.getCurrentDataIndex(e)

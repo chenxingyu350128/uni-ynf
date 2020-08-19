@@ -1,4 +1,10 @@
 {
   "navigationBarTitleText": "编辑电子围栏",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-field": "/uview-ui/components/u-field/u-field",
+    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-button": "/uview-ui/components/u-button/u-button"
+  }
 }

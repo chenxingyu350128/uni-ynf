@@ -1,4 +1,9 @@
 {
-  "navigationBarTitleText": "电子围栏",
-  "usingComponents": {}
+  "navigationBarTitleText": "安全围栏",
+  "usingComponents": {
+    "u-swipe-action": "/uview-ui/components/u-swipe-action/u-swipe-action",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-empty": "/uview-ui/components/u-empty/u-empty",
+    "u-button": "/uview-ui/components/u-button/u-button"
+  }
 }

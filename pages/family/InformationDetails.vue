@@ -277,6 +277,8 @@
     onLoad(e) {
       if (e.isUser) {
         this.isUser = true
+      } else {
+        uni.$emit('getMember')
       }
       _this = this
     },
@@ -295,7 +297,7 @@
               const img = e.tempFiles[0].path
               uni.uploadFile({
                 // url: 'http://192.168.1.101:8090/yinaf/mobile/file/fileUpload',
-                url: 'http://mobile.yinaf.com/mobile/file/fileUpload',
+                url: 'https://www.yinaf.net/mobile/file/fileUpload',
                 filePath: img,
                 fileType: 'image',
                 name: 'file',

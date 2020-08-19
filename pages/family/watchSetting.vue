@@ -16,6 +16,12 @@
           { title: '腕表信息' },
           { title: '通讯录' },
           { title: '闹钟提醒' },
+          { title: '运动设置' },
+          { title: '睡眠设置' },
+          { title: '心率设置' },
+          { title: '血压设置' },
+          { title: '血糖设置' },
+          { title: '定位设置' },
           { title: '关联APP' }
         ]
 			};
@@ -29,6 +35,12 @@
           './watchInfo',
           './AddressBook',
           './alarmAlert',
+          './sportSetting',
+          './sleepSetting',
+          './HrSetting',
+          './BpSetting',
+          './BsSetting',
+          './locationSetting',
           './AssociatedApp',
         ]
         uni.navigateTo({
