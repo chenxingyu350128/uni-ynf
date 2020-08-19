@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "体检报告",
-  "usingComponents": {
-    "u-icon": "/uview-ui/components/u-icon/u-icon",
-    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
-    "u-empty": "/uview-ui/components/u-empty/u-empty"
-  }
-}

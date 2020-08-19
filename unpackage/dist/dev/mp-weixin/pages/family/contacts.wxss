@@ -1,8 +1,0 @@
-/* uni.scss */
-.circle-border.data-v-684ebf96 {
-  width: 53rpx;
-  height: 53rpx;
-  border-radius: 50%;
-  border: 1px solid #00aaef;
-}
-

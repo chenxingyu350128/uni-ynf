@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "定位设置",
-  "usingComponents": {
-    "u-switch": "/uview-ui/components/u-switch/u-switch",
-    "u-line": "/uview-ui/components/u-line/u-line"
-  }
-}

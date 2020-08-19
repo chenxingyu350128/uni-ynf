@@ -1,8 +1,0 @@
-/* uni.scss */
-.data-v-e18a9be0 .u-label-text {
-  white-space: nowrap !important;
-}
-.data-v-e18a9be0 .fild-body input {
-  text-align: center !important;
-}
-

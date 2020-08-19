@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "个人紧急信息",
-  "usingComponents": {
-    "u-field": "/uview-ui/components/u-field/u-field",
-    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
-    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
-    "u-select": "/uview-ui/components/u-select/u-select"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "微聊",
-  "usingComponents": {
-    "u-image": "/uview-ui/components/u-image/u-image",
-    "u-icon": "/uview-ui/components/u-icon/u-icon",
-    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
-  }
-}

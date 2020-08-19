@@ -1,1 +1,0 @@
-<view class="u-index-anchor-wrapper data-v-6fa3f6ce" style="{{$root.s0}}" id="{{$root.g0}}"><view class="{{['u-index-anchor  data-v-6fa3f6ce',active?'u-index-anchor--active':'']}}" style="{{$root.s1}}"><block wx:if="{{useSlot}}"><slot></slot></block><block wx:else><block class="data-v-6fa3f6ce"><text class="data-v-6fa3f6ce">{{index}}</text></block></block></view></view>

@@ -1,9 +1,0 @@
-/* uni.scss */
-.mapEL.data-v-57221fa5 {
-  height: 100vh;
-  width: 750rpx;
-}
-.h-auto.data-v-57221fa5 {
-  height: auto;
-}
-

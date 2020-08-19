@@ -1,1 +1,0 @@
-{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA;AACA;AACA,0H;AACAA,UAAU,CAACC,4BAAD,CAAV,C","file":"pages/family/AddEmergencyContact.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/family/AddEmergencyContact.vue'\ncreatePage(Page)"],"sourceRoot":""}
