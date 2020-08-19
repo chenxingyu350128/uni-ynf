@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "健康报告详情",
+  "usingComponents": {
+    "u-avatar": "/uview-ui/components/u-avatar/u-avatar",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-line": "/uview-ui/components/u-line/u-line",
+    "u-divider": "/uview-ui/components/u-divider/u-divider",
+    "u-tabs": "/uview-ui/components/u-tabs/u-tabs"
+  }
+}

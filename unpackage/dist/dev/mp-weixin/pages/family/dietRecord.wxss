@@ -1,0 +1,12 @@
+/* uni.scss */
+.page.data-v-614f0c72 {
+  height: 100vh;
+  background: #faf6f5;
+}
+.topBG.data-v-614f0c72 {
+  height: 400rpx !important;
+}
+.data-v-614f0c72 .u-circle-progress {
+  background: transparent !important;
+}
+

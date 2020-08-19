@@ -69,6 +69,7 @@ function dealScanResult(e) {
         addMember(res.data.obj.memberId);
       } else {// 添加设备
         getMemberList();
+        getMember();
         uni.showToast({
           title: '腕表绑定成功' });
 

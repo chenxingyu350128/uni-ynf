@@ -1,0 +1,11 @@
+/* uni.scss */
+.t30.data-v-47fe7d3d {
+  top: 30px;
+}
+.full-height.data-v-47fe7d3d {
+  height: 100%;
+}
+.IndexHigh.data-v-47fe7d3d {
+  z-index: 99999 !important;
+}
+

@@ -1,0 +1,28 @@
+/* uni.scss */
+image.data-v-b1742f34 {
+  display: inline-block;
+  will-change: transform;
+}
+view.data-v-b1742f34,
+text.data-v-b1742f34 {
+  box-sizing: border-box;
+}
+.u-circle-progress.data-v-b1742f34 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.u-canvas-bg.data-v-b1742f34 {
+  position: absolute;
+}
+.u-canvas.data-v-b1742f34 {
+  position: absolute;
+}
+
