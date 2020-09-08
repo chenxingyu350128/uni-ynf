@@ -1,6 +1,6 @@
 <template>
-	<view class="page d-flex flex-column">
-    <view class="v-msgs pa-4 grey--text text--darken-3 caption white">
+	<view class="page d-flex flex-column body-2">
+    <view class="v-msgs pa-4 grey--text text--darken-3 white">
       <view class="mb-2">
         警报时间：{{ time }}
       </view>
@@ -134,10 +134,10 @@
       markers () {
         if (this.lon && this.lat) {
           return [{
-            id: 'alarmMap',
+            id: 1234,
             longitude: this.watchLon || this.lon,
             latitude: this.watchLat || this.lat,
-            iconPath: '/static/img/map/currentPosition.png'
+            // iconPath: 'static/img/map/currentPosition.png'
           }]
         } else {
           return []

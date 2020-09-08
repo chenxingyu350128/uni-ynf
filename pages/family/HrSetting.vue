@@ -121,5 +121,9 @@
 </script>
 
 <style lang="scss">
-
+/deep/.fild-body{
+  input{
+    text-align: right!important;
+  }
+}
 </style>

@@ -15,7 +15,7 @@
             <text class="caption">已摄能量</text>
             <text class="subtitle-1 font-weight-bold">{{ alreadyGet }}</text>
           </view>
-          <u-circle-progress class="transparent" active-color="#cca416" :percent="score">
+          <u-circle-progress active-color="#cca416" :percent="score">
             <view class="d-flex flex-column black--text align-center">
               <view class="caption">
                 营养评测
@@ -63,6 +63,11 @@
         </view>
         <u-icon color="#4dd0e1" size="90" customPrefix="mdi" name="cup-water"></u-icon>
       </view>
+    </view>
+    <!-- 提示去设置 -->
+    <view v-if="!height" class="px-4 py-2 caption red--text">
+      请完善成员信息性别、身高、体重、出生年月
+      <text @click="toSet" class="primary--text">去设置</text>
     </view>
     <u-picker class="datePicker" @confirm="dataChange" :default-time="dateStr + ' 13:00'" mode="time" v-model="showDatePicker"/>
     <u-popup mode="bottom" v-model="showWater">
@@ -133,6 +138,9 @@
       memberId(){
         return this.$store.state.member.memberId
       },
+      height(){
+        return this.$store.state.member.height
+      },
       sessionId(){
         return this.$store.state.app.sessionId
       },
@@ -143,7 +151,7 @@
         if(!this.adviceGet || !this.alreadyGet){
           return 0
         }
-        return Math.round(this.alreadyGet/this.adviceGet) 
+        return Math.round(this.alreadyGet/this.adviceGet*100) 
       }
     },
     onShow() {
@@ -164,6 +172,11 @@
         console.log(e)
         this.datePickerValue = e.year +'-' + e.month + '-' + e.day
         this.init()
+      },
+      toSet(){
+        uni.navigateTo({
+          url: './InformationDetails'
+        })
       },
 			getWater(){
 				const params = {

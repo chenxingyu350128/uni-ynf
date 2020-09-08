@@ -56,7 +56,7 @@
             <u-avatar :src="itm.foodImg" mode="circle"></u-avatar>
             <view class="d-flex flex-column ml-4">
               <text>{{ itm.foodName }}</text>
-              <text class="overline text-lowercase">{{ itm.heatQuantity }}千卡/{{ itm.foodNum }}{{ itm.foodUnit }}</text>
+              <text class="overline text-lowercase">{{ itm.heatQuantity }}千卡/{{ itm.foodNum }}{{ itm.foodUnit||'g' }}</text>
             </view>
             <view class="flex-fill"></view>
             <view @click.stop="deleteIt(itm.biteId)" class="d-inline-flex">
@@ -134,9 +134,7 @@
 				.then(res=>{
 					if(res.data.success){
             const obj = res.data.obj
-            if (obj && obj.heatQuantity) {
-              this.already = obj.heatQuantity
-            }
+              this.already = obj.heatQuantity||0
 					}
 				})
 			},			
@@ -194,8 +192,12 @@
         const foodUnit = e.foodUnit
         const biteTime = this.date
         const foodType = i + 1
+        const customType = e.customType
         uni.navigateTo({
-          url: `./foodDetails?caipId=${caipId}&biteId=${biteId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}`
+          url: customType?
+          `./customFoodPage?caipId=${caipId}&biteId=${biteId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}`
+          :
+          `./foodDetails?caipId=${caipId}&biteId=${biteId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}`
         })
         // this.showFoodDetail = true
       },
@@ -216,6 +218,7 @@
                 if(res.data.success){
                   this.$u.toast(res.data.msg)
                   this.getBite()
+                  this.getEnergy()
                 }
               })
             }

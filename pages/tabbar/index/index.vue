@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page body-1">
     <view  
       class="primary full-width caption white--text py-2 transitionMain"
     >
@@ -24,7 +24,7 @@
           </view>
         </u-col>
       </u-row>
-      <u-row class="pb-4">
+      <u-row class="pb-4 body-1">
         <u-col span="4">
           <view class="d-flex flex-column align-center justify-center">
             <text>步数</text>
@@ -125,7 +125,7 @@
       
       <u-image width="120rpx" height="120rpx" :src="item.newPic"></u-image>
       <view class="ml-5 flex-fill pa-2">
-        <text class="u-line-2">{{item.newTitle}}</text>
+        <text class="u-line-2 body-2">{{item.newTitle}}</text>
       </view>
     </view>
     <!-- 加载跟多 -->
@@ -415,7 +415,7 @@ export default {
             // 获取cityId
             this.cities = values.flat()
             this.cities.some(rs => {
-              if (rs.areaName = this.locationCity) {
+              if (rs.areaName === this.locationCity) {
                 const cityId = rs.cityId
                 this.$store.commit('SET_SINGLE_ITEM', ['cityId', cityId])
                 return true

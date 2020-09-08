@@ -70,7 +70,9 @@ fly.interceptors.response.use(
 			store.commit('CLEAR_LOCAL')
 			// router.replace('/login')
 		}
-
+    if (config.data.code == 5116) {
+      uni.$emit('MEMBER_NOT_EXIST')
+    }
 		setTimeout(() => {
       store.commit('SET_SINGLE_ITEM', ['isLoading', false])
       uni.hideLoading()

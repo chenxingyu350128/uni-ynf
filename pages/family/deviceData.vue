@@ -1,5 +1,5 @@
 <template>
-	<view class="page d-flex flex-column align-center">
+	<view class="page d-flex flex-column align-center body-2">
     <u-navbar title-color="#fff" back-icon-color="#fff" back-icon-name="arrow-left" title="实时数据" :background="background"></u-navbar>
 		<u-tabs-swiper 
       ref="tabs"
@@ -71,16 +71,18 @@
               
               <!-- 底部按钮 -->
               <view class="d-inline-flex flex-column align-center posAbs b0 bottomCenter">
-                <view @click="showDatePicker=true" :style="{background: tabBG}" class="circleBtn white--text">{{dateStr}}</view>
+                <view @click="showDatePicker=true" :style="{background: tabBG}" class="circleBtn px-2 white--text caption nowrap">{{dateStr}}</view>
               </view>
             </view>
             <!-- 右上角功能 -->
             <view class="d-inline-flex flex-column align-center posAbs r0 t0">
-              <u-button v-if="current<2" open-type="share" :custom-style="shareBtn" type="primary">
-                <u-icon color="grey" size="45" name="launch" customPrefix="mdi"></u-icon>
+              <u-button v-if="current<2" open-type="share" :custom-style="shareBtn" class="pa-0" type="primary">
+                <u-icon color="#bfbfbf" size="65" name="launch" customPrefix="mdi"></u-icon>
               </u-button>
-              <u-icon v-else @click="upperBtn" color="#bfbfbf" size="65" name="info-filled" customPrefix="mdi"></u-icon>
-              <u-icon @click="bottomBtn" color="#bfbfbf" size="65" name="cog-box" customPrefix="mdi"></u-icon>
+              <u-button v-else :custom-style="shareBtn" class="pa-0" type="primary">
+                <u-icon  @click="upperBtn" color="#bfbfbf" size="65" name="info-filled" customPrefix="mdi"></u-icon>
+              </u-button>
+              <u-icon class="mt-2" @click="bottomBtn" color="#bfbfbf" size="65" name="cog-box" customPrefix="mdi"></u-icon>
             </view>
           </view>
 
@@ -131,23 +133,23 @@
             <u-grid-item>
               <view class="d-flex flex-column align-center">
                 <text :style="{color: tabBG}" class="mb-2">最高值</text>
-                <text v-if="current === 2">{{min}}</text>
-                <text v-else-if="current === 3">{{maxDbp}}</text>
+                <text v-if="current === 2">{{max}}</text>
+                <text v-else-if="current === 3">{{maxSbp}}</text>
                 <text v-else>{{maxGi}}</text>                
               </view>
             </u-grid-item>
             <u-grid-item>
               <view class="d-flex flex-column align-center">
                 <text :style="{color: tabBG}" class="mb-2">最低值</text>
-                <text v-if="current === 2">{{max}}</text>
-                <text v-else-if="current === 3">{{maxSbp}}</text>
+                <text v-if="current === 2">{{min}}</text>
+                <text v-else-if="current === 3">{{maxDbp}}</text>
                 <text v-else>{{minGi}}</text>
               </view>
             </u-grid-item>
           </u-grid>
         </view>
         <!-- 中间按钮 -->
-        <view class="col-7 mx-auto caption nowrap">
+        <view class="col-7 mx-auto nowrap">
           <view 
             v-if="current===0"
             class="d-flex justify-center"
@@ -167,7 +169,7 @@
           >
             <view @click="measure" class="shapeRoundBtn px-2 caption d-flex align-center justify-center white--text" :style="{background: tabBG}">
               <u-icon name="bullseye-arrow" customPrefix="mdi"></u-icon>
-              <text class="caption">{{current>2?'去测量':'远程测量'}}</text>
+              <text>{{current>2?'去测量':'远程测量'}}</text>
             </view>
             <view @click="totalData" class="shapeRoundBtn px-2 caption d-flex align-center justify-center white--text" :style="{background: tabBG}">
               <u-icon name="podium" customPrefix="mdi"></u-icon>
@@ -223,7 +225,7 @@
 <script>
   import uCharts from '../../js_sdk/u-charts/u-charts/u-charts.js'
   let _this
-  let canvaColumn = null
+  let canvasColumn = null
 	export default {
 		data() {
 			return {
@@ -676,8 +678,8 @@
       
       seeDetails (e) {
         const that = this
-        const x = canvaColumn.getCurrentDataIndex(e)
-        canvaColumn.showToolTip(e, {
+        const x = canvasColumn.getCurrentDataIndex(e)
+        canvasColumn.showToolTip(e, {
             format: function (item, category) {
                 console.log(item, category)
                 if (!that.tab && item.data) {
@@ -726,7 +728,7 @@
               that.cHeight= data.height;
               that.cWidth= data.width;
             }
-            canvaColumn = new uCharts({
+            canvasColumn = new uCharts({
               $this: that,
               canvasId: 'canvasColumn' + this.current,
               type: that.current > 1 ? 'area' : 'column',
@@ -761,11 +763,7 @@
               series,
               extra
             })
-            // data => {
-            //   console.log(data)
-            //   if (this.current !== 1) {
-            //   }  
-            // }            
+          
           })
         },100)
         
@@ -804,14 +802,14 @@
 }
 .bottomCenter{
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, 40%);
 }
 .circleBtn{
   height: 52.4rpx;
   line-height: 52.4rpx;
   border-radius: 26.2rpx;
-  width: 145.8rpx;
-  font-size: 20rpx;
+  // width: 145.8rpx;
+  // font-size: 20rpx;
   text-align: center;
 }
 /deep/.u-grid-item{

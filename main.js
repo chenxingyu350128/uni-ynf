@@ -14,7 +14,9 @@ Vue.prototype.$http = http.fly
 
 import store from 'store.js'
 
-
+Vue.filter("price", function (val) {
+  return "￥" + Number(val).toFixed(2);
+});
 Vue.config.productionTip = false
 
 App.mpType = 'app'
@@ -85,6 +87,10 @@ function addMember(memberId){
     })
 }
 function getMemberList () {
+  if (!store.state.app.sessionId) {
+    return false
+  }
+    
   Vue.prototype.$http.get('/mobile/user/getMemberList', { sessionId: store.state.app.sessionId })
     .then(res => {
       if (res.data.success) {
@@ -124,6 +130,11 @@ uni.$on('getMember', () => {
 })
 uni.$on('getUser', () => {
   getUser()
+})
+uni.$on('MEMBER_NOT_EXIST', () => {
+  uni.switchTab({
+    url: '/pages/tabbar/family/family?memberNotFound=true'
+  })
 })
 const app = new Vue({
   store,
