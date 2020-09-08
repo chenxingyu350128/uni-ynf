@@ -56,6 +56,11 @@
           </view>
         </view>
       </view>
+      <!-- 提示去设置 -->
+      <view v-if="!height" class="px-4 py-2 caption red--text">
+        请完善成员信息性别、身高、体重、出生年月
+        <text @click="toSet" class="primary--text">去设置</text>
+      </view>
       <view class="white px-2 mt-4">
         <view v-if="rec.length" class="py-2">
           <text class="title font-weight-bold">一日三餐</text>
@@ -87,10 +92,11 @@
                 <text class="subtitle-2 ml-4">{{ food.foodName }}</text>
                 <text class="flex-fill text-right grey--text caption">{{ food.foodNum }}{{food.foodUnit}}</text>
               </view>
-              <!-- <u-line color="grey" /> -->
             </view>
            <view v-if="meal.tips" class="caption pa-2">
               <rich-text :nodes="meal.tips"></rich-text>
+              <u-line color="grey" />
+              
             </view>
           </view>
         </view>
@@ -108,65 +114,7 @@
         fat: 0,
         carbohydrate: 0,
         memberQuantity: 0,
-        rec: [
-          {
-              "bite": [
-                  {
-                      "foodImg": "",
-                      "biteId": 7,
-                      "foodNum": 15,
-                      "foodUnit": "g",
-                      "foodName": "鸡蛋"
-                  },
-                  {
-                      "foodImg": "",
-                      "biteId": 8,
-                      "foodNum": 20,
-                      "foodUnit": "ml",
-                      "foodName": "牛奶"
-                  }
-              ],
-              "foodType": 1
-          },
-          {
-              "bite": [
-                  {
-                      "foodImg": "",
-                      "biteId": 9,
-                      "foodNum": 30,
-                      "foodUnit": "g",
-                      "foodName": "鸡蛋"
-                  },
-                  {
-                      "foodImg": "",
-                      "biteId": 10,
-                      "foodNum": 40,
-                      "foodUnit": "ml",
-                      "foodName": "牛奶"
-                  }
-              ],
-              "foodType": 3
-          },
-          {
-              "bite": [
-                  {
-                      "foodImg": "",
-                      "biteId": 11,
-                      "foodNum": 20,
-                      "foodUnit": "g",
-                      "foodName": "鸡"
-                  },
-                  {
-                      "foodImg": "",
-                      "biteId": 12,
-                      "foodNum": 30,
-                      "foodUnit": "ml",
-                      "foodName": "牛奶"
-                  }
-              ],
-              "foodType": 5
-          }
-        ]
+        rec: []
 			};
 		},
     filters: {
@@ -192,25 +140,25 @@
         return this.$store.state.app.sessionId
       },
       allQuality(){
-        return this.protein + this.fat + this.carbohydrate
+        return this.protein*4 + this.fat*9 + this.carbohydrate*4
       },	
       pPercent(){
         if(!this.allQuality){
-          return
+          return 0
         }
-        return Number(this.protein/this.allQuality*100).toFixed(1)
+        return Math.round(this.protein*4/this.allQuality*100)
       },
       fPercent(){
         if(!this.allQuality){
-          return
+          return 0
         }
-        return Number(this.fat/this.allQuality*100).toFixed(1)
+        return Math.round(this.fat*9/this.allQuality*100)
       },
       cPercent(){
         if(!this.allQuality){
-          return
+          return 0
         }
-        return Number(this.carbohydrate/this.allQuality*100).toFixed(1)
+        return Math.round(this.carbohydrate*4/this.allQuality*100)
       }, 
       bodyStatus(){
         const arr = ['偏廋', '正常', '过重', '肥胖']
@@ -222,13 +170,25 @@
       }
     },
     onShow() {
-      this.init()
-    },
-    methods: {
-      init () {
+      this.init().then(()=>{
+        setTimeout(()=>{
         this.getMeals()
         this.getHealthy()
         this.getQuantity()
+          
+        }, 500)
+        console.log('~!!@#')
+      })
+    },
+    methods: {
+      async init () { 
+        await this.getMember()
+        return 111
+      },
+      getMember () {
+        console.log('mmm')
+        uni.$emit('getMember')
+        return 'bbb'
       },
       getMeals () {
         const params = {
@@ -242,12 +202,20 @@
             }
           })        
       },
+      toSet(){
+        uni.navigateTo({
+          url: './InformationDetails'
+        })
+      },
       toDetail (food, foodType) {
         console.log(food)
-        const {caipId, biteId, foodNum, foodUnit} = food
+        const {caipId, biteId, foodNum, foodUnit, customType} = food
         const biteTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd')
         uni.navigateTo({
-          url: `./foodDetails?caipId=${caipId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}&fromRecommend=true`
+          url: customType?
+          `./customFoodPage?caipId=${caipId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}&fromRecommend=true`
+          :
+          `./foodDetails?caipId=${caipId}&foodNum=${foodNum}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}&fromRecommend=true`
         })
       },
       getHealthy () {

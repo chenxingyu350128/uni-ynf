@@ -1,7 +1,0 @@
-{
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "u-navbar": "/uview-ui/components/u-navbar/u-navbar",
-    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
-  }
-}

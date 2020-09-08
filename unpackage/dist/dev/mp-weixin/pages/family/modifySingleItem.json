@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "编辑详细信息",
-  "usingComponents": {
-    "u-field": "/uview-ui/components/u-field/u-field",
-    "u-picker": "/uview-ui/components/u-picker/u-picker",
-    "u-button": "/uview-ui/components/u-button/u-button",
-    "u-select": "/uview-ui/components/u-select/u-select"
-  }
-}

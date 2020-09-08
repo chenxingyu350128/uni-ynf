@@ -85,8 +85,8 @@
         <view>睡眠分析</view>
         <view class="py-4 d-flex justify-space-around align-center">
           <view class="d-flex align-center flex-column py-2">
-            <text class="font-weight-bold">深浅比例</text>
-            <text class="caption mt-2">{{ Math.round(sleepRatio*100) }}%</text>
+            <text class="font-weight-bold">深度睡眠</text>
+            <text class="caption mt-2">{{ heartHour }}小时</text>
           </view>
           <u-line color="#fff" direction="col" />
 
@@ -247,26 +247,26 @@
         giStr: '',    
         bmi: 0,
         diagnoseBook: [],
-        maxGi: '',      
-        minGi: '',      
-        gi: '',         
-        pbm: '',        
-        maxBpm: '',     
-        minBpm: '',     
-        mmhg: '',       
-        maxSbp: '',      
-        minDbp: '',      
-        sportMileage: '',      
-        calorie: '',     
-        stepHour: '',    
-        sleepRatio: '',   
-        sleepHour: '',     
-        duration: '',      
-        outRail: '',       
-        outSos: '',        
-        outBusg: '',        
-        outBpms: '',       
-        outBpre: '',   
+        maxGi: 0,      
+        minGi: 0,      
+        gi: 0,         
+        pbm: 0,        
+        maxBpm: 0,     
+        minBpm: 0,     
+        mmhg: 0,       
+        maxSbp: 0,      
+        minDbp: 0,      
+        sportMileage: 0,      
+        calorie: 0,     
+        stepHour: 0,    
+        heartHour: 0,   
+        sleepHour: 0,     
+        duration: 0,      
+        outRail: 0,       
+        outSos: 0,        
+        outBusg: 0,        
+        outBpms: 0,       
+        outBpre: 0,   
         birthday: '',    
         sex: 1,    
         height: 0,    

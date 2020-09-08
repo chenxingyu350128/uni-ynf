@@ -1,5 +1,0 @@
-/* uni.scss */
-.posSticky {
-  top: calc(44px + 25px);
-}
-

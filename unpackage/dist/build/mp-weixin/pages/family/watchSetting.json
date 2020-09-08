@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "腕表设置",
-  "usingComponents": {
-    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
-    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item"
-  }
-}

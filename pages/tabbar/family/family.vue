@@ -254,6 +254,7 @@
     watch: {
       watchId: {
         handler(val){
+          this.getDeviceInfo()
           if (val) {
             this.getBattery()
           }
@@ -271,8 +272,14 @@
         immediate: true
       }
     },
+    onLoad(e) {
+      if(e.memberNotFound){
+        this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
+      }
+    },
     onShow() {
       console.log(this.$store)
+      uni.$emit('getMemberList')
     },
     methods: {
       memberChange (e) {
@@ -306,7 +313,11 @@
             }
           })
           console.log(this.clickValid)
-          
+          if (i===undefined) { // 对应多台机器操作导致的成员被删除,显示第一个成员
+            this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
+            this.clickValid = true
+            return false
+          }
           if(e==='plus'){
             if(i === this.memberList.length-1){
               this.$store.commit('SET_EACH_MEMBER_ITEM', this.memberList[0])
@@ -326,9 +337,6 @@
             this.clickValid = true
           },300)
         }
-        
-        
-        // this.getMemberDetails()
       },
       toQrcode () {
         uni.navigateTo({ url: '../../family/QrCode' })        
@@ -346,14 +354,9 @@
       },
       getMemberDetails () {
         console.log('memberId变动'+ this.memberId)
-        this.getDeviceInfo()
         this.getCareCarousel()
         this.getMemberIntegral() 
-        // memberDetails在详情页获取，避免快速点击时
-        
-        // uni.$emit('getMember')
-        // 函数体中的this.$store.commit('SET_EACH_MEMBER_ITEM', obj)为state.member.memberId重新赋值触发memberId的watch
-
+        this.getDeviceInfo()
       },
       getCareCarousel(){
         let data = {

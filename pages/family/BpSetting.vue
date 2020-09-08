@@ -170,7 +170,7 @@
 }
 /deep/.fild-body{
   input{
-    text-align: center!important;
+    text-align: right!important;
   }
 }
 </style>

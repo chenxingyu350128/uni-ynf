@@ -8,6 +8,7 @@
       placeholder="请输入食物名称" 
       v-model="keyword" />
       <view v-if="searchHistory.length">
+        <view class="my-2">搜索历史:</view>
         <view class="d-flex primary--text flex-wrap">
           <text class="pa-2" @click="search(x.foodName)" v-for="(x, i) in searchHistory" :key="i">
             {{x.foodName}}
@@ -36,10 +37,56 @@
         </view>
         <u-line color="grey" />
       </view>      
+      <u-loadmore :status="loadMoreStatus"/>
     </view>
-    <view v-else class="pa-6">
+    <view v-else>
+      <view class="pa-2 body-2 d-flex justify-space-between">
+        <text>系统推荐饮食：</text>
+        <text
+          class="primary--text"
+          @click="toCustomPage"
+        >自定义菜品</text>
+      </view>
+      <view v-if="systemRec.length">
+        
+        <view
+          v-for="(item, i) in systemRec"
+          :key="i"
+        >
+          <view
+            class="px-4 py-2 d-flex justify-space-between align-center"
+            @click="toDetail(item)"
+          >
+<!--            <v-avatar
+              size="35"
+            >
+              <img :src="item.foodImg">
+            </v-avatar> -->
+            <u-avatar size="70" :src="item.foodImg"></u-avatar>
+            <view class="d-flex flex-column ml-4">
+              <text class="subtitle-2">{{ item.foodName }}</text>
+              <!-- {{ item.foodUnit }} -->
+              <text class="caption text-lowercase">{{ item.heatQuantity }}千卡/100g</text>
+            </view>
+            <view class="flex-fill"></view>
+            <view @click.stop="addBite(item)">
+              <!-- <v-spacer /> -->
+              <u-icon  size="65" color="#ec9b33" name="plus-circle"></u-icon>
+  <!--            <v-icon
+                large
+                color="#ec9b33"
+                @click.stop="addBite(item)"
+              >
+                mdi-plus-circle
+              </v-icon> -->
+            </view>
+          </view>
+          <!-- <v-divider color="grey" />				 -->
+        </view>
+      </view>
+      <u-loadmore :status="c_loadMoreStatus"/>
       <!-- car   购物车为空 page   页面不存在 search   没有搜索结果 address   没有收货地址 wifi   没有WiFi order   订单为空 coupon   没有优惠券 favor   无收藏 permission   无权限 history   无历史记录 news   无新闻列表 message   消息列表为空 list   列表为空(通用) data   数据为空(默认，通用) -->
-      <u-empty text="暂无结果" mode="car"></u-empty>
+      <!-- <u-empty text="暂无结果" mode="car"></u-empty> -->
     </view>
     <u-popup v-model="showPopup" mode="bottom">
       
@@ -71,7 +118,7 @@
           <u-avatar :src="foodImg" size="70"></u-avatar>
           <view class="d-flex flex-column ml-4">
             <text class="subtitle-2">{{ foodName }}</text>
-            <text class="caption text-lowercase">{{ heatQuantity }}千卡/100{{ foodUnit }}</text>
+            <text class="caption text-lowercase">{{ heatQuantity }}千卡/100{{ foodUnit||'g' }}</text>
           </view>
         </view>	
         <u-line color="grey" />
@@ -144,12 +191,16 @@
 			return {
 				type: '',
         searchHistory: [],
+        systemRec: [],
         keyword: '',
         rows: 20,
         page: 1,
+        r_page: 1,
         allLoaded: false,
+        r_allLoaded: false,
         list: [],
         loadMoreStatus: 'loadmore',
+        r_loadMoreStatus: 'loadmore',
         showPopup: false,
         // 选中的菜品
         caipId: '',
@@ -183,6 +234,7 @@
     },
     onShow() {
       this.getHistory()
+      this.getRecommend()
     },
     onHide() {
       clearInterval(this.minusInterval)
@@ -193,13 +245,19 @@
       clearInterval(this.addInterval)
     },
     onReachBottom() {
-      if (!this.allLoaded) {
-        console.log('allLoaded值为：'+this.allLoaded)
-        this.loadMoreStatus = 'loading'
-        this.page++
-        this.searchFood('@cxx@')
-      } else {
-        return false
+      if (this.list.length) {
+        if (!this.allLoaded) {
+          this.loadMoreStatus = 'loading'
+          this.page++
+          this.searchFood('@cxx@')
+        } 
+      }
+      if (this.systemRec.length) {
+        if (!this.c_allLoaded) {
+          this.r_loadMoreStatus = 'loading'
+          this.r_page++
+          this.getRecommend('yo')
+        } 
       }
     },
     methods: {
@@ -213,6 +271,35 @@
               this.searchHistory = res.data.obj
             }
           })
+      },
+      getRecommend(e){
+        const params = {
+          sessionId: this.sessionId,
+          memberId: this.memberId,
+          foodType: this.type,
+          page: this.r_page,
+          rows: this.rows
+        }
+        this.$http.get('/mobile/bite/getRecommendBite', params)
+          .then(res => {
+            if (res.data.success) {
+              const rows = res.data.rows
+              const pager = res.data.pager
+              if (!pager.totalPages) {
+                this.r_allLoaded = true
+              } else {
+                this.r_allLoaded =  pager.currentPage === pager.totalPages
+              }		
+              this.r_loadMoreStatus = this.r_allLoaded?'nomore':'loading'
+              this.systemRec = e?this.systemRec.concat(rows):rows
+            }
+          })
+      },
+      toCustomPage () {
+        uni.navigateTo({
+          url: './customFoodPage'
+        })
+        // $router.push('./customDiet')
       },
       search (e) {
         this.keyword = e
@@ -244,7 +331,11 @@
 								}                
               })
               const pager = res.data.pager
-              this.allLoaded = pager.currentPage === pager.totalPages
+              if (!pager.totalPages) {
+                this.allLoaded = true
+              } else {
+                this.allLoaded =  pager.currentPage === pager.totalPages
+              }              
               this.loadMoreStatus = this.allLoaded?'nomore':'loading'  
               this.list = name === '@cxx@' ? this.list.concat(rows) : rows
               let valid = true 
@@ -275,11 +366,15 @@
       toDetail (e) {
         const caipId = e.caipId
         const foodNum = e.foodNum
-        const foodUnit = e.foodUnit
+        const foodUnit = e.foodUnit||'g'
         const biteTime = this.date
         const foodType = this.type
+        const custom = e.customType
         uni.navigateTo({
-          url: `./foodDetails?caipId=${caipId}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}`
+          url: custom?
+          `./customFoodPage?caipId=${caipId}&foodType=${foodType}`
+          :
+          `./foodDetails?caipId=${caipId}&foodUnit=${foodUnit}&biteTime=${biteTime}&foodType=${foodType}`
         })
       },
       addBite (e) {
@@ -376,7 +471,9 @@
           .then(res => {
             if (res.data.success) {
               this.$u.toast(res.data.msg)
-              uni.navigateBack()
+              setTimeout(()=>{
+                uni.navigateBack()
+              }, 500)
             }
           })
       }

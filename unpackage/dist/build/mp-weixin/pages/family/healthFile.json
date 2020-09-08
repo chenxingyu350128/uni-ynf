@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "健康档案",
-  "usingComponents": {
-    "u-divider": "/uview-ui/components/u-divider/u-divider",
-    "u-icon": "/uview-ui/components/u-icon/u-icon"
-  }
-}

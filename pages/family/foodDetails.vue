@@ -348,8 +348,7 @@
 				caipId: '',
 				biteId: '',
 				foodNum: 100,
-				foodUnit: '',
-				biteTime: '',
+        foodUnitType: 1,
 				foodType: 0,
         fromRecommend: '',
         // 详情
@@ -374,7 +373,16 @@
     computed: {
       sessionId () {
         return this.$store.state.app.sessionId
-      }
+      },
+      memberId () {
+        return this.$store.state.member.memberId
+      },
+      foodUnit () {
+        if (this.foodUnitType == 3 || this.foodUnitType == 6 || this.foodUnitType == 7) {
+          return 'ml'
+        }
+        return 'g'
+      },
     },
     onLoad(e) {
       if (e) {

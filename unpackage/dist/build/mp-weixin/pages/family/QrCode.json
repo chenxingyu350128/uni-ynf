@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "二维码",
-  "usingComponents": {
-    "u-image": "/uview-ui/components/u-image/u-image"
-  }
-}

@@ -1,1 +1,0 @@
-<view class="login-cpnt d-flex flex-column grey lighten-3 text-center"><u-button vue-id="4ef42f70-1" bind:__l="__l" vue-slots="{{['default']}}">sdf</u-button></view>

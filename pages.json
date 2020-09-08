@@ -120,6 +120,12 @@
             }
         }
         ,{
+            "path" : "SP_orderList",
+            "style" : {
+              "navigationBarTitleText": "服务套餐订单记录"
+            }
+        }
+        ,{
             "path" : "contacts",
             "style" : {
               "navigationBarTitleText": "联系人"
@@ -207,6 +213,12 @@
             "path" : "foodDetails",
             "style" : {
               "navigationBarTitleText": "食物详情"
+            }
+        }
+        ,{
+            "path" : "customFoodPage",
+            "style" : {
+              "navigationBarTitleText": "自定义菜品"
             }
         }
         ,{

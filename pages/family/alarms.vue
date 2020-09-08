@@ -3,7 +3,7 @@
     <view 
       v-for="(item,index) in list" 
       :key="index"
-      class="pa-2 d-flex align-center border-box u-border-bottom u-line-1"
+      class="pa-2 d-flex align-center nowrap border-box u-border-bottom u-line-1"
     >
       <u-icon :color="item.type===5?'#ff7450':'#ffc107'" size="80" :name="item.type===5?'alarm-warning':'alert-outline'" customPrefix="mdi"></u-icon>
       <view class="d-flex flex-column body-2 ml-2 contentWidth">
@@ -12,7 +12,7 @@
           <text class="ml-2">{{item.title}}</text> 
         </view>
         <view class="caption grey--text mt-2 d-flex justify-space-between">
-          <text>{{item.time}}</text>
+          <text class="text-no-wrap">{{item.time}}</text>
           <text @click="toDetails(item)" class="subtitle-2">查看详情</text>
         </view>
       </view>

@@ -210,6 +210,7 @@
         console.log(e)
         const memberId = e.memberId
         this.$store.commit('SET_MEMBER_ITEM', ['memberId', memberId])
+        uni.$emit('getMember')
         uni.navigateBack()
       },
       commitForm () {
@@ -247,7 +248,7 @@
             sessionId: this.sessionId,
             memberNum: this.memberNum
           }
-          this.$http.get('/mobile/healthy/getEwmMember', data)
+          this.$http.post('/mobile/healthy/getEwmMember', data)
             .then(res => {
               if (res.data.success) {
                 const memberId = res.data.obj.memberId
